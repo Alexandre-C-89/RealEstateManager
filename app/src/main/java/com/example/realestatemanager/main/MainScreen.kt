@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import com.example.realestatemanager.R
+import com.example.realestatemanager.designsystem.bar.TopBar
 
 @Composable
 fun MainRoute() {
@@ -41,13 +42,7 @@ fun MainRoute() {
 fun MainScreen() {
     Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp),
-                title = { Text(text = "RealEstateManager") },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Blue)
-            )
+            TopBar()
         }
     ) {
         Column(
