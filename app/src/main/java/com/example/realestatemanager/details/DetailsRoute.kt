@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,8 +23,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.realestatemanager.R
+import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.designsystem.ui.Default
+import com.example.realestatemanager.designsystem.ui.Spacer
+import com.example.realestatemanager.designsystem.ui.Spacings
+import com.example.realestatemanager.designsystem.ui.text.Text
 
 @Composable
 fun DetailsRoute(
@@ -46,30 +52,24 @@ fun DetailsScreen(
         R.drawable.dining_room
     )
     val pagerState = rememberPagerState(pageCount = { images.size })
-    Scaffold(
+    AppScaffold(
         topBar = { TopBar() }
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(Spacings.Default)
         ) {
-            Box(
-                modifier = Modifier.wrapContentSize()
-            ) {
-                HorizontalPager(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .padding(26.dp),
-                    state = pagerState
-                ) {currentPage ->
-                    Card(
-                        modifier = Modifier.wrapContentSize()
-                    ) {
+            Box{
+                HorizontalPager(state = pagerState) {currentPage ->
+                    Card {
                         Image(painter = painterResource(id = images[currentPage]), contentDescription = "image resource")
                     }
                 }
             }
+            Spacer.Vertical.Large()
+            Text.Medium(text = "Description")
+            Text.Default(text = "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum")
         }
     }
 }

@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import com.example.realestatemanager.R
+import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.TopBar
 
 @Composable
@@ -40,10 +41,8 @@ fun MainRoute() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen() {
-    Scaffold(
-        topBar = {
-            TopBar()
-        }
+    AppScaffold(
+        topBar = { TopBar() }
     ) {
         Column(
             modifier = Modifier
