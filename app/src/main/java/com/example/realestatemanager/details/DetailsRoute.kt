@@ -26,6 +26,7 @@ import com.example.realestatemanager.R
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.designsystem.card.CardWithIcon
 import com.example.realestatemanager.designsystem.ui.Default
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.Spacings
@@ -70,6 +71,28 @@ fun DetailsScreen(
             Spacer.Vertical.Large()
             Text.Medium(text = "Description")
             Text.Default(text = "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum")
+            Spacer.Vertical.Large()
+            CardWithIcon(
+                icon = R.drawable.ic_surface,
+                title = "Surface",
+                number = "750 sq m"
+            )
+            CardWithIcon(
+                icon = R.drawable.ic_home,
+                title = "Number of rooms",
+                number = "8"
+            )
+            CardWithIcon(
+                icon = R.drawable.ic_bathroom,
+                title = "NUmber of bathrooms",
+                number = "2"
+            )
+            CardWithIcon(
+                icon = R.drawable.ic_bed,
+                title = "Number of bedrooms",
+                number = "4"
+            )
+
         }
     }
 }
