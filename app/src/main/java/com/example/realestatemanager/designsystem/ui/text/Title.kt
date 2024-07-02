@@ -8,6 +8,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.realestatemanager.designsystem.Grey
+import com.example.realestatemanager.designsystem.Theme
+import com.example.realestatemanager.designsystem.fonts
 
 object Text {
     @Composable
@@ -71,7 +74,7 @@ object Text {
             fontWeight = FontWeight.Medium,
             fontFamily = fonts,
             textAlign = TextAlign.Start,
-            color = MediumGrey
+            color = Grey
         )
     )
 
