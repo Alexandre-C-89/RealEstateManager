@@ -1,4 +1,4 @@
-package com.example.realestatemanager.designsystem.item
+package com.example.realestatemanager.designsystem.card
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,39 +19,37 @@ import com.example.realestatemanager.R
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 
 @Composable
-fun CardWithImage(
-    type: String,
-    location: String,
-    price: String
-) {
+fun CardWithIcon(
+    icon: Int,
+    title: String,
+    number: String
+    ){
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.width(200.dp)
     ) {
         Image(
             modifier = Modifier.width(50.dp),
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            painter = painterResource(id = icon),
             contentDescription = "Image"
         )
         Spacer(modifier = Modifier.width(12.dp))
         Column(
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = type)
-            Text(text = location)
-            Text(text = price)
+            Text(text = title)
+            Text(text = number)
         }
     }
 }
 
 @Preview
 @Composable
-fun CardWithImagePreview() {
+fun CardWithIconPreview(){
     RealEstateManagerTheme {
-        CardWithImage(
-            type = "Duplex",
-            location = "Brooklyn",
-            price = "€41,480,000",
+        CardWithIcon(
+            icon = R.drawable.ic_home,
+            title = "Number of rooms",
+            number = "8"
         )
     }
 }
