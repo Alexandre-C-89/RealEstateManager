@@ -34,15 +34,32 @@ import com.example.realestatemanager.designsystem.bar.TopBar
 
 @Composable
 fun MainRoute() {
-    MainScreen()
+    MainScreen(
+        onMenuClick = {},
+        onAddClick = {},
+        onEditClick = {},
+        onSearchClick = {},
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    onMenuClick: () -> Unit,
+    onAddClick: () -> Unit,
+    onEditClick: () -> Unit,
+    onSearchClick: () -> Unit
+) {
     AppScaffold(
-        topBar = { TopBar() }
+        topBar = {
+            TopBar(
+                onNavigationClick = onMenuClick,
+                onAddClick = onAddClick,
+                onEditClick = onEditClick,
+                onSearchClick = onSearchClick,
+            )
+        }
     ) {
         Column(
             modifier = Modifier
@@ -150,5 +167,10 @@ fun MainScreen() {
 @Preview
 @Composable
 fun MainRoutePreview() {
-    MainScreen()
+    MainScreen(
+        onMenuClick = {},
+        onAddClick = {},
+        onEditClick = {},
+        onSearchClick = {}
+    )
 }
