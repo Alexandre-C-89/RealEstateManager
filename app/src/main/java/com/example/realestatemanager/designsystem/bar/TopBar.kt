@@ -46,7 +46,7 @@ fun TopBar(
         TopAppBar(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp),
+                .height(100.dp),
             title = {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -56,7 +56,7 @@ fun TopBar(
                         modifier = Modifier.fillMaxWidth(),
                         text = "RealEstateManager",
                         style = TextStyle(
-                            fontSize = 18.sp,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
                             fontFamily = fonts,
                             textAlign = TextAlign.Start,
