@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.main.HomeRoute
+import com.example.realestatemanager.navigation.AppNavigation
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             RealEstateManagerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
-                    HomeRoute()
+                    AppNavigation()
                 }
             }
         }
