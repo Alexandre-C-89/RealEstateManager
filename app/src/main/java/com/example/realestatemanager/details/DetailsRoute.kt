@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.example.realestatemanager.R
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.ListWithColumn
+import com.example.realestatemanager.designsystem.LocationListItem
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.card.CardWithIcon
@@ -75,6 +76,8 @@ fun DetailsScreen(
             Text.Default(text = "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum")
             Spacer.Vertical.Large()
             ListWithColumn()
+            Spacer.Vertical.Default()
+            LocationListItem(building = "5 Baljuwstraat", city = "Brussel", address = "Brussels Hoofdstedelijk Gewest 1000", country = "Belgium")
         }
     }
 }
