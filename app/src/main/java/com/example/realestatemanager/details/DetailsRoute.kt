@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.realestatemanager.R
 import com.example.realestatemanager.designsystem.AppScaffold
+import com.example.realestatemanager.designsystem.ListWithColumn
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.card.CardWithIcon
@@ -70,29 +71,10 @@ fun DetailsScreen(
             }
             Spacer.Vertical.Large()
             Text.Medium(text = "Description")
+            Spacer.Vertical.Tiny()
             Text.Default(text = "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum")
             Spacer.Vertical.Large()
-            CardWithIcon(
-                icon = R.drawable.ic_surface,
-                title = "Surface",
-                number = "750 sq m"
-            )
-            CardWithIcon(
-                icon = R.drawable.ic_home,
-                title = "Number of rooms",
-                number = "8"
-            )
-            CardWithIcon(
-                icon = R.drawable.ic_bathroom,
-                title = "NUmber of bathrooms",
-                number = "2"
-            )
-            CardWithIcon(
-                icon = R.drawable.ic_bed,
-                title = "Number of bedrooms",
-                number = "4"
-            )
-
+            ListWithColumn()
         }
     }
 }

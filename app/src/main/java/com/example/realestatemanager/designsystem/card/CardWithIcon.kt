@@ -25,10 +25,10 @@ fun CardWithIcon(
     number: String
     ){
     Row(
-        modifier = Modifier.width(200.dp)
+        modifier = Modifier.width(180.dp),
     ) {
         Image(
-            modifier = Modifier.width(50.dp),
+            modifier = Modifier.width(20.dp),
             painter = painterResource(id = icon),
             contentDescription = "Image"
         )
