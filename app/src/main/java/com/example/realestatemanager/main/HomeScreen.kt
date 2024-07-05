@@ -22,6 +22,12 @@ import androidx.compose.ui.unit.dp
 import com.example.realestatemanager.R
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.designsystem.card.CardWithImage
+import com.example.realestatemanager.designsystem.divider.Divider
+import com.example.realestatemanager.designsystem.ui.Small
+import com.example.realestatemanager.designsystem.ui.Spacer
+import com.example.realestatemanager.designsystem.ui.Spacings
+import com.example.realestatemanager.designsystem.ui.Tiny
 
 @Composable
 fun HomeRoute() {
@@ -56,101 +62,115 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(Spacings.Small)
         ) {
 
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_background),
-                        contentDescription = "photo of appartment or house",
-                        contentScale = ContentScale.Crop
-                    )
-                    Column(
-                        modifier = Modifier.padding(8.dp)
-                    ) {
-                        Text(text = "title")
-                        Text(text = "description")
-                    }
-                }
-            }
-
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_background),
-                        contentDescription = "photo of appartment or house",
-                        contentScale = ContentScale.Crop
-                    )
-                    Column(
-                        modifier = Modifier.padding(8.dp)
-                    ) {
-                        Text(text = "title")
-                        Text(text = "description")
-                    }
-                }
-            }
-
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_background),
-                        contentDescription = "photo of appartment or house",
-                        contentScale = ContentScale.Crop
-                    )
-                    Column(
-                        modifier = Modifier.padding(8.dp)
-                    ) {
-                        Text(text = "title")
-                        Text(text = "description")
-                    }
-                }
-            }
-
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_background),
-                        contentDescription = "photo of appartment or house",
-                        contentScale = ContentScale.Crop
-                    )
-                    Column(
-                        modifier = Modifier.padding(8.dp)
-                    ) {
-                        Text(text = "title")
-                        Text(text = "description")
-                    }
-                }
-            }
-
+            CardWithImage(
+                type = "Duplex",
+                location = "Southampton",
+                price = "$41,480,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Montauk",
+                price = "$21,130,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "Duplex",
+                location = "Brooklyn",
+                price = "$13,990,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
+            Divider()
+            CardWithImage(
+                type = "House",
+                location = "Hampton Bays",
+                price = "$44,220,000"
+            )
         }
     }
 }

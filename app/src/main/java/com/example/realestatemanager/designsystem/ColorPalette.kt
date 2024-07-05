@@ -20,7 +20,7 @@ data class ColorPalette(
 val darkColorPalette = ColorPalette(
     spinner = White,
     separator = Grey,
-    textPrimary = White,
+    textPrimary = DarkGrey,
     textSecondary = Grey,
     textDisabled = LightGrey,
     surfacePrimary = White,
@@ -33,7 +33,7 @@ val darkColorPalette = ColorPalette(
 val lightColorPalette = ColorPalette(
     spinner = Blue,
     separator = Grey,
-    textPrimary = DarkGrey,
+    textPrimary = White,
     textSecondary = LightGrey,
     textDisabled = LightGrey,
     surfacePrimary = White,

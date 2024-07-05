@@ -8,6 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.Grey
 import com.example.realestatemanager.designsystem.Theme
 import com.example.realestatemanager.designsystem.fonts
@@ -22,7 +23,7 @@ object Text {
             fontWeight = FontWeight.Bold,
             fontFamily = fonts,
             textAlign = TextAlign.Start,
-            color = Theme.colorPalette.textPrimary
+            color = Black
         )
     )
 
@@ -35,7 +36,7 @@ object Text {
             fontWeight = FontWeight.Medium,
             fontFamily = fonts,
             textAlign = TextAlign.Start,
-            color = Theme.colorPalette.textPrimary
+            color = Black
         )
     )
 
@@ -48,7 +49,7 @@ object Text {
             fontWeight = FontWeight.Medium,
             fontFamily = fonts,
             textAlign = TextAlign.Start,
-            color = Theme.colorPalette.textPrimary
+            color = Black
         )
     )
 
@@ -61,7 +62,7 @@ object Text {
             fontWeight = FontWeight.Medium,
             fontFamily = fonts,
             textAlign = TextAlign.Start,
-            color = Theme.colorPalette.textPrimary
+            color = Black
         )
     )
 
@@ -74,7 +75,7 @@ object Text {
             fontWeight = FontWeight.Medium,
             fontFamily = fonts,
             textAlign = TextAlign.Start,
-            color = Grey
+            color = Black
         )
     )
 

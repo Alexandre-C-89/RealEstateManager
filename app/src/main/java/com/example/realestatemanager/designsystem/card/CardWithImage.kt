@@ -4,18 +4,29 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.realestatemanager.R
+import com.example.realestatemanager.designsystem.Black
+import com.example.realestatemanager.designsystem.LightBlue
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
+import com.example.realestatemanager.designsystem.fonts
+import com.example.realestatemanager.designsystem.ui.Spacer
+import com.example.realestatemanager.designsystem.ui.text.Text
 
 @Composable
 fun CardWithImage(
@@ -23,22 +34,46 @@ fun CardWithImage(
     location: String,
     price: String
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+    Card(
+        modifier = Modifier
+            .height(70.dp),
+        shape = RoundedCornerShape(6.dp)
     ) {
-        Image(
-            modifier = Modifier.width(50.dp),
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
-            contentDescription = "Image"
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        Column(
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(text = type)
-            Text(text = location)
-            Text(text = price)
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Image(
+                modifier = Modifier.width(80.dp),
+                painter = painterResource(id = R.drawable.tv_lounge),
+                contentDescription = "Image",
+                contentScale = ContentScale.Crop
+            )
+            Spacer.Horizontal.Default()
+            Column(
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text.Default(text = type)
+                Text(
+                    text = location,
+                    style = TextStyle(
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Light,
+                        fontFamily = fonts,
+                        textAlign = TextAlign.Start,
+                        color = Black
+                    )
+                )
+                Text(
+                    text = price,
+                    style = TextStyle(
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontFamily = fonts,
+                        textAlign = TextAlign.Start,
+                        color = LightBlue
+                    )
+                )
+            }
         }
     }
 }

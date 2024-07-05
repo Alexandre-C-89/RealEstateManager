@@ -18,7 +18,7 @@ fun AppNavigation(){
         composable(route = Screen.HomeScreen.route){
             HomeRoute()
         }
-        composable(route = Screen.HomeScreen.route){
+        composable(route = Screen.DetailsScreen.route){
             DetailsRoute()
         }
     }
