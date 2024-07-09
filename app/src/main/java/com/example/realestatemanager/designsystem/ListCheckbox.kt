@@ -26,11 +26,11 @@ fun ListCheckbox(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            /*checkboxItem(checked = , onCheckedChange = , enabled = )
             checkboxItem(checked = , onCheckedChange = , enabled = )
             checkboxItem(checked = , onCheckedChange = , enabled = )
             checkboxItem(checked = , onCheckedChange = , enabled = )
-            checkboxItem(checked = , onCheckedChange = , enabled = )
-            checkboxItem(checked = , onCheckedChange = , enabled = )
+            checkboxItem(checked = , onCheckedChange = , enabled = )*/
         }
     }
 }

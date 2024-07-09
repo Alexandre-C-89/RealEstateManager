@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14"
 }
 
 android {
@@ -60,6 +61,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.room.common)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,4 +72,10 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    //ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+    implementation(libs.androidx.room.ktx)
+
 }
