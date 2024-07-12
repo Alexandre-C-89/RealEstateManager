@@ -1,17 +1,24 @@
 package com.example.realestatemanager.database
 
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-interface Repository {
+class Repository @Inject constructor(private val propertyDao: PropertyDao) {
 
-    fun getAllPropertiesStream(): Flow<List<Property>>
+    fun getAllProperties(): Flow<List<Property>> {
+        return propertyDao.getAllProperties()
+    }
 
-    fun getPropertyStream(id: Int): Flow<Property?>
+    suspend fun insert(property: Property) {
+        propertyDao.insert(property)
+    }
 
-    suspend fun insertProperty(item: Property)
+    suspend fun deleteProperty(property: Property) {
+        propertyDao.delete(property)
+    }
 
-    suspend fun deleteProperty(item: Property)
-
-    suspend fun updateProperty(property: Property)
+    suspend fun updateProperty(property: Property) {
+        propertyDao.update(property)
+    }
 
 }

@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp") version "1.9.20-1.0.14"
+    id("com.google.dagger.hilt.android") version "2.44.2" apply false
+    id("kotlin-kapt")
 }
 
 android {
@@ -62,6 +64,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.room.common)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,9 +76,21 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.compose)
 
+    // ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.iossimulatorarm64)
+    implementation(libs.androidx.runtime.livedata)
+
     //Room
     implementation(libs.androidx.room.runtime)
-    //ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+}
+
+kapt {
+    correctErrorTypes = true
 }
