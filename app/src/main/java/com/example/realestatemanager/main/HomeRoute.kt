@@ -16,13 +16,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
-    //onEditClick: () -> Unit
+    onEditClick: () -> Unit
 ) {
     HomeScreen(
         viewModel = viewModel,
         onMenuClick = {},
         onAddClick = {},
-        //onEditClick = onEditClick,
+        onEditClick = onEditClick,
         onSearchClick = {},
     )
 }
@@ -34,7 +34,7 @@ fun HomeScreen(
     viewModel: HomeViewModel,
     onMenuClick: () -> Unit,
     onAddClick: () -> Unit,
-    //onEditClick: () -> Unit,
+    onEditClick: () -> Unit,
     onSearchClick: () -> Unit
 ) {
     val uiState = viewModel.uiState
@@ -45,7 +45,7 @@ fun HomeScreen(
             TopBar(
                 onNavigationClick = onMenuClick,
                 onAddClick = onAddClick,
-                //onEditClick = onEditClick,
+                onEditClick = onEditClick,
                 onSearchClick = onSearchClick,
             )
         }

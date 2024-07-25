@@ -18,8 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RealEstateManagerTheme {
-                //AppNavigation()
-                HomeRoute()
+                AppNavigation()
             }
         }
     }
