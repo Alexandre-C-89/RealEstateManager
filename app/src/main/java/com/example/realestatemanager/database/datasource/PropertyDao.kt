@@ -1,4 +1,4 @@
-package com.example.realestatemanager.database
+package com.example.realestatemanager.database.datasource
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -13,14 +13,17 @@ interface PropertyDao {
     @Upsert
     suspend fun insert(property: Property)
 
+    @Upsert
+    fun insertFake(property: Property)
+
     @Update
     suspend fun update(property: Property)
 
     @Delete
     suspend fun delete(property: Property)
 
-    @Query("SELECT * from properties WHERE id = :id")
-    fun getProperty(id: Int): Property
+    /*@Query("SELECT * FROM properties WHERE isSell = :isSell")
+    fun getFiltered(isSell : Boolean) : Flow<List<Property>>*/
 
     @Query("SELECT * from properties ORDER BY type ASC")
     fun getAllProperties(): Flow<List<Property>>

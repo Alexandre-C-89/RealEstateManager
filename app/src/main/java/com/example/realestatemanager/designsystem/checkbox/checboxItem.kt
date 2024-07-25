@@ -9,7 +9,7 @@ import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.designsystem.White
 
 @Composable
-fun checkboxItem(
+fun CheckboxItem(
     checked: Boolean,
     onCheckedChange: Boolean,
     enabled: Boolean
@@ -29,7 +29,7 @@ fun checkboxItem(
 @Composable
 fun CheckboxItemPreview(){
     RealEstateManagerTheme {
-        checkboxItem(
+        CheckboxItem(
             checked = true,
             onCheckedChange = true,
             enabled = true

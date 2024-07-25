@@ -22,6 +22,7 @@ runtimeLivedata = "1.6.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelIossimulatorarm64" }
 androidx-lifecycle-viewmodel-iossimulatorarm64 = { module = "androidx.lifecycle:lifecycle-viewmodel-iossimulatorarm64", version.ref = "lifecycleViewmodelIossimulatorarm64" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }

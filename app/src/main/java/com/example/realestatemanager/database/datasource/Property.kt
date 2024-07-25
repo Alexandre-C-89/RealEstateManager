@@ -1,4 +1,4 @@
-package com.example.realestatemanager.database
+package com.example.realestatemanager.database.datasource
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -16,7 +16,9 @@ data class Property(
     val address: String,
     val interest: String,
     val status: String,
-    val dateOfCreation: String,
-    val dateOfSold: String,
+    val dateOfCreation: Long,
+    val dateOfSold: Long,
     val agent: String,
+
+    //val isSell: Boolean
 )

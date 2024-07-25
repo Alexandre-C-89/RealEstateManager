@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp") version "1.9.20-1.0.14"
-    id("com.google.dagger.hilt.android") version "2.44.2" apply false
-    id("kotlin-kapt")
+    id ("kotlin-kapt")
+    id ("com.google.dagger.hilt.android")
 }
 
 android {
@@ -62,7 +61,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.material3.android)
+    //implementation(libs.androidx.material3.android)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     testImplementation(libs.junit)
@@ -76,21 +75,15 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.compose)
 
-    // ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.iossimulatorarm64)
-    implementation(libs.androidx.runtime.livedata)
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
 
-    //Room
-    implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation ("androidx.room:room-ktx:2.6.1")
 
-    // Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation ("com.google.dagger:hilt-android:2.51.1")
+    kapt ("com.google.dagger:hilt-compiler:2.51.1")
 
-}
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
 
-kapt {
-    correctErrorTypes = true
 }

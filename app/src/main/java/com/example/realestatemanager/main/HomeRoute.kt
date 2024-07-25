@@ -13,13 +13,14 @@ import com.example.realestatemanager.designsystem.card.CardWithImage
 
 @Composable
 fun HomeRoute(
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    onEditClick: () -> Unit
 ) {
     HomeScreen(
         viewModel = viewModel,
         onMenuClick = {},
         onAddClick = {},
-        onEditClick = {},
+        onEditClick = onEditClick,
         onSearchClick = {},
     )
 }
