@@ -10,17 +10,19 @@ import androidx.compose.runtime.getValue
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.card.CardWithImage
+import androidx.hilt.navigation.compose.hiltViewModel
+
 
 @Composable
 fun HomeRoute(
-    viewModel: HomeViewModel,
-    onEditClick: () -> Unit
+    viewModel: HomeViewModel = hiltViewModel(),
+    //onEditClick: () -> Unit
 ) {
     HomeScreen(
         viewModel = viewModel,
         onMenuClick = {},
         onAddClick = {},
-        onEditClick = onEditClick,
+        //onEditClick = onEditClick,
         onSearchClick = {},
     )
 }
@@ -32,9 +34,10 @@ fun HomeScreen(
     viewModel: HomeViewModel,
     onMenuClick: () -> Unit,
     onAddClick: () -> Unit,
-    onEditClick: () -> Unit,
+    //onEditClick: () -> Unit,
     onSearchClick: () -> Unit
 ) {
+    val uiState = viewModel.uiState
     val properties by viewModel.properties.collectAsState(initial = emptyList())
 
     AppScaffold(
@@ -42,13 +45,13 @@ fun HomeScreen(
             TopBar(
                 onNavigationClick = onMenuClick,
                 onAddClick = onAddClick,
-                onEditClick = onEditClick,
+                //onEditClick = onEditClick,
                 onSearchClick = onSearchClick,
             )
         }
     ) {
         LazyColumn {
-            items(properties) { property ->
+            items(uiState.value.currentList) { property ->
                 CardWithImage(
                     type = property.type,
                     location = property.address,
