@@ -68,7 +68,7 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(agent = value)
     }
 
-    fun saveProperty(){
+    fun saveProperty(onSuccess:() -> Unit){
         viewModelScope.launch {
             try {
                 val property = Property(
@@ -88,6 +88,7 @@ class EditViewModel @Inject constructor(
                 )
                 repository.insert(property = property)
                 Log.d("EditViewModel", "Property saved successfully.")
+                onSuccess()
             } catch (e: Exception){
                 Log.e("EditViewModel", "Error saving property: ${e.message}")
             }

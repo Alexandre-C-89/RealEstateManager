@@ -41,7 +41,7 @@ fun EditRoute(
     val uiData: EditUiData by viewModel.data.collectAsStateWithLifecycle()
     EditScreen(
         onBackClick = onBackClick,
-        onSaveClick = { viewModel.saveProperty() },
+        onSaveClick = { viewModel.saveProperty(onBackClick) },
         data = uiData,
         onTypeChanged = { viewModel.onTypeChanged(it) },
         onPriceChanged = { viewModel.onPriceChanged(it) },
