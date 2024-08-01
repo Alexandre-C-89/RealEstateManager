@@ -36,14 +36,14 @@ fun CardWithImage(
 ) {
     Card(
         modifier = Modifier
-            .height(70.dp),
+            .height(120.dp),
         shape = RoundedCornerShape(6.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ){
             Image(
-                modifier = Modifier.width(80.dp),
+                modifier = Modifier.width(100.dp),
                 painter = painterResource(id = R.drawable.tv_lounge),
                 contentDescription = "Image",
                 contentScale = ContentScale.Crop
@@ -52,21 +52,23 @@ fun CardWithImage(
             Column(
                 verticalArrangement = Arrangement.Center
             ) {
-                Text.Default(text = type)
+                Text.Large(text = type)
+                Spacer.Vertical.Small()
                 Text(
                     text = location,
                     style = TextStyle(
-                        fontSize = 12.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Light,
                         fontFamily = fonts,
                         textAlign = TextAlign.Start,
                         color = Black
                     )
                 )
+                Spacer.Vertical.Small()
                 Text(
                     text = price,
                     style = TextStyle(
-                        fontSize = 12.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Normal,
                         fontFamily = fonts,
                         textAlign = TextAlign.Start,
