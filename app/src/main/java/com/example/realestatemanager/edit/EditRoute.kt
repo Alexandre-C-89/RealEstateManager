@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -40,31 +41,14 @@ fun EditRoute(
     val uiData: EditUiData by viewModel.data.collectAsStateWithLifecycle()
     EditScreen(
         onBackClick = onBackClick,
-        onSaveClick = {
-            viewModel.saveProperty(
-                property = Property(
-                    id = null,
-                    type = uiData.type.text,
-                    price = uiData.price.text.toInt(),
-                    surface = uiData.surface.text.toInt(),
-                    room = uiData.room.text.toInt(),
-                    image = uiData.room.text,
-                    description = uiData.description.text,
-                    address = uiData.address.text,
-                    interest = uiData.interest.text,
-                    status = uiData.status.text,
-                    dateOfCreation = uiData.dateOfCreation.text.toLong(),
-                    dateOfSold = uiData.dateOfSold.text.toLong(),
-                    agent = uiData.agent.text
-                )
-            )
-        },
+        onSaveClick = { viewModel.saveProperty() },
         data = uiData,
         onTypeChanged = { viewModel.onTypeChanged(it) },
         onPriceChanged = { viewModel.onPriceChanged(it) },
         onSurfaceChanged = { viewModel.onSurfaceChanged(it) },
         onRoomChanged = { viewModel.onRoomChanged(it) },
-        onDescritpionChanged = { viewModel.onDescritpionChanged(it) },
+        onImageChanged = { viewModel.onImageChanged(it) },
+        onDescriptionChanged = { viewModel.onDescritpionChanged(it) },
         onAddressChanged = { viewModel.onAddressChanged(it) },
         onInterestChanged = { viewModel.onInterestChanged(it) },
         onStatusChanged = { viewModel.onStatusChanged(it) },
@@ -84,7 +68,8 @@ fun EditScreen(
     onPriceChanged: (TextFieldValue) -> Unit,
     onSurfaceChanged: (TextFieldValue) -> Unit,
     onRoomChanged: (TextFieldValue) -> Unit,
-    onDescritpionChanged: (TextFieldValue) -> Unit,
+    onImageChanged: (TextFieldValue) -> Unit,
+    onDescriptionChanged: (TextFieldValue) -> Unit,
     onAddressChanged: (TextFieldValue) -> Unit,
     onInterestChanged: (TextFieldValue) -> Unit,
     onStatusChanged: (TextFieldValue) -> Unit,
@@ -145,10 +130,16 @@ fun EditScreen(
                         onValueChange = onRoomChanged
                     )
                     FormTextField(
+                        textValue = data.image,
+                        hint = "Image",
+                        label = "Image",
+                        onValueChange = onImageChanged
+                    )
+                    FormTextField(
                         textValue = data.description,
                         hint = "Description",
                         label = "Description",
-                        onValueChange = onDescritpionChanged
+                        onValueChange = onDescriptionChanged
                     )
                     FormTextField(
                         textValue = data.address,
@@ -189,12 +180,14 @@ fun EditScreen(
 
                     Spacer.Vertical.Default()
 
-                    AppButton(
+                    /*AppButton(
                         onClick = onSaveClick,
-                        enabled =
-                        if (data.type.text.length < 5 && data.price.text.length < 6 && data.surface.text.isEmpty() && data.room.text.isEmpty() && data.description.text.length < 10 && data.address.text.length < 7 && data.interest.text.length < 10 && data.status.text.length < 7 && data.dateOfCreation.text.length < 7 && data.dateOfSold.text.length < 7 && data.agent.text.length < 5) false else true,
+                        enabled = true,
                         text = "Save"
-                    )
+                    )*/
+                    Button(onClick = onSaveClick ) {
+                        Text(text = "save")
+                    }
                 }
             }
         }

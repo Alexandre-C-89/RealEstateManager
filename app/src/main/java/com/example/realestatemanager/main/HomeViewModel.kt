@@ -79,7 +79,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun insertFake() {
+    private suspend fun insertFake() {
         try {
             val fakeProperties = listOf(
                 Property(
@@ -117,7 +117,7 @@ class HomeViewModel @Inject constructor(
                 propertyRepository.insertFake(property)
             }
         } catch (e: Exception) {
-            e.printStackTrace() // Log the error for debugging
+            e.printStackTrace()
         }
     }
 

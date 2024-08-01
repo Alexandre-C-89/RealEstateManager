@@ -10,7 +10,7 @@ class PropertyRepository @Inject constructor(
 
     suspend fun insert(property: Property) = propertyDao.insert(property)
 
-    fun insertFake(property: Property) = propertyDao.insertFake(property)
+    suspend fun insertFake(property: Property) = propertyDao.insertFake(property)
 
     suspend fun delete(property: Property) = propertyDao.delete(property)
 

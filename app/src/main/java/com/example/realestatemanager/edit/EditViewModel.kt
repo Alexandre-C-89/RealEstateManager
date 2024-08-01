@@ -1,5 +1,6 @@
 package com.example.realestatemanager.edit
 
+import android.util.Log
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -35,6 +36,10 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(room = value)
     }
 
+    fun onImageChanged(value: TextFieldValue) {
+        _data.value = data.value.copy(image = value)
+    }
+
     fun onDescritpionChanged(value: TextFieldValue) {
         _data.value = data.value.copy(description = value)
     }
@@ -63,9 +68,29 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(agent = value)
     }
 
-    fun saveProperty(property: Property){
+    fun saveProperty(){
         viewModelScope.launch {
-            repository.insert(property = property)
+            try {
+                val property = Property(
+                    id = 0,
+                    type = _data.value.type.text,
+                    price = _data.value.price.text.toInt(),
+                    surface = _data.value.surface.text.toInt(),
+                    room = _data.value.room.text.toInt(),
+                    image = _data.value.image.text,
+                    description = _data.value.description.text,
+                    address = _data.value.address.text,
+                    interest = _data.value.interest.text,
+                    status = _data.value.status.text,
+                    dateOfCreation = _data.value.dateOfCreation.text.toLong(),
+                    dateOfSold = _data.value.dateOfSold.text.toLong(),
+                    agent = _data.value.agent.text
+                )
+                repository.insert(property = property)
+                Log.d("EditViewModel", "Property saved successfully.")
+            } catch (e: Exception){
+                Log.e("EditViewModel", "Error saving property: ${e.message}")
+            }
         }
     }
 

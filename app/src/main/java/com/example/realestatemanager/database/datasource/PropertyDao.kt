@@ -2,6 +2,8 @@ package com.example.realestatemanager.database.datasource
 
 import androidx.room.Dao
 import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import androidx.room.Upsert
@@ -10,11 +12,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PropertyDao {
 
-    @Upsert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(property: Property)
 
     @Upsert
-    fun insertFake(property: Property)
+    suspend fun insertFake(property: Property)
 
     @Update
     suspend fun update(property: Property)
