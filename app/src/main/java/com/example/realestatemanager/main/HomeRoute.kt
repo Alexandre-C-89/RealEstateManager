@@ -1,6 +1,7 @@
 package com.example.realestatemanager.main
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,13 +17,15 @@ import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.card.CardWithImage
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.realestatemanager.database.datasource.Property
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 
 
 @Composable
 fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
-    onEditClick: () -> Unit
+    onEditClick: () -> Unit,
+    onPropertyClick: (Int) -> Unit
 ) {
     HomeScreen(
         viewModel = viewModel,
@@ -30,6 +33,7 @@ fun HomeRoute(
         onAddClick = {},
         onEditClick = onEditClick,
         onSearchClick = {},
+        onPropertyClick = onPropertyClick
     )
 }
 
@@ -41,10 +45,10 @@ fun HomeScreen(
     onMenuClick: () -> Unit,
     onAddClick: () -> Unit,
     onEditClick: () -> Unit,
-    onSearchClick: () -> Unit
+    onSearchClick: () -> Unit,
+    onPropertyClick: (Int) -> Unit
 ) {
     val uiState = viewModel.uiState
-    val properties by viewModel.properties.collectAsState(initial = emptyList())
 
     AppScaffold(
         topBar = {
@@ -62,6 +66,10 @@ fun HomeScreen(
         ) {
             items(uiState.value.currentList) { property ->
                 CardWithImage(
+                    onClick = {
+                        Log.d("HOMESCREEN", "${property.id}")
+                        onPropertyClick(property.id)
+                    },
                     type = property.type,
                     location = property.address,
                     price = property.price.toString()

@@ -30,4 +30,7 @@ interface PropertyDao {
     @Query("SELECT * from properties ORDER BY type ASC")
     fun getAllProperties(): Flow<List<Property>>
 
+    @Query("SELECT * FROM properties WHERE id = :propertyId")
+    fun getPropertyById(propertyId: Int): Flow<Property?>
+
 }

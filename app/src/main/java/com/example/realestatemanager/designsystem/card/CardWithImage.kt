@@ -1,6 +1,7 @@
 package com.example.realestatemanager.designsystem.card
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,18 +31,20 @@ import com.example.realestatemanager.designsystem.ui.text.Text
 
 @Composable
 fun CardWithImage(
+    onClick: () -> Unit,
     type: String,
     location: String,
     price: String
 ) {
     Card(
         modifier = Modifier
-            .height(120.dp),
+            .height(120.dp)
+            .clickable { onClick() },
         shape = RoundedCornerShape(6.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Image(
                 modifier = Modifier.width(100.dp),
                 painter = painterResource(id = R.drawable.tv_lounge),
@@ -85,9 +88,10 @@ fun CardWithImage(
 fun CardWithImagePreview() {
     RealEstateManagerTheme {
         CardWithImage(
+            onClick = {},
             type = "Duplex",
             location = "Brooklyn",
-            price = "€41,480,000",
+            price = "€41,480,000"
         )
     }
 }

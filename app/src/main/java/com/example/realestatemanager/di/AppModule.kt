@@ -27,7 +27,8 @@ object AppModule {
             context.applicationContext,
             PropertyDatabase::class.java,
             "Property.db"
-        ).setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
+        ).fallbackToDestructiveMigration()
+            .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
         .build()
     }
 
