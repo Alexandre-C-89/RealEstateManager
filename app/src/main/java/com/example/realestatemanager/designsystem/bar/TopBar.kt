@@ -1,6 +1,5 @@
 package com.example.realestatemanager.designsystem.bar
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,20 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.realestatemanager.designsystem.DarkBlue
-import com.example.realestatemanager.designsystem.LightGrey
-import com.example.realestatemanager.designsystem.Theme
 import com.example.realestatemanager.designsystem.White
 import com.example.realestatemanager.designsystem.button.AddIconButton
+import com.example.realestatemanager.designsystem.button.BackIconButton
 import com.example.realestatemanager.designsystem.button.EditIconButton
 import com.example.realestatemanager.designsystem.button.MenuIconButton
 import com.example.realestatemanager.designsystem.button.SearchIconButton
 import com.example.realestatemanager.designsystem.fonts
-import com.example.realestatemanager.designsystem.ui.text.Text
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +38,7 @@ fun TopBar(
     onAddClick: (() -> Unit)? = null,
     onEditClick: (() -> Unit)? = null,
     onSearchClick: (() -> Unit)? = null,
+    onBackClick: (() -> Unit)? = null,
 ) {
     Surface(shadowElevation = shadowElevation) {
         TopAppBar(
@@ -76,6 +73,11 @@ fun TopBar(
                 Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
                     onNavigationClick?.let {
                         MenuIconButton { onNavigationClick() }
+                    }
+                }
+                Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
+                    onBackClick?.let {
+                        BackIconButton { onBackClick() }
                     }
                 }
             },

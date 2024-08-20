@@ -55,13 +55,17 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun DetailsRoute(
+    onBackClick: () -> Unit,
     propertyId: Int,
     viewModel: DetailsViewModel = hiltViewModel(),
 ) {
     val property by viewModel.getPropertyById(propertyId).collectAsState(initial = null)
 
     if (property != null) {
-        DetailsScreen(property = property!!)
+        DetailsScreen(
+            property = property!!,
+            onBackClick = onBackClick
+        )
     } else {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
@@ -74,6 +78,7 @@ fun DetailsRoute(
 @Composable
 fun DetailsScreen(
     property: Property,
+    onBackClick: () -> Unit,
 ) {
     val images = listOf(
         R.drawable.lounge,
@@ -86,7 +91,9 @@ fun DetailsScreen(
         position = CameraPosition.fromLatLngZoom(leBourget, .5f)
     }
     AppScaffold(
-        topBar = { TopBar() }
+        topBar = { TopBar(
+            onBackClick = onBackClick
+        ) }
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -159,7 +166,8 @@ fun DetailsScreenPreview() {
                 dateOfCreation = 1625241600000L,
                 dateOfSold = null,
                 agent = "John Doe"
-            )
+            ),
+            onBackClick = {}
         )
     }
 }

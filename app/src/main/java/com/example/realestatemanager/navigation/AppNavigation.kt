@@ -36,11 +36,17 @@ fun AppNavigation() {
             val propertyId = backStackEntry.arguments?.getInt("propertyId")
             Log.d("AppNavigation", "Navigating to Details with ID: $propertyId")
             if (propertyId != null) {
-                DetailsRoute(propertyId = propertyId)
+                DetailsRoute(
+                    propertyId = propertyId,
+                    onBackClick = { navController.popBackStack() },
+                )
             } else {
                 Log.e("AppNavigation", "propertyId is null")
                 // Handle the null case or show an error
-                DetailsRoute(propertyId = 0) // Default value or navigate to an error screen
+                DetailsRoute(
+                    propertyId = 0,
+                    onBackClick = { navController.popBackStack() },
+                ) // Default value or navigate to an error screen
             }
         }
         composable(route = Screen.EditRoute.route) {

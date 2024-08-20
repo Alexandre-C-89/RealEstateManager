@@ -13,7 +13,7 @@ fun MenuIconButton(
     IconButton(onClick = { onClick() }) {
         Icon(
             painter = painterResource(id = R.drawable.ic_menu),
-            contentDescription = "button"
+            contentDescription = "menu button"
         )
     }
 }
@@ -25,7 +25,7 @@ fun AddIconButton(
     IconButton(onClick = { onClick() }) {
         Icon(
             painter = painterResource(id = R.drawable.ic_add),
-            contentDescription = "button"
+            contentDescription = "add button"
         )
     }
 }
@@ -37,7 +37,7 @@ fun EditIconButton(
     IconButton(onClick = { onClick() }) {
         Icon(
             painter = painterResource(id = R.drawable.ic_edit),
-            contentDescription = "button"
+            contentDescription = " edit button"
         )
     }
 }
@@ -49,7 +49,19 @@ fun SearchIconButton(
     IconButton(onClick = { onClick() }) {
         Icon(
             painter = painterResource(id = R.drawable.ic_search),
-            contentDescription = "button"
+            contentDescription = "search button"
+        )
+    }
+}
+
+@Composable
+fun BackIconButton(
+    onClick: () -> Unit
+){
+    IconButton(onClick = { onClick() }) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_back),
+            contentDescription = "back button"
         )
     }
 }
