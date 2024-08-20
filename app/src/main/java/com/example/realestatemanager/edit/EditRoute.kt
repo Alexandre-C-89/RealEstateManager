@@ -80,7 +80,7 @@ fun EditScreen(
     AppScaffold(
         topBar = {
             TopBar(
-                onNavigationClick = onBackClick
+                onBackClick = onBackClick
             )
         }
     ) {
