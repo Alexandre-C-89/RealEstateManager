@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +25,9 @@ import androidx.compose.ui.unit.sp
 import com.example.realestatemanager.R
 import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.LightBlue
+import com.example.realestatemanager.designsystem.LightGrey
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
+import com.example.realestatemanager.designsystem.White
 import com.example.realestatemanager.designsystem.fonts
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.text.Text
@@ -40,7 +43,8 @@ fun CardWithImage(
         modifier = Modifier
             .height(120.dp)
             .clickable { onClick() },
-        shape = RoundedCornerShape(6.dp)
+        shape = RoundedCornerShape(6.dp),
+        colors = CardDefaults.cardColors(LightBlue)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -75,7 +79,7 @@ fun CardWithImage(
                         fontWeight = FontWeight.Normal,
                         fontFamily = fonts,
                         textAlign = TextAlign.Start,
-                        color = LightBlue
+                        color = Black
                     )
                 )
             }

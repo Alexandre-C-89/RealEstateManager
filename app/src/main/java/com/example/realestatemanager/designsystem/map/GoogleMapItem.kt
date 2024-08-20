@@ -1,6 +1,7 @@
 package com.example.realestatemanager.designsystem.map
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -29,8 +30,8 @@ fun GoogleMapItem(
 
     com.google.maps.android.compose.GoogleMap(
         modifier = Modifier
-            .height(40.dp)
-            .width(40.dp),
+            .height(200.dp)
+            .fillMaxWidth(),
         mergeDescendants = false,
         cameraPositionState = cameraPositionState/*rememberCameraPositionState()*/,
         contentDescription = "map for localization property",

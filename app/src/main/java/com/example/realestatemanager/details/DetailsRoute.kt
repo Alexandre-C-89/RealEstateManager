@@ -18,28 +18,40 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.realestatemanager.R
 import com.example.realestatemanager.database.datasource.Property
 import com.example.realestatemanager.designsystem.AppScaffold
+import com.example.realestatemanager.designsystem.Black
+import com.example.realestatemanager.designsystem.Blue
 import com.example.realestatemanager.designsystem.ListWithColumn
 import com.example.realestatemanager.designsystem.LocationListItem
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.card.CardWithIcon
+import com.example.realestatemanager.designsystem.fonts
+import com.example.realestatemanager.designsystem.map.GoogleMapItem
 import com.example.realestatemanager.designsystem.ui.Default
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.Spacings
 import com.example.realestatemanager.designsystem.ui.text.Text
 import com.example.realestatemanager.main.HomeViewModel
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun DetailsRoute(
@@ -48,7 +60,7 @@ fun DetailsRoute(
 ) {
     val property by viewModel.getPropertyById(propertyId).collectAsState(initial = null)
 
-    if (property != null ) {
+    if (property != null) {
         DetailsScreen(property = property!!)
     } else {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -69,29 +81,61 @@ fun DetailsScreen(
         R.drawable.dining_room
     )
     val pagerState = rememberPagerState(pageCount = { images.size })
+    val leBourget = LatLng(48.936752, 2.425377)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(leBourget, .5f)
+    }
     AppScaffold(
         topBar = { TopBar() }
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(Spacings.Default)
+            modifier = Modifier.fillMaxSize()
         ) {
-            Box{
-                HorizontalPager(state = pagerState) {currentPage ->
-                    Card {
-                        /*Image(painter = painterResource(id = images[currentPage]), contentDescription = "image resource")*/
-                    }
-                }
+            GoogleMapItem(
+                cameraPositionState = cameraPositionState
+            ) {
+
             }
-            Spacer.Vertical.Large()
-            Text.Medium(text = "Description")
-            Spacer.Vertical.Tiny()
-            Text.Default(text = property.description)
-            Spacer.Vertical.Large()
-            ListWithColumn()
-            Spacer.Vertical.Default()
-            LocationListItem(building = "5 Baljuwstraat", city = "Brussel", address = property.address, country = "Belgium")
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(Spacings.Default)
+            ) {
+                Spacer.Vertical.Large()
+                //Text.Big(text = "Description")
+                Text(
+                    text = "Description",
+                    style = TextStyle(
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = fonts,
+                        textAlign = TextAlign.Start,
+                        color = Blue
+                    )
+                )
+                Spacer.Vertical.Tiny()
+                //Text.Default(text = property.description)
+                Text(
+                    text = property.description,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontFamily = fonts,
+                        textAlign = TextAlign.Start,
+                        color = Black
+                    )
+                )
+                Spacer.Vertical.Large()
+                Text(text = "Location")
+
+                Spacer.Vertical.Default()
+                LocationListItem(
+                    building = "5 Baljuwstraat",
+                    city = "Brussel",
+                    address = property.address,
+                    country = "Belgium"
+                )
+            }
         }
     }
 }

@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.realestatemanager.designsystem.DarkBlue
 import com.example.realestatemanager.designsystem.LightGrey
 import com.example.realestatemanager.designsystem.Theme
 import com.example.realestatemanager.designsystem.White
@@ -66,7 +67,7 @@ fun TopBar(
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = LightGrey,
+                containerColor = DarkBlue,
                 titleContentColor = White,
                 actionIconContentColor = White,
                 navigationIconContentColor = White
