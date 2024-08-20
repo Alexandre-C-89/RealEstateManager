@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -91,25 +92,18 @@ fun DetailsScreen(
         position = CameraPosition.fromLatLngZoom(leBourget, .5f)
     }
     AppScaffold(
-        topBar = { TopBar(
-            onBackClick = onBackClick
-        ) }
+        topBar = {
+            TopBar(
+                onBackClick = onBackClick
+            )
+        }
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            GoogleMapItem(
-                cameraPositionState = cameraPositionState
-            ) {
-
-            }
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(Spacings.Default)
+                modifier = Modifier.padding(Spacings.Default)
             ) {
-                Spacer.Vertical.Large()
-                //Text.Big(text = "Description")
                 Text(
                     text = "Description",
                     style = TextStyle(
@@ -120,12 +114,11 @@ fun DetailsScreen(
                         color = Blue
                     )
                 )
-                Spacer.Vertical.Tiny()
-                //Text.Default(text = property.description)
+                Spacer.Vertical.Small()
                 Text(
                     text = property.description,
                     style = TextStyle(
-                        fontSize = 14.sp,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Normal,
                         fontFamily = fonts,
                         textAlign = TextAlign.Start,
@@ -133,15 +126,35 @@ fun DetailsScreen(
                     )
                 )
                 Spacer.Vertical.Large()
-                Text(text = "Location")
-
-                Spacer.Vertical.Default()
-                LocationListItem(
-                    building = "5 Baljuwstraat",
-                    city = "Brussel",
-                    address = property.address,
-                    country = "Belgium"
+                Text(
+                    text = "Surface - ${property.surface} • piece • Room - ${property.room}",
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontFamily = fonts,
+                        textAlign = TextAlign.Start,
+                        color = Blue
+                    )
                 )
+                Spacer.Vertical.Large()
+                Text(text = "Location")
+                Spacer.Vertical.Small()
+                Text(
+                    text = property.address,
+                    style = TextStyle(
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontFamily = fonts,
+                        textAlign = TextAlign.Start,
+                        color = Blue
+                    )
+                )
+            }
+            Spacer.Vertical.Large()
+            GoogleMapItem(
+                cameraPositionState = cameraPositionState
+            ) {
+
             }
         }
     }
