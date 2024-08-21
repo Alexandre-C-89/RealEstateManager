@@ -52,6 +52,8 @@ import com.example.realestatemanager.designsystem.ui.text.Text
 import com.example.realestatemanager.main.HomeViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
@@ -81,15 +83,14 @@ fun DetailsScreen(
     property: Property,
     onBackClick: () -> Unit,
 ) {
-    val images = listOf(
+    /*val images = listOf(
         R.drawable.lounge,
         R.drawable.tv_lounge,
         R.drawable.dining_room
-    )
-    val pagerState = rememberPagerState(pageCount = { images.size })
-    val leBourget = LatLng(48.936752, 2.425377)
+    )*/
+    //val pagerState = rememberPagerState(pageCount = { images.size })
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(leBourget, .5f)
+        position = CameraPosition.fromLatLngZoom(LatLng(property.latitude, property.longitude), 12f)
     }
     AppScaffold(
         topBar = {
@@ -154,33 +155,12 @@ fun DetailsScreen(
             GoogleMapItem(
                 cameraPositionState = cameraPositionState
             ) {
-
+                Marker(
+                    state = MarkerState(position = LatLng(property.latitude, property.longitude)),
+                    title = property.type,
+                    snippet = property.address
+                )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun DetailsScreenPreview() {
-    RealEstateManagerTheme {
-        DetailsScreen(
-            property = Property(
-                id = 1,
-                type = "House",
-                price = 500000,
-                surface = 200,
-                room = 5,
-                image = "sample_image",
-                description = "A beautiful house in the city center.",
-                address = "123 Main Street",
-                interest = "Park",
-                status = "For Sale",
-                dateOfCreation = 1625241600000L,
-                dateOfSold = null,
-                agent = "John Doe"
-            ),
-            onBackClick = {}
-        )
     }
 }

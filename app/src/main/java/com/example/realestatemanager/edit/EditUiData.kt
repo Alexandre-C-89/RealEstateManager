@@ -15,4 +15,6 @@ data class EditUiData(
     val dateOfCreation: TextFieldValue = TextFieldValue(),
     val dateOfSold: TextFieldValue = TextFieldValue(),
     val agent: TextFieldValue = TextFieldValue(),
+    val latitude: TextFieldValue = TextFieldValue(),
+    val longitude: TextFieldValue = TextFieldValue(),
 )

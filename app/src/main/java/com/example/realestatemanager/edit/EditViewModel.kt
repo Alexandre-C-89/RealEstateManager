@@ -84,7 +84,9 @@ class EditViewModel @Inject constructor(
                     status = _data.value.status.text,
                     dateOfCreation = _data.value.dateOfCreation.text.toLong(),
                     dateOfSold = _data.value.dateOfSold.text.toLong(),
-                    agent = _data.value.agent.text
+                    agent = _data.value.agent.text,
+                    latitude = _data.value.latitude.text.toDouble(),
+                    longitude = _data.value.longitude.text.toDouble()
                 )
                 repository.insert(property = property)
                 Log.d("EditViewModel", "Property saved successfully.")

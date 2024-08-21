@@ -19,6 +19,8 @@ data class Property(
     val dateOfCreation: Long,
     val dateOfSold: Long?,
     val agent: String,
+    val latitude: Double,
+    val longitude: Double,
 
     //val isSell: Boolean
 )

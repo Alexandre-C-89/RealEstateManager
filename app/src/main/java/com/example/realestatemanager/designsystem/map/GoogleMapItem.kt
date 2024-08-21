@@ -23,22 +23,17 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun GoogleMapItem(
     cameraPositionState: CameraPositionState,
-    onMapLoaded: () -> Unit,
+    //onMapLoaded: () -> Unit,
+    content: @Composable () -> Unit
 ){
-    val leBourget = LatLng(48.936752, 2.425377)
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(leBourget, 10f)
-    }
-
     com.google.maps.android.compose.GoogleMap(
         modifier = Modifier
             .height(200.dp)
             .fillMaxWidth()
             .border(width = 5.dp, color = DarkBlue),
-        mergeDescendants = false,
-        cameraPositionState = cameraPositionState/*rememberCameraPositionState()*/,
-        contentDescription = "map for localization property",
-        onMapLoaded = onMapLoaded,
-        contentPadding = PaddingValues(8.dp)
-    )
+        cameraPositionState = cameraPositionState,
+        //onMapLoaded = onMapLoaded,
+    ) {
+        content()
+    }
 }
