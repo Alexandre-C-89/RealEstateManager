@@ -88,5 +88,6 @@ dependencies {
     // Android Maps Compose composables for the Maps SDK for Android
     implementation ("com.google.maps.android:maps-compose:4.4.1")
     implementation ("com.google.android.gms:play-services-maps:19.0.0")
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
 
 }
