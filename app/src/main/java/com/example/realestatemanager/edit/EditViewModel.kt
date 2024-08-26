@@ -68,6 +68,14 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(agent = value)
     }
 
+    fun onLatitudeChanged(value: TextFieldValue) {
+        _data.value = data.value.copy(latitude = value)
+    }
+
+    fun onLongitudeChanged(value: TextFieldValue) {
+        _data.value = data.value.copy(longitude = value)
+    }
+
     fun saveProperty(onSuccess:() -> Unit){
         viewModelScope.launch {
             try {

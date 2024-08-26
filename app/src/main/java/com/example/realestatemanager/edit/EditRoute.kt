@@ -55,6 +55,8 @@ fun EditRoute(
         onDateOfCreationChanged = { viewModel.onDateOfCreationChanged(it) },
         onDateOfSoldChanged = { viewModel.onDateOfSoldChanged(it) },
         onAgentChanged = { viewModel.onAgentChanged(it) },
+        onLatitudeChanged = { viewModel.onLatitudeChanged(it) },
+        onLongitudeChanged = { viewModel.onLongitudeChanged(it) },
     )
 }
 
@@ -75,7 +77,9 @@ fun EditScreen(
     onStatusChanged: (TextFieldValue) -> Unit,
     onDateOfCreationChanged: (TextFieldValue) -> Unit,
     onDateOfSoldChanged: (TextFieldValue) -> Unit,
-    onAgentChanged: (TextFieldValue) -> Unit
+    onAgentChanged: (TextFieldValue) -> Unit,
+    onLatitudeChanged: (TextFieldValue) -> Unit,
+    onLongitudeChanged: (TextFieldValue) -> Unit
 ) {
     AppScaffold(
         topBar = {
@@ -177,14 +181,21 @@ fun EditScreen(
                         label = "Agent",
                         onValueChange = onAgentChanged
                     )
+                    FormTextField(
+                        textValue = data.latitude,
+                        hint = "Latitude",
+                        label = "Latitude",
+                        onValueChange = onLatitudeChanged
+                    )
+                    FormTextField(
+                        textValue = data.longitude,
+                        hint = "Longitude",
+                        label = "Longitude",
+                        onValueChange = onLongitudeChanged
+                    )
 
                     Spacer.Vertical.Default()
 
-                    /*AppButton(
-                        onClick = onSaveClick,
-                        enabled = true,
-                        text = "Save"
-                    )*/
                     Button(onClick = onSaveClick ) {
                         Text(text = "save")
                     }
