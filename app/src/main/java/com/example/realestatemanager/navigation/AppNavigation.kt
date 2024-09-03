@@ -7,9 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.realestatemanager.details.DetailsRoute
-import com.example.realestatemanager.edit.EditRoute
-import com.example.realestatemanager.main.HomeRoute
+import com.example.realestatemanager.feature.details.DetailsRoute
+import com.example.realestatemanager.feature.edit.EditRoute
+import com.example.realestatemanager.feature.main.HomeRoute
 
 @Composable
 fun AppNavigation() {
