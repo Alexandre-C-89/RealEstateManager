@@ -1,55 +1,35 @@
-package com.example.realestatemanager.details
+package com.example.realestatemanager.feature.details
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.realestatemanager.R
 import com.example.realestatemanager.database.datasource.Property
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.Blue
-import com.example.realestatemanager.designsystem.ListWithColumn
-import com.example.realestatemanager.designsystem.LocationListItem
-import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.designsystem.bar.TopBar
-import com.example.realestatemanager.designsystem.card.CardWithIcon
 import com.example.realestatemanager.designsystem.fonts
 import com.example.realestatemanager.designsystem.map.GoogleMapItem
 import com.example.realestatemanager.designsystem.ui.Default
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.Spacings
-import com.example.realestatemanager.designsystem.ui.text.Text
-import com.example.realestatemanager.main.HomeViewModel
+import com.example.realestatemanager.feature.details.model.LocationState
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.Marker
@@ -63,8 +43,38 @@ fun DetailsRoute(
     viewModel: DetailsViewModel = hiltViewModel(),
 ) {
     val property by viewModel.getPropertyById(propertyId).collectAsState(initial = null)
+    val locationState by viewModel.locationState.collectAsState(LocationState.Loading)
 
-    if (property != null) {
+    var latitude = property?.latitude
+    var longitude = property?.longitude
+
+    when (val state = locationState) {
+        is LocationState.Loading -> {
+            CircularProgressIndicator()
+        }
+        is LocationState.Success -> {
+            val result = state.geocodingResult
+            latitude = result.results.firstOrNull()?.geometry?.location?.lat ?: latitude
+            longitude = result.results.firstOrNull()?.geometry?.location?.lng ?: longitude
+        }
+        is LocationState.Error -> {
+            val message = state.message
+            // Affichez un message d'erreur
+        }
+    }
+
+    property?.let {
+        DetailsScreen(
+            property = it,
+            onBackClick = onBackClick,
+            latitude = latitude ?: it.latitude,
+            longitude = longitude ?: it.longitude
+        )
+    } ?: Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        CircularProgressIndicator()
+    }
+
+    /*if (property != null) {
         DetailsScreen(
             property = property!!,
             onBackClick = onBackClick
@@ -73,7 +83,7 @@ fun DetailsRoute(
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
-    }
+    }*/
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -82,6 +92,8 @@ fun DetailsRoute(
 fun DetailsScreen(
     property: Property,
     onBackClick: () -> Unit,
+    latitude: Double,
+    longitude: Double
 ) {
     /*val images = listOf(
         R.drawable.lounge,
@@ -156,7 +168,7 @@ fun DetailsScreen(
                 cameraPositionState = cameraPositionState
             ) {
                 Marker(
-                    state = MarkerState(position = LatLng(property.latitude, property.longitude)),
+                    state = MarkerState(position = LatLng(latitude, longitude)),
                     title = property.type,
                     snippet = property.address
                 )
