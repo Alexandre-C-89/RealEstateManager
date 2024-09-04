@@ -2,7 +2,7 @@ package com.example.realestatemanager.data.local.property
 
 import android.graphics.Movie
 
-fun PropertyDto.toPropertyEntity(
+/*fun PropertyDto.toPropertyEntity(
 ): PropertyEntity {
     return PropertyEntity(
         id = id,
@@ -18,4 +18,4 @@ fun MovieEntity.toMovie(
         image = IMAGE_BASE_URL + image,
         title = title
     )
-}
+}*/
