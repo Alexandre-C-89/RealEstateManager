@@ -1,46 +1,21 @@
 package com.example.realestatemanager.data.local.property
 
-import com.example.realestatemanager.data.remote.dto.PropertyDto
-import com.example.realestatemanager.domain.model.Property
+import android.graphics.Movie
 
 fun PropertyDto.toPropertyEntity(
 ): PropertyEntity {
     return PropertyEntity(
         id = id,
-        type = type,
-        price = price,
-        surface = surface,
-        room = room,
-        image = image,
-        description = description,
-        address = address,
-        interest = interest,
-        status = status,
-        dateOfCreation = dateOfCreation,
-        dateOfSold = dateOfSold,
-        agent = agent,
-        latitude = latitude,
-        longitude = longitude
+        image = IMAGE_BASE_URL + poster_path,
+        title = title
     )
 }
 
-fun PropertyEntity.toProperty(
-): Property {
-    return Property(
+fun MovieEntity.toMovie(
+): Movie {
+    return Movie(
         id = id,
-        type = type,
-        price = price,
-        surface = surface,
-        room = room,
-        image = image,
-        description = description,
-        address = address,
-        interest = interest,
-        status = status,
-        dateOfCreation = dateOfCreation,
-        dateOfSold = dateOfSold,
-        agent = agent,
-        latitude = latitude,
-        longitude = longitude
+        image = IMAGE_BASE_URL + image,
+        title = title
     )
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realestatemanager.DISPLAY_TYPE
 import com.example.realestatemanager.data.local.property.PropertyEntity
-import com.example.realestatemanager.domain.repository.PropertyRepository
+import com.example.realestatemanager.database.repository.PropertyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            //insertFake() // Insert fake data
+            insertFake() // Insert fake data
             getProperties() // Then load the properties
         }
     }
@@ -37,7 +37,6 @@ class HomeViewModel @Inject constructor(
                 propertyRepository.getAllProperties().collect { list ->
                     // Use withContext(Dispatchers.Main) when modifying state used in Composable
                     withContext(Dispatchers.Main) {
-                        _properties.value = list
                         uiState.value = uiState.value.copy(
                             currentList = list
                         )
@@ -66,12 +65,10 @@ class HomeViewModel @Inject constructor(
     }
 
     fun switchDisplayType(dt: DISPLAY_TYPE) {
+        uiState.value = uiState.value.copy(
+            displayType = dt
+        )
         viewModelScope.launch {
-            withContext(Dispatchers.Main) {
-                uiState.value = uiState.value.copy(
-                    displayType = dt
-                )
-            }
             getProperties()
         }
     }

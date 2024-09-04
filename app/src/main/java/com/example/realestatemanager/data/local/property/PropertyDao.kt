@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PropertyDao {
 
-    @Upsert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(propertyEntity: PropertyEntity)
 
     @Upsert
@@ -23,6 +23,9 @@ interface PropertyDao {
 
     @Delete
     suspend fun delete(propertyEntity: PropertyEntity)
+
+    /*@Query("SELECT * FROM properties WHERE isSell = :isSell")
+    fun getFiltered(isSell : Boolean) : Flow<List<Property>>*/
 
     @Query("SELECT * from properties ORDER BY type ASC")
     fun getAllProperties(): Flow<List<PropertyEntity>>

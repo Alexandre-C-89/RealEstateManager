@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.realestatemanager.database.datasource.Property
+import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.Blue
@@ -65,7 +65,7 @@ fun DetailsRoute(
 
     property?.let {
         DetailsScreen(
-            property = it,
+            propertyEntity = it,
             onBackClick = onBackClick,
             latitude = latitude ?: it.latitude,
             longitude = longitude ?: it.longitude
@@ -90,7 +90,7 @@ fun DetailsRoute(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun DetailsScreen(
-    property: Property,
+    propertyEntity: PropertyEntity,
     onBackClick: () -> Unit,
     latitude: Double,
     longitude: Double
@@ -102,7 +102,7 @@ fun DetailsScreen(
     )*/
     //val pagerState = rememberPagerState(pageCount = { images.size })
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(property.latitude, property.longitude), 12f)
+        position = CameraPosition.fromLatLngZoom(LatLng(propertyEntity.latitude, propertyEntity.longitude), 12f)
     }
     AppScaffold(
         topBar = {
@@ -129,7 +129,7 @@ fun DetailsScreen(
                 )
                 Spacer.Vertical.Small()
                 Text(
-                    text = property.description,
+                    text = propertyEntity.description,
                     style = TextStyle(
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Normal,
@@ -140,7 +140,7 @@ fun DetailsScreen(
                 )
                 Spacer.Vertical.Large()
                 Text(
-                    text = "Surface - ${property.surface} • piece • Room - ${property.room}",
+                    text = "Surface - ${propertyEntity.surface} • piece • Room - ${propertyEntity.room}",
                     style = TextStyle(
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Normal,
@@ -153,7 +153,7 @@ fun DetailsScreen(
                 Text(text = "Location")
                 Spacer.Vertical.Small()
                 Text(
-                    text = property.address,
+                    text = propertyEntity.address,
                     style = TextStyle(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Normal,
@@ -169,8 +169,8 @@ fun DetailsScreen(
             ) {
                 Marker(
                     state = MarkerState(position = LatLng(latitude, longitude)),
-                    title = property.type,
-                    snippet = property.address
+                    title = propertyEntity.type,
+                    snippet = propertyEntity.address
                 )
             }
         }

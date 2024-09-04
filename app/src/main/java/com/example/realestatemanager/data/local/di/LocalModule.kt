@@ -15,7 +15,7 @@ object LocalModule {
 
     @Provides
     @Singleton
-    fun providesPropertyDatabase(app: Application): AppDatabase {
+    fun providePropertyDatabase(app: Application): AppDatabase {
         return Room.databaseBuilder(
             app,
             AppDatabase::class.java,

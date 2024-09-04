@@ -1,6 +1,6 @@
 package com.example.realestatemanager.data.remote.di
 
-import com.example.realestatemanager.data.remote.PropertyApi
+import com.example.realestatemanager.data.remote.LocationApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,8 +43,8 @@ class RemoteModule {
 
     @Provides
     @Singleton
-    fun provideMovieApi(retrofit: Retrofit) : PropertyApi {
-        return retrofit.create(PropertyApi::class.java)
+    fun provideLocationApi(retrofit: Retrofit) : LocationApi {
+        return retrofit.create(LocationApi::class.java)
     }
 
     companion object {
