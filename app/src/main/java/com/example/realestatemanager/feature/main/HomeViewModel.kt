@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realestatemanager.DISPLAY_TYPE
 import com.example.realestatemanager.data.local.property.PropertyEntity
-import com.example.realestatemanager.database.repository.PropertyRepository
+import com.example.realestatemanager.domain.repository.PropertyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,24 +43,6 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }
-            /*DISPLAY_TYPE.FINISHED->{
-                viewModelScope.launch {
-                    propertyRepository.getFiltered(true).collect{list->
-                        uiState.value = uiState.value.copy(
-                            currentList = list
-                        )
-                    }
-                }
-            }
-            DISPLAY_TYPE.IN_PROGRESS->{
-                viewModelScope.launch {
-                    propertyRepository.getFiltered(false).collect{list->
-                        uiState.value = uiState.value.copy(
-                            currentList = list
-                        )
-                    }
-                }
-            }*/
         }
     }
 

@@ -66,9 +66,9 @@ fun DetailsRoute(
     property?.let {
         DetailsScreen(
             propertyEntity = it,
-            onBackClick = onBackClick,
+            onBackClick = onBackClick/*,
             latitude = latitude ?: it.latitude,
-            longitude = longitude ?: it.longitude
+            longitude = longitude ?: it.longitude*/
         )
     } ?: Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         CircularProgressIndicator()
@@ -91,9 +91,9 @@ fun DetailsRoute(
 @Composable
 fun DetailsScreen(
     propertyEntity: PropertyEntity,
-    onBackClick: () -> Unit,
+    onBackClick: () -> Unit/*,
     latitude: Double,
-    longitude: Double
+    longitude: Double*/
 ) {
     /*val images = listOf(
         R.drawable.lounge,
@@ -101,9 +101,9 @@ fun DetailsScreen(
         R.drawable.dining_room
     )*/
     //val pagerState = rememberPagerState(pageCount = { images.size })
-    val cameraPositionState = rememberCameraPositionState {
+    /*val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(propertyEntity.latitude, propertyEntity.longitude), 12f)
-    }
+    }*/
     AppScaffold(
         topBar = {
             TopBar(
@@ -128,16 +128,18 @@ fun DetailsScreen(
                     )
                 )
                 Spacer.Vertical.Small()
-                Text(
-                    text = propertyEntity.description,
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = fonts,
-                        textAlign = TextAlign.Start,
-                        color = Black
+                propertyEntity.description?.let {
+                    Text(
+                        text = it,
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = fonts,
+                            textAlign = TextAlign.Start,
+                            color = Black
+                        )
                     )
-                )
+                }
                 Spacer.Vertical.Large()
                 Text(
                     text = "Surface - ${propertyEntity.surface} • piece • Room - ${propertyEntity.room}",
@@ -164,7 +166,7 @@ fun DetailsScreen(
                 )
             }
             Spacer.Vertical.Large()
-            GoogleMapItem(
+            /*GoogleMapItem(
                 cameraPositionState = cameraPositionState
             ) {
                 Marker(
@@ -172,7 +174,7 @@ fun DetailsScreen(
                     title = propertyEntity.type,
                     snippet = propertyEntity.address
                 )
-            }
+            }*/
         }
     }
 }

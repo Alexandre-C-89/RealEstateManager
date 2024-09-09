@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realestatemanager.data.local.property.PropertyEntity
-import com.example.realestatemanager.database.repository.PropertyRepository
+import com.example.realestatemanager.domain.repository.PropertyRepository
 import com.example.realestatemanager.domain.repository.LocationRepository
 import com.example.realestatemanager.feature.details.model.LocationState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val repository: PropertyRepository,
-    private val locationRepository: LocationRepository
+    //private val locationRepository: LocationRepository
 ) : ViewModel() {
 
     private val _locationState = MutableStateFlow<LocationState>(LocationState.Loading)
@@ -30,7 +30,7 @@ class DetailsViewModel @Inject constructor(
         return repository.getPropertyById(propertyId)
     }
 
-    fun fetchCoordinates(address: String) {
+    /*fun fetchCoordinates(address: String) {
         viewModelScope.launch {
             locationRepository.getConvertAddress(address)
                 .onStart {
@@ -43,6 +43,6 @@ class DetailsViewModel @Inject constructor(
                     _locationState.value = LocationState.Success(result.data!!)
                 }
         }
-    }
+    }*/
 
 }

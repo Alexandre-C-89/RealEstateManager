@@ -1,25 +1,16 @@
 package com.example.realestatemanager.data.repository
 
-import android.content.Context
-import android.location.Geocoder
-import android.util.Log
 import com.example.realestatemanager.data.local.AppDatabase
-import com.example.realestatemanager.data.local.property.PropertyDao
-import com.example.realestatemanager.data.remote.PropertyApi
+import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.domain.repository.PropertyRepository
-import com.google.android.gms.maps.model.LatLng
-import dagger.hilt.android.qualifiers.ApplicationContext
-import java.io.IOException
-import java.util.Locale
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PropertyRepositoryImpl @Inject constructor(
-    private val propertyApi: PropertyApi,
-    private val propertyDao: PropertyDao,
-    @ApplicationContext private val context: Context  // Inject context here
-) : PropertyRepository(propertyDao) {
+    private val appDatabase: AppDatabase
+) : PropertyRepository {
 
-    override suspend fun getCoordinates(address: String): LatLng? {
+    /*override suspend fun getCoordinates(address: String): LatLng? {
         return try {
             val geocoder = Geocoder(context, Locale.getDefault())
             val addresses = geocoder.getFromLocationName(address, 1)  // Convert address to LatLng
@@ -33,5 +24,29 @@ class PropertyRepositoryImpl @Inject constructor(
             Log.e("PropertyRepositoryImpl", "Error fetching coordinates: ${e.message}")
             null
         }
+    }*/
+    override suspend fun insert(propertyEntity: PropertyEntity) {
+        TODO("Not yet implemented")
     }
+
+    override suspend fun insertFake(propertyEntity: PropertyEntity) {
+        return appDatabase.propertyDao.insertFake(propertyEntity)
+    }
+
+    override suspend fun delete(propertyEntity: PropertyEntity): Flow<PropertyEntity> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun update(propertyEntity: PropertyEntity): Flow<PropertyEntity> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllProperties(): Flow<List<PropertyEntity>> {
+        return appDatabase.propertyDao.getAllProperties()
+    }
+
+    override fun getPropertyById(propertyId: Int): Flow<PropertyEntity?> {
+        TODO("Not yet implemented")
+    }
+
 }

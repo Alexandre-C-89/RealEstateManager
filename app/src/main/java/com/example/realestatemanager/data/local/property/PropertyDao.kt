@@ -31,6 +31,6 @@ interface PropertyDao {
     fun getAllProperties(): Flow<List<PropertyEntity>>
 
     @Query("SELECT * FROM properties WHERE id = :propertyId")
-    fun getPropertyById(propertyId: Int): Flow<PropertyEntity?>
+    fun getPropertyById(propertyId: Int): PropertyEntity
 
 }
