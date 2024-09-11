@@ -9,12 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.realestatemanager.designsystem.Black
+import com.example.realestatemanager.designsystem.LightGrey
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.designsystem.Theme
 import com.example.realestatemanager.designsystem.fonts
@@ -34,6 +38,7 @@ fun FormTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     enabled: Boolean = true
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     Label(text = label)
     Spacer.Vertical.Small()
     OutlinedTextField(
@@ -45,8 +50,10 @@ fun FormTextField(
         trailingIcon = trailingIcon,
         singleLine = true,
         maxLines = 1,
-        keyboardOptions = keyboardOptions,
-        keyboardActions = KeyboardActions.Default,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(
+            onDone = { keyboardController?.hide() }
+        ),
         visualTransformation = visualTransformation,
         isError = error != null,
         enabled = enabled
@@ -61,7 +68,7 @@ private fun Label(text: String) {
         fontSize = 14.sp,
         fontFamily = fonts,
         fontWeight = FontWeight.Normal,
-        color = Theme.colorPalette.textSecondary,
+        color = LightGrey,
         textAlign = TextAlign.Start
     )
 }
@@ -73,7 +80,7 @@ private fun PlaceHolder(text: String) {
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontFamily = fonts,
-        color = Theme.colorPalette.textSecondary
+        color = Black
     )
 }
 

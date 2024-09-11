@@ -45,8 +45,8 @@ fun DetailsRoute(
     val property by viewModel.getPropertyById(propertyId).collectAsState(initial = null)
     val locationState by viewModel.locationState.collectAsState(LocationState.Loading)
 
-    var latitude = property?.latitude
-    var longitude = property?.longitude
+    /*var latitude = property?.latitude
+    var longitude = property?.longitude*/
 
     when (val state = locationState) {
         is LocationState.Loading -> {
@@ -54,8 +54,8 @@ fun DetailsRoute(
         }
         is LocationState.Success -> {
             val result = state.geocodingResult
-            latitude = result.results.firstOrNull()?.geometry?.location?.lat ?: latitude
-            longitude = result.results.firstOrNull()?.geometry?.location?.lng ?: longitude
+            /*latitude = result.results.firstOrNull()?.geometry?.location?.lat ?: latitude
+            longitude = result.results.firstOrNull()?.geometry?.location?.lng ?: longitude*/
         }
         is LocationState.Error -> {
             val message = state.message
@@ -154,16 +154,18 @@ fun DetailsScreen(
                 Spacer.Vertical.Large()
                 Text(text = "Location")
                 Spacer.Vertical.Small()
-                Text(
-                    text = propertyEntity.address,
-                    style = TextStyle(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = fonts,
-                        textAlign = TextAlign.Start,
-                        color = Blue
+                propertyEntity.address?.let {
+                    Text(
+                        text = it,
+                        style = TextStyle(
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = fonts,
+                            textAlign = TextAlign.Start,
+                            color = Blue
+                        )
                     )
-                )
+                }
             }
             Spacer.Vertical.Large()
             /*GoogleMapItem(

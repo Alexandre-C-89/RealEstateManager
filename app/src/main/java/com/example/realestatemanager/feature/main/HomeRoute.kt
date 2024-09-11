@@ -60,15 +60,19 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(uiState.value.currentList) { property ->
-                CardWithImage(
-                    onClick = {
-                        Log.d("HOMESCREEN", "${property.id}")
-                        onPropertyClick(property.id)
-                    },
-                    type = property.type,
-                    location = property.address,
-                    price = property.price.toString()
-                )
+                property.type?.let {
+                    property.address?.let { it1 ->
+                        CardWithImage(
+                            onClick = {
+                                Log.d("HOMESCREEN", "${property.id}")
+                                property.id?.let { onPropertyClick(it) }
+                            },
+                            type = it,
+                            location = it1,
+                            price = property.price.toString()
+                        )
+                    }
+                }
             }
         }
     }

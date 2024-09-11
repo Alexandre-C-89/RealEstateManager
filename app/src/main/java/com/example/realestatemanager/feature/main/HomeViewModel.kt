@@ -77,9 +77,9 @@ class HomeViewModel @Inject constructor(
                     status = "For sell",
                     dateOfCreation = 12022024,
                     dateOfSold = 14052024,
-                    agent = "Axel",
-                    latitude = 48.933331,
-                    longitude = 2.41667
+                    agent = "Axel"
+                    /*latitude = 48.933331,
+                    longitude = 2.41667*/
                 ),
                 PropertyEntity(
                     id = 1,
@@ -94,9 +94,9 @@ class HomeViewModel @Inject constructor(
                     status = "Sold",
                     dateOfCreation = 12022024,
                     dateOfSold = 14052024,
-                    agent = "Axel",
-                    latitude = 48.933331,
-                    longitude = 2.41667
+                    agent = "Axel"
+                    /*latitude = 48.933331,
+                    longitude = 2.41667*/
                 )
             )
             fakeProperties.forEach { property ->

@@ -25,8 +25,9 @@ class PropertyRepositoryImpl @Inject constructor(
             null
         }
     }*/
+
     override suspend fun insert(propertyEntity: PropertyEntity) {
-        TODO("Not yet implemented")
+        return appDatabase.propertyDao.insert(propertyEntity)
     }
 
     override suspend fun insertFake(propertyEntity: PropertyEntity) {
