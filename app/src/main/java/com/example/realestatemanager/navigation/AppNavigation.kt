@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import com.example.realestatemanager.feature.details.DetailsRoute
 import com.example.realestatemanager.feature.edit.EditRoute
 import com.example.realestatemanager.feature.main.HomeRoute
+import com.example.realestatemanager.feature.map.MapRoute
 
 @Composable
 fun AppNavigation() {
@@ -23,9 +24,10 @@ fun AppNavigation() {
             HomeRoute(
                 onEditClick = { navController.navigate(Screen.EditRoute.route) },
                 onPropertyClick = { propertyId ->
-                    Log.d("AppNavigation", "Navigating to Details with ID: $propertyId")
                     navController.navigate("details/$propertyId")
-                }
+                },
+                onHomeClick = { navController.navigate(Screen.HomeRoute.route) },
+                onMapClick = { navController.navigate(Screen.MapRoute.route) },
             )
         }
         composable(
@@ -51,6 +53,11 @@ fun AppNavigation() {
         }
         composable(route = Screen.EditRoute.route) {
             EditRoute(
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.MapRoute.route) {
+            MapRoute(
                 onBackClick = { navController.popBackStack() }
             )
         }

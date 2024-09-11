@@ -65,3 +65,27 @@ fun BackIconButton(
         )
     }
 }
+
+@Composable
+fun HomeIconButton(
+    onClick: () -> Unit
+){
+    IconButton(onClick = { onClick() }) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_home),
+            contentDescription = "home button"
+        )
+    }
+}
+
+@Composable
+fun MapIconButton(
+    onClick: () -> Unit
+){
+    IconButton(onClick = { onClick() }) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_map),
+            contentDescription = "map button"
+        )
+    }
+}
