@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.card.CardWithImage
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.realestatemanager.designsystem.bar.BottomBar
+import com.example.realestatemanager.designsystem.button.HomeIconButton
 import com.example.realestatemanager.designsystem.button.MapIconButton
 
 
@@ -31,7 +33,6 @@ fun HomeRoute(
     HomeScreen(
         viewModel = viewModel,
         onMenuClick = {},
-        onAddClick = {},
         onEditClick = onEditClick,
         onSearchClick = {},
         onPropertyClick = onPropertyClick,
@@ -48,7 +49,6 @@ fun HomeScreen(
     onMenuClick: () -> Unit,
     onHomeClick: () -> Unit,
     onMapClick: () -> Unit,
-    onAddClick: () -> Unit,
     onEditClick: () -> Unit,
     onSearchClick: () -> Unit,
     onPropertyClick: (Int) -> Unit
@@ -59,15 +59,16 @@ fun HomeScreen(
         topBar = {
             TopBar(
                 onNavigationClick = onMenuClick,
-                onAddClick = onAddClick,
+                onMapClick = onMapClick,
                 onEditClick = onEditClick,
                 onSearchClick = onSearchClick,
             )
         },
         bottomBar = {
             BottomBar(
+                onMapClick =  onMapClick,
                 onHomeClick = onHomeClick,
-                onMapClick = onMapClick
+                onEditClick = onEditClick
             )
         }
     ) {

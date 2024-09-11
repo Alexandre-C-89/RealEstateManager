@@ -58,7 +58,10 @@ fun AppNavigation() {
         }
         composable(route = Screen.MapRoute.route) {
             MapRoute(
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onHomeClick = { navController.navigate(Screen.HomeRoute.route) },
+                onMapClick = { navController.navigate(Screen.MapRoute.route) },
+                onEditClick = { navController.navigate(Screen.EditRoute.route) }
             )
         }
     }

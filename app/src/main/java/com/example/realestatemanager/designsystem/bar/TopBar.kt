@@ -25,6 +25,7 @@ import com.example.realestatemanager.designsystem.White
 import com.example.realestatemanager.designsystem.button.AddIconButton
 import com.example.realestatemanager.designsystem.button.BackIconButton
 import com.example.realestatemanager.designsystem.button.EditIconButton
+import com.example.realestatemanager.designsystem.button.MapIconButton
 import com.example.realestatemanager.designsystem.button.MenuIconButton
 import com.example.realestatemanager.designsystem.button.SearchIconButton
 import com.example.realestatemanager.designsystem.fonts
@@ -32,15 +33,15 @@ import com.example.realestatemanager.designsystem.fonts
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
-    shadowElevation: Dp = 0.dp,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onNavigationClick: (() -> Unit)? = null,
-    onAddClick: (() -> Unit)? = null,
+    //onAddClick: (() -> Unit)? = null,
+    onMapClick: (() -> Unit)? = null,
     onEditClick: (() -> Unit)? = null,
     onSearchClick: (() -> Unit)? = null,
     onBackClick: (() -> Unit)? = null,
 ) {
-    Surface(shadowElevation = shadowElevation) {
+    Surface {
         TopAppBar(
             modifier = Modifier
                 .fillMaxWidth()
@@ -83,8 +84,8 @@ fun TopBar(
             },
             actions = {
                 Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-                    onAddClick?.let {
-                        AddIconButton { onAddClick() }
+                    onMapClick?.let {
+                        MapIconButton { onMapClick() }
                     }
                 }
                 Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
