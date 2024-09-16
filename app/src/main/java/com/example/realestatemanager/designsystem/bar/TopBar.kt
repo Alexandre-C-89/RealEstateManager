@@ -35,7 +35,6 @@ import com.example.realestatemanager.designsystem.fonts
 fun TopBar(
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onNavigationClick: (() -> Unit)? = null,
-    //onAddClick: (() -> Unit)? = null,
     onMapClick: (() -> Unit)? = null,
     onEditClick: (() -> Unit)? = null,
     onSearchClick: (() -> Unit)? = null,

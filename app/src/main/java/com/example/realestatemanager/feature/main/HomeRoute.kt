@@ -1,25 +1,19 @@
 package com.example.realestatemanager.feature.main
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.realestatemanager.designsystem.AppScaffold
+import com.example.realestatemanager.designsystem.bar.BottomBar
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.card.CardWithImage
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.realestatemanager.designsystem.bar.BottomBar
-import com.example.realestatemanager.designsystem.button.HomeIconButton
-import com.example.realestatemanager.designsystem.button.MapIconButton
 
 
 @Composable
@@ -59,7 +53,6 @@ fun HomeScreen(
         topBar = {
             TopBar(
                 onNavigationClick = onMenuClick,
-                onMapClick = onMapClick,
                 onEditClick = onEditClick,
                 onSearchClick = onSearchClick,
             )
@@ -81,7 +74,6 @@ fun HomeScreen(
                     property.address?.let { it1 ->
                         CardWithImage(
                             onClick = {
-                                Log.d("HOMESCREEN", "${property.id}")
                                 property.id?.let { onPropertyClick(it) }
                             },
                             type = it,

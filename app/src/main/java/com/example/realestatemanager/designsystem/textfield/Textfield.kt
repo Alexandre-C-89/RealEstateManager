@@ -1,13 +1,11 @@
 package com.example.realestatemanager.designsystem.textfield
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
@@ -17,17 +15,16 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.LightGrey
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 import com.example.realestatemanager.designsystem.Theme
+import com.example.realestatemanager.designsystem.White
 import com.example.realestatemanager.designsystem.fonts
 import com.example.realestatemanager.designsystem.ui.Spacer
 
 
 @Composable
 fun FormTextField(
-    modifier: Modifier = Modifier,
     textValue: TextFieldValue,
     hint: String,
     label: String,
@@ -40,9 +37,8 @@ fun FormTextField(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     Label(text = label)
-    Spacer.Vertical.Small()
+    Spacer.Vertical.Tiny()
     OutlinedTextField(
-        modifier = modifier.fillMaxWidth(),
         value = textValue,
         onValueChange = onValueChange,
         colors = Colors(),
@@ -64,7 +60,6 @@ fun FormTextField(
 private fun Label(text: String) {
     Text(
         text = text,
-        modifier = Modifier.fillMaxWidth(),
         fontSize = 14.sp,
         fontFamily = fonts,
         fontWeight = FontWeight.Normal,
@@ -80,7 +75,7 @@ private fun PlaceHolder(text: String) {
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontFamily = fonts,
-        color = Black
+        color = White
     )
 }
 
