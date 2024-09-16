@@ -32,6 +32,7 @@ import com.example.realestatemanager.designsystem.ui.Default
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.Spacings
 import com.example.realestatemanager.feature.details.model.LocationState
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.MarkerState
@@ -106,7 +107,10 @@ fun DetailsScreen(
         R.drawable.dining_room
     )*/
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 17f)
+        position = CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 15f)
+    }
+    LaunchedEffect(latitude, longitude) {
+        cameraPositionState.move(CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), 15f))
     }
     AppScaffold(
         topBar = {
