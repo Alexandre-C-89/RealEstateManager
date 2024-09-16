@@ -106,7 +106,7 @@ fun DetailsScreen(
         R.drawable.dining_room
     )*/
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 12f)
+        position = CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 17f)
     }
     AppScaffold(
         topBar = {
