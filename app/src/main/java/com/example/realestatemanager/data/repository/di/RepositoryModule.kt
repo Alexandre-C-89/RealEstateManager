@@ -1,7 +1,10 @@
 package com.example.realestatemanager.data.repository.di
 
 import com.example.realestatemanager.data.local.AppDatabase
+import com.example.realestatemanager.data.remote.location.LocationApi
+import com.example.realestatemanager.data.repository.LocationRepositoryImpl
 import com.example.realestatemanager.data.repository.PropertyRepositoryImpl
+import com.example.realestatemanager.domain.repository.LocationRepository
 import com.example.realestatemanager.domain.repository.PropertyRepository
 import dagger.Module
 import dagger.Provides
@@ -19,6 +22,14 @@ object RepositoryModule {
         appDatabase: AppDatabase
     ): PropertyRepository {
         return PropertyRepositoryImpl(appDatabase)
+    }
+
+    @Provides
+    @Singleton
+    fun providesLocationRepository(
+        locationApi: LocationApi
+    ): LocationRepository {
+        return LocationRepositoryImpl(locationApi)
     }
 
 }

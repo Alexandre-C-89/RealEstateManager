@@ -1,6 +1,7 @@
 package com.example.realestatemanager.data.repository
 
-import com.example.realestatemanager.data.remote.LocationApi
+import android.util.Log
+import com.example.realestatemanager.data.remote.location.LocationApi
 import com.example.realestatemanager.domain.model.GeocodingResult
 import com.example.realestatemanager.domain.repository.LocationRepository
 import com.example.realestatemanager.util.Resource
@@ -17,11 +18,12 @@ class LocationRepositoryImpl @Inject constructor(
     override suspend fun getConvertAddress(address: String): Flow<Resource<GeocodingResult>> {
         return flow {
             emit(Resource.Loading())
-
             try {
                 val geocodingResult = locationApi.getConvertAddress(address)
+                Log.d("LOCATIONREPOSITORYIMPL", "error + ${geocodingResult}")
                 emit(Resource.Success(geocodingResult))
             } catch (e: Exception) {
+                Log.d("LOCATIONREPOSITORYIMPL", "error + ${e.message}")
                 emit(Resource.Error(e.message ?: "An error occurred"))
             }
         }.flowOn(Dispatchers.IO)

@@ -66,9 +66,7 @@ fun EditScreen(
     onStatusChanged: (TextFieldValue) -> Unit,
     onDateOfCreationChanged: (TextFieldValue) -> Unit,
     onDateOfSoldChanged: (TextFieldValue) -> Unit,
-    onAgentChanged: (TextFieldValue) -> Unit,
-    /*onLatitudeChanged: (TextFieldValue) -> Unit,
-    onLongitudeChanged: (TextFieldValue) -> Unit*/
+    onAgentChanged: (TextFieldValue) -> Unit
 ) {
     AppScaffold(
         topBar = {

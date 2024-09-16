@@ -1,4 +1,4 @@
-package com.example.realestatemanager.data.remote
+package com.example.realestatemanager.data.remote.location
 
 import com.example.realestatemanager.data.remote.di.RemoteModule
 import com.example.realestatemanager.domain.model.GeocodingResult

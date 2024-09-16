@@ -46,8 +46,8 @@ class PropertyRepositoryImpl @Inject constructor(
         return appDatabase.propertyDao.getAllProperties()
     }
 
-    override fun getPropertyById(propertyId: Int): Flow<PropertyEntity?> {
-        TODO("Not yet implemented")
+    override fun getPropertyById(propertyId: Int): Flow<PropertyEntity> {
+        return appDatabase.propertyDao.getPropertyById(propertyId)
     }
 
 }

@@ -1,10 +1,11 @@
 package com.example.realestatemanager.data.remote.di
 
-import com.example.realestatemanager.data.remote.LocationApi
+import com.example.realestatemanager.data.remote.location.LocationApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,6 +21,26 @@ class RemoteModule {
     fun provideInterceptor() : HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiKeyInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val original = chain.request()
+            val originalHttpUrl = original.url
+
+            // Ajouter la clé d'API à l'URL
+            val url = originalHttpUrl.newBuilder()
+                .addQueryParameter("api_key", API_KEY)
+                .build()
+
+            // Requête modifiée
+            val requestBuilder = original.newBuilder().url(url)
+            val request = requestBuilder.build()
+
+            chain.proceed(request)
         }
     }
 

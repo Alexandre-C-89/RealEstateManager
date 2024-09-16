@@ -19,6 +19,6 @@ data class PropertyEntity(
     val dateOfCreation: Long?,
     val dateOfSold: Long?,
     val agent: String?,
-    /*val latitude: Double?,
-    val longitude: Double?*/
+    val latitude: Double?,
+    val longitude: Double?
 )

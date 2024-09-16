@@ -1,7 +1,9 @@
 package com.example.realestatemanager.domain.model
 
+import com.google.gson.annotations.SerializedName
+
 data class AddressComponent(
-    val long_name: String,
-    val short_name: String,
+    @SerializedName("long_name") val longName: String,
+    @SerializedName("short_name") val shortName: String,
     val types: List<String>
 )

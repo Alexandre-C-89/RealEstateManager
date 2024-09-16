@@ -15,6 +15,6 @@ interface PropertyRepository {
 
     fun getAllProperties(): Flow<List<PropertyEntity>>
 
-    fun getPropertyById(propertyId: Int): Flow<PropertyEntity?>
+    fun getPropertyById(propertyId: Int): Flow<PropertyEntity>
 
 }
