@@ -89,7 +89,7 @@ fun EditScreen(
                 ) {
 
                     Text(
-                        text = "type",
+                        text = "Create new property",
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.displaySmall
                     )
