@@ -46,28 +46,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun switchDisplayType(dt: DISPLAY_TYPE) {
-        uiState.value = uiState.value.copy(
-            displayType = dt
-        )
-        viewModelScope.launch {
-            getProperties()
-        }
-    }
-
-    fun insert(propertyEntity: PropertyEntity) {
-        viewModelScope.launch {
-            propertyRepository.insert(propertyEntity)
-        }
-    }
-
     private suspend fun insertFake() {
         try {
             val fakeProperties = listOf(
                 PropertyEntity(
                     id = 0,
                     type = "Lounge",
-                    price = 41001100,
+                    price = 410.000,
                     surface = 140,
                     room = 4,
                     image = "",
@@ -84,7 +69,7 @@ class HomeViewModel @Inject constructor(
                 PropertyEntity(
                     id = 1,
                     type = "House",
-                    price = 45601200,
+                    price = 456.012,
                     surface = 160,
                     room = 5,
                     image = "",
@@ -104,18 +89,6 @@ class HomeViewModel @Inject constructor(
             }
         } catch (e: Exception) {
             e.printStackTrace()
-        }
-    }
-
-    fun delete(propertyEntity: PropertyEntity) {
-        viewModelScope.launch {
-            propertyRepository.delete(propertyEntity)
-        }
-    }
-
-    fun update(propertyEntity: PropertyEntity) {
-        viewModelScope.launch {
-            propertyRepository.update(propertyEntity)
         }
     }
 

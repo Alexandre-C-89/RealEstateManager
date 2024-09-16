@@ -74,7 +74,7 @@ class EditViewModel @Inject constructor(
                 val propertyEntity = PropertyEntity(
                     id = 0,
                     type = _data.value.type.text,
-                    price = _data.value.price.text.toInt(),
+                    price = _data.value.price.text.toDouble(),
                     surface = _data.value.surface.text.toInt(),
                     room = _data.value.room.text.toInt(),
                     image = _data.value.image.text,
