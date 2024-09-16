@@ -76,7 +76,6 @@ fun DetailsRoute(
     }
 
     property?.let {
-        Log.d("DETAILSROUTE", "${property!!.address}")
         DetailsScreen(
             propertyEntity = it,
             onBackClick = onBackClick,
@@ -93,7 +92,7 @@ fun DetailsRoute(
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreen(
     propertyEntity: PropertyEntity,

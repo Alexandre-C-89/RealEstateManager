@@ -78,7 +78,7 @@ fun HomeScreen(
                             },
                             type = it,
                             location = it1,
-                            price = property.price.toString()
+                            price = "€ ${property.price.toString()}"
                         )
                     }
                 }
