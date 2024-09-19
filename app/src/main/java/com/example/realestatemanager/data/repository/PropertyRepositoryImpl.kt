@@ -2,6 +2,7 @@ package com.example.realestatemanager.data.repository
 
 import com.example.realestatemanager.data.local.AppDatabase
 import com.example.realestatemanager.data.local.property.PropertyEntity
+import com.example.realestatemanager.domain.model.FormData
 import com.example.realestatemanager.domain.repository.PropertyRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -48,6 +49,15 @@ class PropertyRepositoryImpl @Inject constructor(
 
     override fun getPropertyById(propertyId: Int): Flow<PropertyEntity> {
         return appDatabase.propertyDao.getPropertyById(propertyId)
+    }
+
+    override fun searchProperties(formData: FormData): Flow<List<PropertyEntity>> {
+        return appDatabase.propertyDao.searchProperties(
+           priceMin =  formData.priceMin.takeIf{it.isNotBlank()}?.toDoubleOrNull(),
+           priceMax =  formData.priceMax.takeIf{it.isNotBlank()}?.toDoubleOrNull(),
+           surfaceMin =  formData.surfaceMin.takeIf{it.isNotBlank()}?.toDoubleOrNull(),
+           surfaceMax =  formData.surfaceMax.takeIf{it.isNotBlank()}?.toDoubleOrNull(),
+        )
     }
 
 }

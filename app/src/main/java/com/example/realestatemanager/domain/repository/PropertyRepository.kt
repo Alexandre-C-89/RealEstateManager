@@ -1,6 +1,7 @@
 package com.example.realestatemanager.domain.repository
 
 import com.example.realestatemanager.data.local.property.PropertyEntity
+import com.example.realestatemanager.domain.model.FormData
 import kotlinx.coroutines.flow.Flow
 
 interface PropertyRepository {
@@ -16,5 +17,7 @@ interface PropertyRepository {
     fun getAllProperties(): Flow<List<PropertyEntity>>
 
     fun getPropertyById(propertyId: Int): Flow<PropertyEntity>
+
+    fun searchProperties(formData: FormData): Flow<List<PropertyEntity>>
 
 }

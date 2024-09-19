@@ -23,12 +23,13 @@ fun HomeRoute(
     onPropertyClick: (Int) -> Unit,
     onHomeClick: () -> Unit,
     onMapClick: () -> Unit,
+    onSearchClick: () -> Unit
 ) {
     HomeScreen(
         viewModel = viewModel,
         onMenuClick = {},
         onEditClick = onEditClick,
-        onSearchClick = {},
+        onSearchClick = onSearchClick,
         onPropertyClick = onPropertyClick,
         onHomeClick = onHomeClick,
         onMapClick = onMapClick,

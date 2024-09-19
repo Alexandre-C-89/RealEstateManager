@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import androidx.room.Upsert
+import com.example.realestatemanager.domain.model.FormData
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -24,13 +25,18 @@ interface PropertyDao {
     @Delete
     suspend fun delete(propertyEntity: PropertyEntity)
 
-    /*@Query("SELECT * FROM properties WHERE isSell = :isSell")
-    fun getFiltered(isSell : Boolean) : Flow<List<Property>>*/
-
     @Query("SELECT * from properties ORDER BY type ASC")
     fun getAllProperties(): Flow<List<PropertyEntity>>
 
     @Query("SELECT * FROM properties WHERE id = :propertyId")
     fun getPropertyById(propertyId: Int): Flow<PropertyEntity>
+
+    @Query("SELECT * FROM properties WHERE (:priceMin IS NULL OR price >= :priceMin) AND (:priceMax IS NULL OR price <= :priceMax) AND (:surfaceMin IS NULL OR surface >= :surfaceMin) AND (:surfaceMax IS NULL OR surface <= :surfaceMax)")
+    fun searchProperties(
+        priceMin: Double?,
+        priceMax: Double?,
+        surfaceMin: Double?,
+        surfaceMax: Double?
+    ): Flow<List<PropertyEntity>>
 
 }
