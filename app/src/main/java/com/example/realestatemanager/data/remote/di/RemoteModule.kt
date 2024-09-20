@@ -30,16 +30,11 @@ class RemoteModule {
         return Interceptor { chain ->
             val original = chain.request()
             val originalHttpUrl = original.url
-
-            // Ajouter la clé d'API à l'URL
             val url = originalHttpUrl.newBuilder()
                 .addQueryParameter("api_key", API_KEY)
                 .build()
-
-            // Requête modifiée
             val requestBuilder = original.newBuilder().url(url)
             val request = requestBuilder.build()
-
             chain.proceed(request)
         }
     }
