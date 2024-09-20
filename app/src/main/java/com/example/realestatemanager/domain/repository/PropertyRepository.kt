@@ -20,4 +20,6 @@ interface PropertyRepository {
 
     fun searchProperties(formData: FormData): Flow<List<PropertyEntity>>
 
+    fun getAllAddresses(): Flow<List<String>>
+
 }

@@ -29,4 +29,18 @@ class LocationRepositoryImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    override suspend fun getConvertAddresses(addresses: List<String>): Flow<Resource<List<GeocodingResult>>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val geocodingResults = addresses.map { address ->
+                    locationApi.getConvertAddress(address)
+                }
+                emit(Resource.Success(geocodingResults))
+            } catch (e: Exception) {
+                emit(Resource.Error(e.message ?: "An error occurred"))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
 }

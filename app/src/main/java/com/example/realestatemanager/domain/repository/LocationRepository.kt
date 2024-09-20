@@ -9,4 +9,6 @@ interface LocationRepository {
 
     suspend fun getConvertAddress(address: String): Flow<Resource<GeocodingResult>>
 
+    suspend fun getConvertAddresses(addresses: List<String>): Flow<Resource<List<GeocodingResult>>>
+
 }

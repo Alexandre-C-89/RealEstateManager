@@ -67,13 +67,19 @@ fun DetailsRoute(
 
         is LocationState.Success -> {
             val result = state.geocodingResult
-            latitude = result.results.firstOrNull()?.geometry?.location?.lat ?: latitude
-            longitude = result.results.firstOrNull()?.geometry?.location?.lng ?: longitude
+            if (result != null) {
+                latitude = result.results.firstOrNull()?.geometry?.location?.lat ?: latitude
+            }
+            if (result != null) {
+                longitude = result.results.firstOrNull()?.geometry?.location?.lng ?: longitude
+            }
         }
 
         is LocationState.Error -> {
             val message = state.message
         }
+
+        is LocationState.MultipleSuccess -> TODO()
     }
 
     property?.let {

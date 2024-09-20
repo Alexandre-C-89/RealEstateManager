@@ -39,4 +39,7 @@ interface PropertyDao {
         surfaceMax: Double?
     ): Flow<List<PropertyEntity>>
 
+    @Query("SELECT address FROM properties")
+    fun getAllAddresses(): Flow<List<String>>
+
 }

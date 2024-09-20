@@ -11,22 +11,6 @@ class PropertyRepositoryImpl @Inject constructor(
     private val appDatabase: AppDatabase
 ) : PropertyRepository {
 
-    /*override suspend fun getCoordinates(address: String): LatLng? {
-        return try {
-            val geocoder = Geocoder(context, Locale.getDefault())
-            val addresses = geocoder.getFromLocationName(address, 1)  // Convert address to LatLng
-            if (addresses != null && addresses.isNotEmpty()) {
-                val location = addresses[0]
-                LatLng(location.latitude, location.longitude)
-            } else {
-                null
-            }
-        } catch (e: IOException) {
-            Log.e("PropertyRepositoryImpl", "Error fetching coordinates: ${e.message}")
-            null
-        }
-    }*/
-
     override suspend fun insert(propertyEntity: PropertyEntity) {
         return appDatabase.propertyDao.insert(propertyEntity)
     }
@@ -58,6 +42,10 @@ class PropertyRepositoryImpl @Inject constructor(
            surfaceMin =  formData.surfaceMin.takeIf{it.isNotBlank()}?.toDoubleOrNull(),
            surfaceMax =  formData.surfaceMax.takeIf{it.isNotBlank()}?.toDoubleOrNull(),
         )
+    }
+
+    override fun getAllAddresses(): Flow<List<String>> {
+        return appDatabase.propertyDao.getAllAddresses()
     }
 
 }
