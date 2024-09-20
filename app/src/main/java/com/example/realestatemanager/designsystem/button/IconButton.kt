@@ -89,3 +89,15 @@ fun MapIconButton(
         )
     }
 }
+
+@Composable
+fun LendIconButton(
+    onClick: () -> Unit
+){
+    IconButton(onClick = { onClick() }) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_lend),
+            contentDescription = "lend button"
+        )
+    }
+}

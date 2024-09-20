@@ -71,7 +71,6 @@ fun MapScreen(
         }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            // Affiche GoogleMap uniquement si les données sont prêtes
             if (locationState is LocationState.Success || locationState is LocationState.MultipleSuccess) {
                 GoogleMap(
                     modifier = Modifier.fillMaxSize(),
@@ -105,12 +104,11 @@ fun MapScreen(
                             }
                         }
 
-                        else -> Unit // Ne rien faire ici pour les autres états
+                        else -> Unit
                     }
                 }
             }
 
-            // Affiche un indicateur de chargement si l'état est en cours de chargement
             if (locationState is LocationState.Loading) {
                 CircularProgressIndicator(
                     modifier = Modifier
@@ -118,7 +116,6 @@ fun MapScreen(
                 )
             }
 
-            // Affiche un message d'erreur si nécessaire
             if (locationState is LocationState.Error) {
                 Text(
                     text = locationState.message,

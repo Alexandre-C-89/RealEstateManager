@@ -23,7 +23,8 @@ fun HomeRoute(
     onPropertyClick: (Int) -> Unit,
     onHomeClick: () -> Unit,
     onMapClick: () -> Unit,
-    onSearchClick: () -> Unit
+    onSearchClick: () -> Unit,
+    onLendClick: () -> Unit
 ) {
     HomeScreen(
         viewModel = viewModel,
@@ -33,6 +34,7 @@ fun HomeRoute(
         onPropertyClick = onPropertyClick,
         onHomeClick = onHomeClick,
         onMapClick = onMapClick,
+        onLendClick = onLendClick,
     )
 }
 
@@ -46,6 +48,7 @@ fun HomeScreen(
     onMapClick: () -> Unit,
     onEditClick: () -> Unit,
     onSearchClick: () -> Unit,
+    onLendClick: () -> Unit,
     onPropertyClick: (Int) -> Unit
 ) {
     val uiState = viewModel.uiState
@@ -54,6 +57,7 @@ fun HomeScreen(
         topBar = {
             TopBar(
                 onNavigationClick = onMenuClick,
+                onLendClick = onLendClick,
                 onEditClick = onEditClick,
                 onSearchClick = onSearchClick,
             )

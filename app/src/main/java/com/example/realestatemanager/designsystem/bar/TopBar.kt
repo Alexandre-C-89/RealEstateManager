@@ -25,6 +25,7 @@ import com.example.realestatemanager.designsystem.White
 import com.example.realestatemanager.designsystem.button.AddIconButton
 import com.example.realestatemanager.designsystem.button.BackIconButton
 import com.example.realestatemanager.designsystem.button.EditIconButton
+import com.example.realestatemanager.designsystem.button.LendIconButton
 import com.example.realestatemanager.designsystem.button.MapIconButton
 import com.example.realestatemanager.designsystem.button.MenuIconButton
 import com.example.realestatemanager.designsystem.button.SearchIconButton
@@ -39,6 +40,7 @@ fun TopBar(
     onEditClick: (() -> Unit)? = null,
     onSearchClick: (() -> Unit)? = null,
     onBackClick: (() -> Unit)? = null,
+    onLendClick: (() -> Unit)? = null,
 ) {
     Surface {
         TopAppBar(
@@ -95,6 +97,11 @@ fun TopBar(
                 Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
                     onSearchClick?.let {
                         SearchIconButton { onSearchClick() }
+                    }
+                }
+                Box(modifier = Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
+                    onLendClick?.let {
+                        LendIconButton { onLendClick() }
                     }
                 }
             },

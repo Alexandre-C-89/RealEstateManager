@@ -8,21 +8,33 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.example.realestatemanager.designsystem.DarkBlue
+import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.fonts
 
-object Title {
-
+object Text {
     @Composable
     fun Big(text: String) = Text(
         modifier = Modifier.fillMaxWidth(),
         text = text,
         style = TextStyle(
-            fontSize = 20.sp,
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = fonts,
+            textAlign = TextAlign.Start,
+            color = Black
+        )
+    )
+
+    @Composable
+    fun Large(text: String) = Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = text,
+        style = TextStyle(
+            fontSize = 22.sp,
             fontWeight = FontWeight.Medium,
             fontFamily = fonts,
             textAlign = TextAlign.Start,
-            color = DarkBlue
+            color = Black
         )
     )
 
@@ -35,7 +47,7 @@ object Title {
             fontWeight = FontWeight.Medium,
             fontFamily = fonts,
             textAlign = TextAlign.Start,
-            color = DarkBlue
+            color = Black
         )
     )
 
@@ -44,11 +56,24 @@ object Title {
         modifier = Modifier.fillMaxWidth(),
         text = text,
         style = TextStyle(
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
             fontFamily = fonts,
             textAlign = TextAlign.Start,
-            color = DarkBlue
+            color = Black
+        )
+    )
+
+    @Composable
+    fun Small(text: String) = Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = text,
+        style = TextStyle(
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = fonts,
+            textAlign = TextAlign.Start,
+            color = Black
         )
     )
 

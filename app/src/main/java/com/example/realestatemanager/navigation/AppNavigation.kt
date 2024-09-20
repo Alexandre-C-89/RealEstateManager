@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.realestatemanager.feature.details.DetailsRoute
 import com.example.realestatemanager.feature.edit.EditRoute
+import com.example.realestatemanager.feature.lend.LendRoute
 import com.example.realestatemanager.feature.main.HomeRoute
 import com.example.realestatemanager.feature.map.MapRoute
 import com.example.realestatemanager.feature.search.SearchRoute
@@ -29,7 +30,8 @@ fun AppNavigation() {
                     navController.navigate("details/$propertyId")
                 },
                 onMapClick = { navController.navigate(Screen.MapRoute.route) },
-                onSearchClick = { navController.navigate(Screen.SearchRoute.route) }
+                onSearchClick = { navController.navigate(Screen.SearchRoute.route) },
+                onLendClick = { navController.navigate(Screen.LendRoute.route) }
             )
         }
         composable(
@@ -68,6 +70,11 @@ fun AppNavigation() {
         }
         composable(route = Screen.SearchRoute.route) {
             SearchRoute(
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+        composable(route = Screen.LendRoute.route) {
+            LendRoute(
                 onBackClick = { navController.popBackStack() }
             )
         }
