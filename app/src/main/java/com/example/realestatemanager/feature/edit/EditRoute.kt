@@ -1,9 +1,14 @@
 package com.example.realestatemanager.feature.edit
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -29,16 +34,27 @@ fun EditRoute(
     onBackClick: () -> Unit,
     viewModel: EditViewModel = hiltViewModel(),
 ) {
+
     val uiData by viewModel.data.collectAsStateWithLifecycle()
+    // Utilisation de ActivityResultLauncher pour sélectionner une image
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            viewModel.onImageChanged(it.toString()) // Utilise l'URI pour l'image sélectionnée
+        }
+    }
+
     EditScreen(
         onBackClick = onBackClick,
         onSaveClick = { viewModel.saveProperty(onBackClick) },
+        onPickImageClick = { launcher.launch("image/*") },
         data = uiData,
         onTypeChanged = { viewModel.onTypeChanged(it) },
         onPriceChanged = { viewModel.onPriceChanged(it) },
         onSurfaceChanged = { viewModel.onSurfaceChanged(it) },
         onRoomChanged = { viewModel.onRoomChanged(it) },
-        onImageChanged = { viewModel.onImageChanged(it) },
+        //onImageChanged = { viewModel.onImageChanged(it) },
         onDescriptionChanged = { viewModel.onDescritpionChanged(it) },
         onAddressChanged = { viewModel.onAddressChanged(it) },
         onInterestChanged = { viewModel.onInterestChanged(it) },
@@ -54,12 +70,13 @@ fun EditRoute(
 fun EditScreen(
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
+    onPickImageClick: () -> Unit,
     data: EditUiData,
     onTypeChanged: (TextFieldValue) -> Unit,
     onPriceChanged: (TextFieldValue) -> Unit,
     onSurfaceChanged: (TextFieldValue) -> Unit,
     onRoomChanged: (TextFieldValue) -> Unit,
-    onImageChanged: (TextFieldValue) -> Unit,
+    //onImageChanged: (TextFieldValue) -> Unit,
     onDescriptionChanged: (TextFieldValue) -> Unit,
     onAddressChanged: (TextFieldValue) -> Unit,
     onInterestChanged: (TextFieldValue) -> Unit,
@@ -120,12 +137,20 @@ fun EditScreen(
                         label = "Room",
                         onValueChange = onRoomChanged
                     )
-                    FormTextField(
+                    Button(
+                        modifier = Modifier
+                            .width(200.dp)
+                            .height(60.dp),
+                        onClick = onPickImageClick
+                    ) {
+                        Text(text = "Select image")
+                    }
+                    /*FormTextField(
                         textValue = data.image,
                         hint = "Image",
                         label = "Image",
                         onValueChange = onImageChanged
-                    )
+                    )*/
                     FormTextField(
                         textValue = data.description,
                         hint = "Description",
@@ -171,7 +196,7 @@ fun EditScreen(
 
                     Spacer.Vertical.Default()
 
-                    Button(onClick = onSaveClick ) {
+                    Button(onClick = onSaveClick) {
                         Text(text = "save")
                     }
                 }

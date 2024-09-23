@@ -36,7 +36,7 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(room = value)
     }
 
-    fun onImageChanged(value: TextFieldValue) {
+    fun onImageChanged(value: String) {
         _data.value = data.value.copy(image = value)
     }
 
@@ -77,7 +77,7 @@ class EditViewModel @Inject constructor(
                     price = _data.value.price.text.toDouble(),
                     surface = _data.value.surface.text.toInt(),
                     room = _data.value.room.text.toInt(),
-                    image = _data.value.image.text,
+                    image = _data.value.image,
                     description = _data.value.description.text,
                     address = _data.value.address.text,
                     interest = _data.value.interest.text,

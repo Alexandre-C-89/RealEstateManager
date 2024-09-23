@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -22,12 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.compose.rememberImagePainter
 import com.example.realestatemanager.R
 import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.LightBlue
-import com.example.realestatemanager.designsystem.LightGrey
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
-import com.example.realestatemanager.designsystem.White
 import com.example.realestatemanager.designsystem.fonts
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.text.Text
@@ -35,10 +36,13 @@ import com.example.realestatemanager.designsystem.ui.text.Text
 @Composable
 fun CardWithImage(
     onClick: () -> Unit,
+    imageUri: String?,
     type: String,
     location: String,
     price: String
 ) {
+    //val painter = imageUri
+
     Card(
         modifier = Modifier
             .height(120.dp)
@@ -49,12 +53,27 @@ fun CardWithImage(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
+            imageUri?.let {
+                AsyncImage(
+                    modifier = Modifier.width(100.dp),
+                    model = imageUri,
+                    contentDescription = "Image of property",
+                    contentScale = ContentScale.Crop
+                )
+            } ?: run {
+                Image(
+                    modifier = Modifier.width(100.dp),
+                    painter = painterResource(id = R.drawable.ic_error),
+                    contentDescription = "Placeholder image",
+                    contentScale = ContentScale.Crop
+                )
+            }
+            /*Image(
                 modifier = Modifier.width(100.dp),
                 painter = painterResource(id = R.drawable.tv_lounge),
                 contentDescription = "Image",
                 contentScale = ContentScale.Crop
-            )
+            )*/
             Spacer.Horizontal.Default()
             Column(
                 verticalArrangement = Arrangement.Center
@@ -95,7 +114,8 @@ fun CardWithImagePreview() {
             onClick = {},
             type = "Duplex",
             location = "Brooklyn",
-            price = "€41,480,000"
+            price = "€41,480,000",
+            imageUri = ""
         )
     }
 }

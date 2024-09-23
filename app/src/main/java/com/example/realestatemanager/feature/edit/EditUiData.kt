@@ -7,7 +7,7 @@ data class EditUiData(
     val price: TextFieldValue = TextFieldValue(),
     val surface: TextFieldValue = TextFieldValue(),
     val room: TextFieldValue = TextFieldValue(),
-    val image: TextFieldValue = TextFieldValue(),
+    val image: String = "",
     val description: TextFieldValue = TextFieldValue(),
     val address: TextFieldValue = TextFieldValue(),
     val interest: TextFieldValue = TextFieldValue(),

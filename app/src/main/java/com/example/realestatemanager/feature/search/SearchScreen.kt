@@ -138,7 +138,8 @@ fun SearchScreen(
                                 location = property.address ?: "",
                                 price = property.price.toString(),
                                 type = property.type ?: "",
-                                onClick = {}
+                                onClick = {},
+                                imageUri = property.image
                             )
                         }
                     }
