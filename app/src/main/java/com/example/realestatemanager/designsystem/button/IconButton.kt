@@ -113,3 +113,15 @@ fun ModifyIconButton(
         )
     }
 }
+
+@Composable
+fun DeleteIconButton(
+    onClick: () -> Unit
+){
+    IconButton(onClick = { onClick() }) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_delete),
+            contentDescription = "modify button"
+        )
+    }
+}

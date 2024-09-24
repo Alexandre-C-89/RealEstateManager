@@ -19,8 +19,8 @@ class PropertyRepositoryImpl @Inject constructor(
         return appDatabase.propertyDao.insertFake(propertyEntity)
     }
 
-    override suspend fun delete(propertyEntity: PropertyEntity): Flow<PropertyEntity> {
-        TODO("Not yet implemented")
+    override suspend fun delete(propertyId: Int) {
+        return appDatabase.propertyDao.delete(propertyId)
     }
 
     override suspend fun update(propertyEntity: PropertyEntity) {

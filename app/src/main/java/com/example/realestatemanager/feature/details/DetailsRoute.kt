@@ -89,6 +89,7 @@ fun DetailsRoute(
             propertyEntity = it,
             onBackClick = onBackClick,
             onModifyClick = onModifyClick,
+            onDeleteClick = { viewModel.deleteProperty(propertyId, onBackClick) },
             latitude = latitude ?: it.latitude ?: 0.0,
             longitude = longitude ?: it.longitude ?: 0.0
         )
@@ -108,6 +109,7 @@ fun DetailsScreen(
     propertyEntity: PropertyEntity,
     onBackClick: () -> Unit,
     onModifyClick: (Int) -> Unit,
+    onDeleteClick: (Int) -> Unit,
     latitude: Double,
     longitude: Double
 ) {
@@ -126,7 +128,8 @@ fun DetailsScreen(
         topBar = {
             TopBar(
                 onBackClick = onBackClick,
-                onModifyClick = { propertyEntity.id?.let { onModifyClick(it) } }
+                onModifyClick = { propertyEntity.id?.let { onModifyClick(it) } },
+                onDeleteClick = { propertyEntity.id?.let { onDeleteClick(it) } }
             )
         }
     ) {

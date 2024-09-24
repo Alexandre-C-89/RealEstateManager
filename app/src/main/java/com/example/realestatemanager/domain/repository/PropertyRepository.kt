@@ -10,7 +10,7 @@ interface PropertyRepository {
 
     suspend fun insertFake(propertyEntity: PropertyEntity)
 
-    suspend fun delete(propertyEntity: PropertyEntity): Flow<PropertyEntity>
+    suspend fun delete(propertyId: Int)
 
     suspend fun update(propertyEntity: PropertyEntity)
 

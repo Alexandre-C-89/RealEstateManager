@@ -22,8 +22,8 @@ interface PropertyDao {
     @Update
     suspend fun update(propertyEntity: PropertyEntity)
 
-    @Delete
-    suspend fun delete(propertyEntity: PropertyEntity)
+    @Query("DELETE FROM properties WHERE id = :propertyId")
+    suspend fun delete(propertyId: Int)
 
     @Query("SELECT * from properties ORDER BY type ASC")
     fun getAllProperties(): Flow<List<PropertyEntity>>

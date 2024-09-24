@@ -1,5 +1,6 @@
 package com.example.realestatemanager.feature.details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realestatemanager.data.local.property.PropertyEntity
@@ -45,6 +46,18 @@ class DetailsViewModel @Inject constructor(
                         _locationState.value = LocationState.Error("Could not fetch coordinates")
                     }
                 }
+        }
+    }
+
+    fun deleteProperty(propertyId: Int, onSuccess:() -> Unit){
+        viewModelScope.launch {
+            try {
+                repository.delete(propertyId)
+                Log.d("DetailsViewModel", "Property deleted successfully.")
+                onSuccess()
+            } catch (e: Exception){
+                Log.e("DetailsViewModel", "Error deleting property: ${e.message}")
+            }
         }
     }
 
