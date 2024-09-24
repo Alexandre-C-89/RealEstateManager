@@ -32,6 +32,7 @@ import com.example.realestatemanager.designsystem.ui.Default
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.Spacings
 import com.example.realestatemanager.feature.details.model.LocationState
+import com.example.realestatemanager.navigation.Screen
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -41,6 +42,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun DetailsRoute(
     onBackClick: () -> Unit,
+    onModifyClick: (Int) -> Unit,
     propertyId: Int,
     viewModel: DetailsViewModel = hiltViewModel(),
 ) {
@@ -86,6 +88,7 @@ fun DetailsRoute(
         DetailsScreen(
             propertyEntity = it,
             onBackClick = onBackClick,
+            onModifyClick = onModifyClick,
             latitude = latitude ?: it.latitude ?: 0.0,
             longitude = longitude ?: it.longitude ?: 0.0
         )
@@ -104,24 +107,26 @@ fun DetailsRoute(
 fun DetailsScreen(
     propertyEntity: PropertyEntity,
     onBackClick: () -> Unit,
+    onModifyClick: (Int) -> Unit,
     latitude: Double,
     longitude: Double
 ) {
-    /*val images = listOf(
-        R.drawable.lounge,
-        R.drawable.tv_lounge,
-        R.drawable.dining_room
-    )*/
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 15f)
     }
     LaunchedEffect(latitude, longitude) {
-        cameraPositionState.move(CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), 15f))
+        cameraPositionState.move(
+            CameraUpdateFactory.newLatLngZoom(
+                LatLng(latitude, longitude),
+                15f
+            )
+        )
     }
     AppScaffold(
         topBar = {
             TopBar(
-                onBackClick = onBackClick
+                onBackClick = onBackClick,
+                onModifyClick = { propertyEntity.id?.let { onModifyClick(it) } }
             )
         }
     ) {

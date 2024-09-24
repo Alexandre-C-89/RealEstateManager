@@ -23,8 +23,8 @@ class PropertyRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun update(propertyEntity: PropertyEntity): Flow<PropertyEntity> {
-        TODO("Not yet implemented")
+    override suspend fun update(propertyEntity: PropertyEntity) {
+        return appDatabase.propertyDao.update(propertyEntity)
     }
 
     override fun getAllProperties(): Flow<List<PropertyEntity>> {

@@ -101,3 +101,15 @@ fun LendIconButton(
         )
     }
 }
+
+@Composable
+fun ModifyIconButton(
+    onClick: () -> Unit
+){
+    IconButton(onClick = { onClick() }) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_lend),
+            contentDescription = "modify button"
+        )
+    }
+}

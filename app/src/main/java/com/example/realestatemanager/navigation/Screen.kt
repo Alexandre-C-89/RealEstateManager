@@ -7,4 +7,5 @@ sealed class Screen(val route: String) {
     object MapRoute: Screen(route = "Map")
     object SearchRoute: Screen(route = "Search")
     object LendRoute: Screen(route = "Lend")
+    object ModifyRoute: Screen(route = "Modify")
 }

@@ -1,15 +1,20 @@
 package com.example.realestatemanager.feature.lend
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -52,6 +57,9 @@ fun LendScreen(
     onDurationChanged: (TextFieldValue) -> Unit,
     onCalculateClick: () -> Unit
 ) {
+
+    val focusManager = LocalFocusManager.current
+
     AppScaffold(
         topBar = {
             TopBar(
@@ -66,30 +74,70 @@ fun LendScreen(
             Title.Default(text = "Choose option for lend")
             Spacer.Vertical.Default()
             FormTextField(
-                textValue = data.totalLoanAmount,
-                hint = "total loan amount",
-                label = "Total loan amount : ",
-                onValueChange = onTotalLoanAmountChanged
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(40.dp),
+                value = data.totalLoanAmount,
+                title = "total loan amount",
+                onValueChange = onTotalLoanAmountChanged,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
             FormTextField(
-                textValue = data.contribution,
-                hint = "contribution",
-                label = "Contribution",
-                onValueChange = onContributionChanged
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(40.dp),
+                value = data.contribution,
+                title = "contribution",
+                onValueChange = onContributionChanged,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
             Spacer.Horizontal.Default()
             FormTextField(
-                textValue = data.rate,
-                hint = "rate",
-                label = "Rate",
-                onValueChange = onRateChanged
+                modifier = Modifier
+                    .width(50.dp)
+                    .height(40.dp),
+                value = data.rate,
+                title = "rate",
+                onValueChange = onRateChanged,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
             Spacer.Vertical.Small()
             FormTextField(
-                textValue = data.duration,
-                hint = "duration",
-                label = "Duration",
-                onValueChange = onDurationChanged
+                modifier = Modifier
+                    .width(50.dp)
+                    .height(40.dp),
+                value = data.duration,
+                title = "duration",
+                onValueChange = onDurationChanged,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
             Spacer.Vertical.Medium()
             Button(

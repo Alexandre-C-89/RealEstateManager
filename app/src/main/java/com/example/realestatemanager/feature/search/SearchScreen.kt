@@ -6,9 +6,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,7 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -64,6 +70,9 @@ fun SearchScreen(
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
 ) {
+
+    val focusManager = LocalFocusManager.current
+
     AppScaffold(
         topBar = {
             TopBar(
@@ -86,28 +95,68 @@ fun SearchScreen(
             )
             Spacer.Vertical.Default()
             FormTextField(
-                title = "Minimum Price",
-                textValue = data.priceMin,
-                label = { Text.Small(text = "Price Min.") },
-                onValueChange = onPriceMinChanged
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp),
+                value = data.priceMin,
+                title = "Price Min.",
+                onValueChange = onPriceMinChanged,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
             FormTextField(
-                title = "Maximum Price",
-                textValue = data.priceMax,
-                label = { Text.Small(text = "Price Max.") },
-                onValueChange = onPriceMaxChanged
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp),
+                title = "Price Max.",
+                value = data.priceMax,
+                onValueChange = onPriceMaxChanged,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
             FormTextField(
-                title = "Minimum Surface",
-                textValue = data.surfaceMin,
-                label = { Text.Small(text = "Surface Min.") },
-                onValueChange = onSurfaceMinChanged
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp),
+                title = "Surface Min.",
+                value = data.surfaceMin,
+                onValueChange = onSurfaceMinChanged,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
             FormTextField(
-                title = "Maximum Surface",
-                textValue = data.surfaceMax,
-                label = { Text.Small(text = "Surface Max.") },
-                onValueChange = onSurfaceMaxChanged
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp),
+                title = "Surface Max.",
+                value = data.surfaceMax,
+                onValueChange = onSurfaceMaxChanged,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                    }
+                )
             )
             Button(
                 modifier = Modifier.height(30.dp),

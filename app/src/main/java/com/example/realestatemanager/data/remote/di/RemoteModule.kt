@@ -1,5 +1,6 @@
 package com.example.realestatemanager.data.remote.di
 
+import com.example.realestatemanager.data.local.property.PropertyMapper
 import com.example.realestatemanager.data.remote.location.LocationApi
 import dagger.Module
 import dagger.Provides
@@ -61,6 +62,11 @@ class RemoteModule {
     @Singleton
     fun provideLocationApi(retrofit: Retrofit) : LocationApi {
         return retrofit.create(LocationApi::class.java)
+    }
+
+    @Provides
+    fun providePropertyMapper(): PropertyMapper{
+        return PropertyMapper()
     }
 
     companion object {

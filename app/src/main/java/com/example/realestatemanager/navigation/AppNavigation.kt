@@ -12,6 +12,7 @@ import com.example.realestatemanager.feature.edit.EditRoute
 import com.example.realestatemanager.feature.lend.LendRoute
 import com.example.realestatemanager.feature.main.HomeRoute
 import com.example.realestatemanager.feature.map.MapRoute
+import com.example.realestatemanager.feature.modify.ModifyRoute
 import com.example.realestatemanager.feature.search.SearchRoute
 
 @Composable
@@ -45,6 +46,10 @@ fun AppNavigation() {
                 DetailsRoute(
                     propertyId = propertyId,
                     onBackClick = { navController.popBackStack() },
+                    onModifyClick = { propertyId ->
+                        // Logique de navigation vers ModifyRoute en passant l'ID de la propriété
+                        navController.navigate("modify/$propertyId")
+                    }
                 )
             } else {
                 Log.e("AppNavigation", "propertyId is null")
@@ -52,6 +57,7 @@ fun AppNavigation() {
                 DetailsRoute(
                     propertyId = 0,
                     onBackClick = { navController.popBackStack() },
+                    onModifyClick = { navController.navigate(Screen.ModifyRoute.route) }
                 ) // Default value or navigate to an error screen
             }
         }
@@ -77,6 +83,25 @@ fun AppNavigation() {
             LendRoute(
                 onBackClick = { navController.popBackStack() }
             )
+        }
+        composable(
+            route = Screen.ModifyRoute.route + "/{propertyId}",
+            arguments = listOf(navArgument("propertyId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val propertyId = backStackEntry.arguments?.getInt("propertyId")
+            Log.d("AppNavigation", "Navigating to Modify with ID: $propertyId")
+            if (propertyId != null) {
+                ModifyRoute(
+                    propertyId = propertyId,
+                    onBackClick = { navController.popBackStack() },
+                )
+            } else {
+                Log.e("AppNavigation", "propertyId is null")
+                ModifyRoute(
+                    propertyId = 0,
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
         }
     }
 }

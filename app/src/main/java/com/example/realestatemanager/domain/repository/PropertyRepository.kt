@@ -12,7 +12,7 @@ interface PropertyRepository {
 
     suspend fun delete(propertyEntity: PropertyEntity): Flow<PropertyEntity>
 
-    suspend fun update(propertyEntity: PropertyEntity): Flow<PropertyEntity>
+    suspend fun update(propertyEntity: PropertyEntity)
 
     fun getAllProperties(): Flow<List<PropertyEntity>>
 
