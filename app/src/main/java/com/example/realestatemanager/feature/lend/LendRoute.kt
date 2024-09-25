@@ -22,6 +22,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.BottomBar
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.designsystem.button.AppButton
 import com.example.realestatemanager.designsystem.textfield.FormTextField
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.text.Text
@@ -69,7 +70,9 @@ fun LendScreen(
         bottomBar = { BottomBar() }
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(8.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp)
         ) {
             Title.Default(text = "Choose option for lend")
             Spacer.Vertical.Default()
@@ -140,11 +143,7 @@ fun LendScreen(
                 )
             )
             Spacer.Vertical.Medium()
-            Button(
-                onClick = onCalculateClick
-            ) {
-                Text.Default("Calculate")
-            }
+            AppButton(onClick = onCalculateClick, text = "Calculate")
             Spacer.Vertical.Large()
             Text.Default(text = "Your lend = ${data.result}")
         }

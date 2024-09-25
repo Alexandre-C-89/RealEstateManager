@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.designsystem.button.AppButton
 import com.example.realestatemanager.designsystem.textfield.FormTextField
 import com.example.realestatemanager.designsystem.ui.Spacer
 
@@ -176,12 +177,10 @@ fun EditScreen(
                             }
                         )
                     )
-                    Button(
-                        modifier = Modifier.width(200.dp),
-                        onClick = onPickImageClick
-                    ) {
-                        Text(text = "Select image")
-                    }
+                    AppButton(
+                        onClick = onPickImageClick,
+                        text = "Select image"
+                    )
                     FormTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = data.description,
@@ -283,9 +282,10 @@ fun EditScreen(
 
                     Spacer.Vertical.Default()
 
-                    Button(onClick = onSaveClick) {
-                        Text(text = "save")
-                    }
+                    AppButton(
+                        onClick = onSaveClick,
+                        text = "Save"
+                    )
                 }
             }
         }

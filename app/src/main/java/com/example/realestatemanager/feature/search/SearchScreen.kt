@@ -33,6 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.BottomBar
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.designsystem.button.AppButton
 import com.example.realestatemanager.designsystem.card.CardWithImage
 import com.example.realestatemanager.designsystem.card.ErrorCard
 import com.example.realestatemanager.designsystem.textfield.FormTextField
@@ -158,12 +159,10 @@ fun SearchScreen(
                     }
                 )
             )
-            Button(
-                modifier = Modifier.height(30.dp),
-                onClick = onSaveClick
-            ){
-                Text(text = "Search")
-            }
+            AppButton(
+                onClick = onSaveClick,
+                text = "Search"
+            )
 
             Spacer.Vertical.Medium()
 

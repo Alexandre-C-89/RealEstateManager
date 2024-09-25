@@ -39,6 +39,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.designsystem.button.AppButton
 import com.example.realestatemanager.designsystem.textfield.FormTextField
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.feature.modify.model.ModifyUiData
@@ -285,20 +286,9 @@ fun ModifyScreen(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Button(
-                    onClick = onPickImageClick,
-                ) {
-                    Text(text = "Modify image")
-                }
+                AppButton(onClick = onPickImageClick, text = "Modify image")
                 Spacer.Horizontal.Default()
-                Button(
-                    modifier = Modifier
-                        .width(150.dp)
-                        .height(60.dp), shape = RoundedCornerShape(6.dp),
-                    onClick = onSaveClick
-                ) {
-                    Text(text = "Save")
-                }
+                AppButton(onClick = onSaveClick, text = "Save")
             }
         }
     }
