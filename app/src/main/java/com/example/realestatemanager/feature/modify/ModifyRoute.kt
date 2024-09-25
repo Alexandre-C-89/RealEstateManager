@@ -120,165 +120,66 @@ fun ModifyScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Type",
+                label = { Text("Type") },
                 value = data.type,
-                onValueChange = { newValue -> onTypeChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onTypeChanged(newValue) }
             )
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Price",
+                label = { Text("Price") },
                 value = data.price,
-                onValueChange = { newValue -> onPriceChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onPriceChanged(newValue) }
             )
             Spacer.Vertical.Default()
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Surface",
+                label = { Text("Surface") },
                 value = data.surface,
-                onValueChange = { newValue -> onSurfaceChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onSurfaceChanged(newValue) }
             )
             Spacer.Horizontal.Default()
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Room",
+                label = { Text("Room") },
                 value = data.room,
-                onValueChange = { newValue -> onRoomChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onRoomChanged(newValue) }
             )
             Spacer.Vertical.Default()
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Description",
+                label = { Text("Description") },
                 value = data.description,
-                onValueChange = { newValue -> onDescriptionChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onDescriptionChanged(newValue) }
             )
             Spacer.Vertical.Default()
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Address",
+                label = { Text("Address") },
                 value = data.address,
-                onValueChange = { newValue -> onAddressChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onAddressChanged(newValue) }
             )
             Spacer.Vertical.Default()
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "interest",
+                label = { Text("Interest") },
                 value = data.interest,
-                onValueChange = { newValue -> onInterestChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onInterestChanged(newValue) }
             )
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Status",
+                label = { Text("Status") },
                 value = data.status,
-                onValueChange = { newValue -> onStatusChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onStatusChanged(newValue) }
             )
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Date of creation",
+                label = { Text("Date of creation") },
                 value = data.dateOfCreation,
-                onValueChange = { newValue -> onDateOfCreationChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onDateOfCreationChanged(newValue) }
             )
             Spacer.Horizontal.Default()
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Date of sold",
+                label = { Text("date of sold") },
                 value = data.dateOfSold,
-                onValueChange = { newValue -> onDateOfSoldChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onDateOfSoldChanged(newValue) }
             )
             Spacer.Vertical.Default()
             FormTextField(
-                modifier = Modifier.fillMaxWidth(),
-                title = "Agent",
+                label = { Text("Agent") },
                 value = data.agent,
-                onValueChange = { newValue -> onAgentChanged(newValue) },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = { newValue -> onAgentChanged(newValue) }
             )
             Spacer.Vertical.Default()
             Row(

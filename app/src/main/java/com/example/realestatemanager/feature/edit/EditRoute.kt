@@ -122,162 +122,63 @@ fun EditScreen(
                     Spacer.Vertical.Small()
 
                     FormTextField(
-                        modifier = Modifier.width(100.dp),
-                        title = "Type",
+                        label = { Text("Type") },
                         value = data.type,
-                        onValueChange = onTypeChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onTypeChanged
                     )
                     FormTextField(
-                        modifier = Modifier.width(100.dp),
-                        title = "Price",
+                        label = { Text("Price") },
                         value = data.price,
-                        onValueChange = onPriceChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onPriceChanged
                     )
                     FormTextField(
-                        modifier = Modifier.width(50.dp),
+                        label = { Text("Surface") },
                         value = data.surface,
-                        title = "Surface",
-                        onValueChange = onSurfaceChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onSurfaceChanged
                     )
                     FormTextField(
-                        modifier = Modifier.width(30.dp),
+                        label = { Text("Room") },
                         value = data.room,
-                        title = "Room",
-                        onValueChange = onRoomChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onRoomChanged
                     )
                     AppButton(
                         onClick = onPickImageClick,
                         text = "Select image"
                     )
                     FormTextField(
-                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text("Description") },
                         value = data.description,
-                        title = "Description",
-                        onValueChange = onDescriptionChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onDescriptionChanged
                     )
                     FormTextField(
-                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text("Address") },
                         value = data.address,
-                        title = "Address",
-                        onValueChange = onAddressChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onAddressChanged
                     )
                     FormTextField(
-                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text("Interest") },
                         value = data.interest,
-                        title = "Interest",
-                        onValueChange = onInterestChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onInterestChanged
                     )
                     FormTextField(
-                        modifier = Modifier.width(100.dp),
+                        label = { Text("Status") },
                         value = data.status,
-                        title = "Status",
-                        onValueChange = onStatusChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onStatusChanged
                     )
                     FormTextField(
-                        modifier = Modifier.width(100.dp),
+                        label = { Text("Date of creation") },
                         value = data.dateOfCreation,
-                        title = "Date of creation",
-                        onValueChange = onDateOfCreationChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onDateOfCreationChanged
                     )
                     FormTextField(
-                        modifier = Modifier.width(100.dp),
+                        label = { Text("Date of sold") },
                         value = data.dateOfSold,
-                        title = "Date of Sold",
-                        onValueChange = onDateOfSoldChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onDateOfSoldChanged
                     )
                     FormTextField(
-                        modifier = Modifier.width(80.dp),
+                        label = { Text("Agent") },
                         value = data.agent,
-                        title = "Agent",
-                        onValueChange = onAgentChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
-                            }
-                        )
+                        onValueChange = onAgentChanged
                     )
 
                     Spacer.Vertical.Default()

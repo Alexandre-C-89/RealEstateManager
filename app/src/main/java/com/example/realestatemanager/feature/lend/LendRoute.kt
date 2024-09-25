@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -77,70 +78,26 @@ fun LendScreen(
             Title.Default(text = "Choose option for lend")
             Spacer.Vertical.Default()
             FormTextField(
-                modifier = Modifier
-                    .width(100.dp)
-                    .height(40.dp),
+                label = { Text("Total Loan Amount") },
                 value = data.totalLoanAmount,
-                title = "total loan amount",
-                onValueChange = onTotalLoanAmountChanged,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = onTotalLoanAmountChanged
             )
             FormTextField(
-                modifier = Modifier
-                    .width(100.dp)
-                    .height(40.dp),
+                label = { Text("Contribution") },
                 value = data.contribution,
-                title = "contribution",
-                onValueChange = onContributionChanged,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = onContributionChanged
             )
             Spacer.Horizontal.Default()
             FormTextField(
-                modifier = Modifier
-                    .width(50.dp)
-                    .height(40.dp),
+                label = { Text("Rate") },
                 value = data.rate,
-                title = "rate",
-                onValueChange = onRateChanged,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = onRateChanged
             )
             Spacer.Vertical.Small()
             FormTextField(
-                modifier = Modifier
-                    .width(50.dp)
-                    .height(40.dp),
+                label = { Text("Duration") },
                 value = data.duration,
-                title = "duration",
-                onValueChange = onDurationChanged,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = onDurationChanged
             )
             Spacer.Vertical.Medium()
             AppButton(onClick = onCalculateClick, text = "Calculate")

@@ -96,68 +96,24 @@ fun SearchScreen(
             )
             Spacer.Vertical.Default()
             FormTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(40.dp),
+                label = { Text("Price min") },
                 value = data.priceMin,
-                title = "Price Min.",
-                onValueChange = onPriceMinChanged,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = onPriceMinChanged
             )
             FormTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(40.dp),
-                title = "Price Max.",
+                label = { Text("Price max") },
                 value = data.priceMax,
-                onValueChange = onPriceMaxChanged,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = onPriceMaxChanged
             )
             FormTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(40.dp),
-                title = "Surface Min.",
+                label = { Text("Surface min.") },
                 value = data.surfaceMin,
-                onValueChange = onSurfaceMinChanged,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = onSurfaceMinChanged
             )
             FormTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(40.dp),
-                title = "Surface Max.",
+                label = { Text("Surface max") },
                 value = data.surfaceMax,
-                onValueChange = onSurfaceMaxChanged,
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.moveFocus(FocusDirection.Down)
-                    }
-                )
+                onValueChange = onSurfaceMaxChanged
             )
             AppButton(
                 onClick = onSaveClick,
