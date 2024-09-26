@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -24,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import coil.compose.rememberImagePainter
 import com.example.realestatemanager.R
 import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.LightBlue
@@ -34,7 +32,7 @@ import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.text.Text
 
 @Composable
-fun CardWithImage(
+fun CardWithInfo(
     onClick: () -> Unit,
     imageUri: String?,
     type: String,
@@ -110,7 +108,7 @@ fun CardWithImage(
 @Composable
 fun CardWithImagePreview() {
     RealEstateManagerTheme {
-        CardWithImage(
+        CardWithInfo(
             onClick = {},
             type = "Duplex",
             location = "Brooklyn",

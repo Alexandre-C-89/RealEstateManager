@@ -13,7 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.BottomBar
 import com.example.realestatemanager.designsystem.bar.TopBar
-import com.example.realestatemanager.designsystem.card.CardWithImage
+import com.example.realestatemanager.designsystem.card.CardWithInfo
 
 
 @Composable
@@ -77,7 +77,7 @@ fun HomeScreen(
             items(uiState.value.currentList) { property ->
                 property.type?.let {
                     property.address?.let { it1 ->
-                        CardWithImage(
+                        CardWithInfo(
                             onClick = {
                                 property.id?.let { onPropertyClick(it) }
                             },

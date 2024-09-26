@@ -1,12 +1,21 @@
 package com.example.realestatemanager.feature.details
 
 import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -16,23 +25,33 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key.Companion.Ro
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
+import com.example.realestatemanager.R
 import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.Blue
+import com.example.realestatemanager.designsystem.Grey
+import com.example.realestatemanager.designsystem.LightGrey
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.designsystem.card.CardImage
+import com.example.realestatemanager.designsystem.card.CardWithIcon
 import com.example.realestatemanager.designsystem.fonts
 import com.example.realestatemanager.designsystem.map.GoogleMapItem
 import com.example.realestatemanager.designsystem.ui.Default
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.Spacings
 import com.example.realestatemanager.feature.details.model.LocationState
-import com.example.realestatemanager.navigation.Screen
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -134,7 +153,9 @@ fun DetailsScreen(
         }
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             Column(
                 modifier = Modifier.padding(Spacings.Default)
@@ -142,18 +163,18 @@ fun DetailsScreen(
                 Text(
                     text = "Description",
                     style = TextStyle(
-                        fontSize = 28.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         fontFamily = fonts,
                         textAlign = TextAlign.Start,
                         color = Blue
                     )
                 )
-                Spacer.Vertical.Small()
+                Spacer.Vertical.Default()
                 Text(
                     text = propertyEntity.description ?: "",
                     style = TextStyle(
-                        fontSize = 18.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Normal,
                         fontFamily = fonts,
                         textAlign = TextAlign.Start,
@@ -161,28 +182,30 @@ fun DetailsScreen(
                     )
                 )
                 Spacer.Vertical.Large()
-                Text(
-                    text = "Surface - ${propertyEntity.surface} • piece • Room - ${propertyEntity.room}",
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = fonts,
-                        textAlign = TextAlign.Start,
-                        color = Blue
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    CardWithIcon(
+                        icon = R.drawable.ic_surface,
+                        title = "Surface",
+                        info = "${propertyEntity.surface} + m²"
                     )
+                    Spacer.Horizontal.Large()
+                    CardWithIcon(
+                        icon = R.drawable.ic_bed,
+                        title = "Room",
+                        info = propertyEntity.room.toString()
+                    )
+                }
+                Spacer.Vertical.Large()
+                CardWithIcon(
+                    icon = R.drawable.ic_location,
+                    title = "Location",
+                    info = propertyEntity.address.toString()
                 )
                 Spacer.Vertical.Large()
-                Text(text = "Location")
-                Spacer.Vertical.Small()
-                Text(
-                    text = propertyEntity.address ?: "",
-                    style = TextStyle(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = fonts,
-                        textAlign = TextAlign.Start,
-                        color = Blue
-                    )
+                CardImage(
+                    imageUri = propertyEntity.image ?: ""
                 )
             }
             Spacer.Vertical.Large()

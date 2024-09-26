@@ -5,12 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,24 +17,31 @@ import com.example.realestatemanager.designsystem.RealEstateManagerTheme
 
 @Composable
 fun CardWithIcon(
-    icon: Int,
+    icon: Int? = null,
     title: String,
-    number: String
+    info: String
     ){
-    Row(
-        modifier = Modifier.width(180.dp),
-    ) {
-        Image(
-            modifier = Modifier.width(20.dp),
-            painter = painterResource(id = icon),
-            contentDescription = "Image"
-        )
+    Row{
+        if (icon != null){
+            Image(
+                modifier = Modifier.width(20.dp),
+                painter = painterResource(id = icon),
+                contentDescription = "Image"
+            )
+        } else {
+            Column(
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(text = title)
+                Text(text = info)
+            }
+        }
         Spacer(modifier = Modifier.width(12.dp))
         Column(
             verticalArrangement = Arrangement.Center
         ) {
             Text(text = title)
-            Text(text = number)
+            Text(text = info)
         }
     }
 }
@@ -49,7 +53,7 @@ fun CardWithIconPreview(){
         CardWithIcon(
             icon = R.drawable.ic_home,
             title = "Number of rooms",
-            number = "8"
+            info = "8"
         )
     }
 }
