@@ -1,5 +1,6 @@
 package com.example.realestatemanager.data.local.property
 
+import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -41,5 +42,8 @@ interface PropertyDao {
 
     @Query("SELECT address FROM properties")
     fun getAllAddresses(): Flow<List<String>>
+
+    @Query("SELECT * FROM properties")
+    fun getAllPropertiesAsCursor(): Cursor
 
 }

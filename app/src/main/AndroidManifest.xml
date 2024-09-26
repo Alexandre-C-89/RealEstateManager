@@ -30,6 +30,11 @@
         </activity>
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDYH9ZHAOFBztn1KShQNzRwXRtX0V3scqE"/>
+        <provider
+            android:name=".data.local.contentProvider.ContentProvider"
+            android:authorities="com.example.realestatemanager.provider"
+            android:exported="true" />
     </application>
+
 
 </manifest>

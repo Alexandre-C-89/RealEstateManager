@@ -1,15 +1,18 @@
 package com.example.realestatemanager.feature.main
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.bar.BottomBar
 import com.example.realestatemanager.designsystem.bar.TopBar
@@ -26,8 +29,10 @@ fun HomeRoute(
     onSearchClick: () -> Unit,
     onLendClick: () -> Unit
 ) {
+    val uiState by viewModel.properties.collectAsStateWithLifecycle()
+    Log.d("HOMEROUTE", "${uiState.currentList}")
     HomeScreen(
-        viewModel = viewModel,
+        uiState = uiState,
         onMenuClick = {},
         onEditClick = onEditClick,
         onSearchClick = onSearchClick,
@@ -42,7 +47,7 @@ fun HomeRoute(
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel,
+    uiState: UiState,
     onMenuClick: () -> Unit,
     onHomeClick: () -> Unit,
     onMapClick: () -> Unit,
@@ -51,7 +56,6 @@ fun HomeScreen(
     onLendClick: () -> Unit,
     onPropertyClick: (Int) -> Unit
 ) {
-    val uiState = viewModel.uiState
 
     AppScaffold(
         topBar = {
@@ -74,7 +78,7 @@ fun HomeScreen(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(uiState.value.currentList) { property ->
+            items(uiState.currentList) { property ->
                 property.type?.let {
                     property.address?.let { it1 ->
                         CardWithInfo(

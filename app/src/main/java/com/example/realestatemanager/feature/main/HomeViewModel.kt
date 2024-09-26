@@ -1,12 +1,19 @@
 package com.example.realestatemanager.feature.main
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realestatemanager.DISPLAY_TYPE
 import com.example.realestatemanager.data.local.property.PropertyEntity
+import com.example.realestatemanager.domain.repository.ContentProviderRepository
 import com.example.realestatemanager.domain.repository.PropertyRepository
+import com.example.realestatemanager.util.NetworkUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,11 +23,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val propertyRepository: PropertyRepository
+    private val propertyRepository: PropertyRepository,
+    private val contentProviderRepository: ContentProviderRepository,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
-    private val _properties = MutableStateFlow<List<PropertyEntity>>(emptyList())
-    val properties: StateFlow<List<PropertyEntity>> = _properties
+    private val _properties = MutableStateFlow(UiState())
+    val properties: StateFlow<UiState> = _properties
+
+    private val _propertiesOffline = MutableLiveData<List<PropertyEntity>>()
+    val propertiesOffline: LiveData<List<PropertyEntity>> = _propertiesOffline
 
     val uiState = mutableStateOf(UiState())
 
@@ -32,17 +44,30 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun getProperties() {
-        when (uiState.value.displayType) {
-            DISPLAY_TYPE.ALL -> {
-                propertyRepository.getAllProperties().collect { list ->
-                    // Use withContext(Dispatchers.Main) when modifying state used in Composable
-                    withContext(Dispatchers.Main) {
-                        uiState.value = uiState.value.copy(
-                            currentList = list
-                        )
+        if (NetworkUtil.isNetworkAvailable(context)) {
+            Log.d("HOMEVIEWMODEL", "NETWORK IS AVAILABLE")
+            when (uiState.value.displayType) {
+                DISPLAY_TYPE.ALL -> {
+                    propertyRepository.getAllProperties().collect { list ->
+                        Log.d("HOMEVIEWMODEL", "$list")
+                        withContext(Dispatchers.Main) {
+                            _properties.value = properties.value.copy(
+                                currentList = list
+                            )
+                        }
                     }
                 }
             }
+        } else {
+            Log.d("HOMEVIEWMODEL", "NETWORK IS UNAVAILABLE")
+            fetchProperties()
+        }
+    }
+
+    private fun fetchProperties() {
+        viewModelScope.launch {
+            val result = contentProviderRepository.getAllProperties()
+            _propertiesOffline.postValue(result)
         }
     }
 
