@@ -4,18 +4,17 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
+import android.util.Log
 import com.example.realestatemanager.data.local.AppDatabase
 import com.example.realestatemanager.data.local.property.PropertyDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 class ContentProvider : ContentProvider() {
 
-    private lateinit var propertyDao: PropertyDao
-
     override fun onCreate(): Boolean {
-        // Initialisation du DAO ou de la base de données Room
         val context = context ?: return false
-        //val db = AppDatabase.getInstance(context)
-        //propertyDao = db.propertyDao()
+        ContentProviderHelper.init(context)
         return true
     }
 
@@ -23,10 +22,17 @@ class ContentProvider : ContentProvider() {
         uri: Uri, projection: Array<String>?, selection: String?,
         selectionArgs: Array<String>?, sortOrder: String?
     ): Cursor? {
-        return propertyDao.getAllPropertiesAsCursor()
+        return try {
+            runBlocking(Dispatchers.IO) {
+                val propertyDao = ContentProviderHelper.getPropertyDao()
+                propertyDao.getAllPropertiesAsCursor()
+            }
+        } catch (e: Exception) {
+            Log.e("ContentProvider", "Error querying properties: ${e.message}")
+            null
+        }
     }
 
-    // Méthodes pour insert, update et delete si besoin
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
         // Implémentation pour insérer une nouvelle property
         return null
@@ -45,7 +51,6 @@ class ContentProvider : ContentProvider() {
     }
 
     override fun getType(uri: Uri): String? {
-        // Implémentation pour retourner le type MIME des données exposées
         return null
     }
 }
