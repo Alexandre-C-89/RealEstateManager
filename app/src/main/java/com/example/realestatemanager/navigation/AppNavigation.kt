@@ -2,6 +2,8 @@ package com.example.realestatemanager.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,8 +18,11 @@ import com.example.realestatemanager.feature.modify.ModifyRoute
 import com.example.realestatemanager.feature.search.SearchRoute
 
 @Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
+fun AppNavigation(
+    isExpandedScreen: Boolean,
+    navController: NavHostController
+) {
+    //val navController = rememberNavController()
 
     NavHost(
         navController = navController,
@@ -25,6 +30,7 @@ fun AppNavigation() {
     ) {
         composable(route = Screen.HomeRoute.route) {
             HomeRoute(
+                isExpandedScreen = isExpandedScreen,
                 onEditClick = { navController.navigate(Screen.EditRoute.route) },
                 onHomeClick = { navController.navigate(Screen.HomeRoute.route) },
                 onPropertyClick = { propertyId ->

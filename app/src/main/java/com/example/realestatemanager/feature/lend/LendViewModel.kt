@@ -42,7 +42,6 @@ class LendViewModel @Inject constructor(
         if (loanAmount > 0 && rateAnnual > 0 && durationYears > 0) {
             val rateMonthly = (rateAnnual / 100) / 12
             val durationMonths = durationYears * 12
-            // Calcul du paiement mensuel
             val monthlyPayment = (loanAmount * rateMonthly) / (1 - Math.pow(1 + rateMonthly, -durationMonths.toDouble()))
             val result = String.format("Monthly Payment: %.2f", monthlyPayment, " €")
             onResultChanged(result)

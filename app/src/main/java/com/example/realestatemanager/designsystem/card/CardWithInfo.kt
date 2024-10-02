@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.realestatemanager.R
@@ -39,10 +41,9 @@ fun CardWithInfo(
     location: String,
     price: String
 ) {
-    //val painter = imageUri
-
     Card(
         modifier = Modifier
+            .widthIn(min = 260.dp, max = 330.dp)
             .height(120.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(6.dp),
@@ -66,12 +67,6 @@ fun CardWithInfo(
                     contentScale = ContentScale.Crop
                 )
             }
-            /*Image(
-                modifier = Modifier.width(100.dp),
-                painter = painterResource(id = R.drawable.tv_lounge),
-                contentDescription = "Image",
-                contentScale = ContentScale.Crop
-            )*/
             Spacer.Horizontal.Default()
             Column(
                 verticalArrangement = Arrangement.Center

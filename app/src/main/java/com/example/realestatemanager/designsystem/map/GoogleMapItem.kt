@@ -18,7 +18,9 @@ fun GoogleMapItem(
 ) {
 
     GoogleMap(
-        modifier = Modifier.fillMaxWidth().height(300.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(300.dp),
         cameraPositionState = cameraPosition,
         uiSettings = MapUiSettings(zoomControlsEnabled = false)
     ) {
