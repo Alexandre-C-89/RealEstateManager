@@ -6,11 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,7 +25,9 @@ import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaf
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -72,7 +77,7 @@ fun HomeRoute(
     var longitude: Double? = uiState.selectedProperty?.longitude
 
     LaunchedEffect(uiState.selectedProperty) {
-        uiState.selectedProperty?.let {property ->
+        uiState.selectedProperty?.let { property ->
             if (property.latitude == null || property.longitude == null) {
                 property.address?.let { address ->
                     viewModel.fetchCoordinates(address)
@@ -133,8 +138,8 @@ fun HomeScreen(
     onLendClick: () -> Unit,
     onPropertyClick: (Int) -> Unit,
     onPropertyDetailsClick: (PropertyEntity) -> Unit,
-    latitude : Double,
-    longitude : Double
+    latitude: Double,
+    longitude: Double
 ) {
     /*val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 15f)
@@ -203,7 +208,10 @@ fun HomeScreen(
                                 property.address?.let { it1 ->
                                     CardWithInfo(
                                         onClick = {
-                                            navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, property)
+                                            navigator.navigateTo(
+                                                ListDetailPaneScaffoldRole.Detail,
+                                                property
+                                            )
                                         },
                                         type = it,
                                         location = it1,
@@ -217,70 +225,75 @@ fun HomeScreen(
                 },
                 detailPane = {
                     val selectedProperty = navigator.currentDestination?.content as? PropertyEntity
-                    selectedProperty?.let{ property ->
+                    selectedProperty?.let { property ->
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .verticalScroll(rememberScrollState())
                         ) {
-                            Column(
-                                modifier = Modifier.padding(Spacings.Default)
+                            Spacer.Vertical.Large()
+                            Text(
+                                text = "Description",
+                                style = TextStyle(
+                                    fontSize = 24.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = fonts,
+                                    textAlign = TextAlign.Start,
+                                    color = Blue
+                                )
+                            )
+                            Spacer.Vertical.Large()
+                            Text(
+                                text = property.description ?: "",
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Normal,
+                                    fontFamily = fonts,
+                                    textAlign = TextAlign.Start,
+                                    color = Black
+                                )
+                            )
+                            Spacer.Vertical.ExtraLarge()
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text(
-                                    text = "Description",
-                                    style = TextStyle(
-                                        fontSize = 24.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        fontFamily = fonts,
-                                        textAlign = TextAlign.Start,
-                                        color = Blue
-                                    )
+                                CardWithIcon(
+                                    icon = R.drawable.ic_surface,
+                                    title = "Surface",
+                                    info = "${property.surface} + m²"
                                 )
-                                Spacer.Vertical.Default()
-                                Text(
-                                    text = property.description ?: "",
-                                    style = TextStyle(
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.Normal,
-                                        fontFamily = fonts,
-                                        textAlign = TextAlign.Start,
-                                        color = Black
-                                    )
+                                Spacer.Horizontal.Large()
+                                CardWithIcon(
+                                    icon = R.drawable.ic_bed,
+                                    title = "Room",
+                                    info = property.room.toString()
                                 )
-                                Spacer.Vertical.Large()
-                                Row(
-                                    modifier = Modifier.fillMaxWidth()
-                                ) {
-                                    CardWithIcon(
-                                        icon = R.drawable.ic_surface,
-                                        title = "Surface",
-                                        info = "${property.surface} + m²"
-                                    )
-                                    Spacer.Horizontal.Large()
-                                    CardWithIcon(
-                                        icon = R.drawable.ic_bed,
-                                        title = "Room",
-                                        info = property.room.toString()
-                                    )
-                                }
-                                Spacer.Vertical.Large()
+                            }
+                            Spacer.Vertical.Large()
+                            CardImage(
+                                imageUri = property.image ?: ""
+                            )
+                            Spacer.Vertical.Large()
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ){
                                 CardWithIcon(
                                     icon = R.drawable.ic_location,
                                     title = "Location",
                                     info = property.address.toString()
                                 )
-                                Spacer.Vertical.Large()
-                                CardImage(
-                                    imageUri = property.image ?: ""
+                                GoogleMapItem(
+                                    modifier = Modifier
+                                        .size(300.dp)
+                                        .clip(CircleShape),
+                                    cameraPosition = CameraPositionState(
+                                        CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 15f)
+                                    ),
+                                    state = MarkerState(position = LatLng(latitude, longitude))
                                 )
                             }
-                            Spacer.Vertical.Large()
-                            GoogleMapItem(
-                                cameraPosition = CameraPositionState(
-                                    CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 15f)
-                                ),
-                                state = MarkerState(position = LatLng(latitude, longitude))
-                            )
                         }
                     }
                 }

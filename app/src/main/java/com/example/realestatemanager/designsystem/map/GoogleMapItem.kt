@@ -13,14 +13,13 @@ import com.google.maps.android.compose.MarkerState
 
 @Composable
 fun GoogleMapItem(
+    modifier: Modifier,
     cameraPosition: CameraPositionState,
     state: MarkerState
 ) {
 
     GoogleMap(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp),
+        modifier = modifier,
         cameraPositionState = cameraPosition,
         uiSettings = MapUiSettings(zoomControlsEnabled = false)
     ) {

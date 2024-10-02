@@ -210,6 +210,9 @@ fun DetailsScreen(
             }
             Spacer.Vertical.Large()
             GoogleMapItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
                 cameraPosition = cameraPositionState,
                 state = MarkerState(position = LatLng(latitude, longitude))
             )
