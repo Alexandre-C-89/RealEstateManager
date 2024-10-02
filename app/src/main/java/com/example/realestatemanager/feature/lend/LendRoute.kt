@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,6 +23,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -80,7 +82,7 @@ fun LendScreen(
         },
         bottomBar = { BottomBar() }
     ) {
-        if (!isExpandedScreen){
+        if (!isExpandedScreen) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -153,10 +155,17 @@ fun LendScreen(
             }
         } else {
             Column(
-                Modifier.fillMaxSize().padding(16.dp),
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Title.Default(text = "Choose option for lend")
+                Text(
+                    text = "Enter your option for lend",
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    fontSize = 22.sp
+                )
                 Spacer.Vertical.Medium()
                 Row(
                     modifier = Modifier.fillMaxWidth(),
