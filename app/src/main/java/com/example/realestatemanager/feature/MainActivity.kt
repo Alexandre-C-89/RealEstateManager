@@ -21,7 +21,6 @@ class MainActivity : ComponentActivity() {
             RealEstateManagerTheme {
                 val widthSizeClass = calculateWindowSizeClass(this).widthSizeClass
                 RealEstateManagerApp(widthSizeClass)
-                //AppNavigation()
             }
         }
     }

@@ -1,7 +1,10 @@
 package com.example.realestatemanager.feature.lend
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -32,12 +35,14 @@ import com.example.realestatemanager.feature.lend.model.LendUiData
 
 @Composable
 fun LendRoute(
+    isExpandedScreen: Boolean,
     viewModel: LendViewModel = hiltViewModel(),
     onBackClick: () -> Unit
 ) {
     val uiData by viewModel.data.collectAsStateWithLifecycle()
 
     LendScreen(
+        isExpandedScreen = isExpandedScreen,
         data = uiData,
         onBackClick = onBackClick,
         onTotalLoanAmountChanged = { viewModel.onTotalLoanAmountChanged(it) },
@@ -51,6 +56,7 @@ fun LendRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LendScreen(
+    isExpandedScreen: Boolean,
     data: LendUiData,
     onBackClick: () -> Unit,
     onTotalLoanAmountChanged: (TextFieldValue) -> Unit,
@@ -70,39 +76,147 @@ fun LendScreen(
         },
         bottomBar = { BottomBar() }
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
-        ) {
-            Title.Default(text = "Choose option for lend")
-            Spacer.Vertical.Default()
-            FormTextField(
-                label = { Text("Total Loan Amount") },
-                value = data.totalLoanAmount,
-                onValueChange = onTotalLoanAmountChanged
-            )
-            FormTextField(
-                label = { Text("Contribution") },
-                value = data.contribution,
-                onValueChange = onContributionChanged
-            )
-            Spacer.Horizontal.Default()
-            FormTextField(
-                label = { Text("Rate") },
-                value = data.rate,
-                onValueChange = onRateChanged
-            )
-            Spacer.Vertical.Small()
-            FormTextField(
-                label = { Text("Duration") },
-                value = data.duration,
-                onValueChange = onDurationChanged
-            )
-            Spacer.Vertical.Medium()
-            AppButton(onClick = onCalculateClick, text = "Calculate")
-            Spacer.Vertical.Large()
-            Text.Default(text = "Your lend = ${data.result}")
+        if (!isExpandedScreen){
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+            ) {
+                Title.Default(text = "Choose option for lend")
+                Spacer.Vertical.Default()
+                FormTextField(
+                    modifier = Modifier,
+                    label = { Text("Total Loan Amount") },
+                    value = data.totalLoanAmount,
+                    onValueChange = onTotalLoanAmountChanged,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+                FormTextField(
+                    modifier = Modifier,
+                    label = { Text("Contribution") },
+                    value = data.contribution,
+                    onValueChange = onContributionChanged,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+                Spacer.Horizontal.Default()
+                FormTextField(
+                    modifier = Modifier,
+                    label = { Text("Rate") },
+                    value = data.rate,
+                    onValueChange = onRateChanged,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+                Spacer.Vertical.Small()
+                FormTextField(
+                    modifier = Modifier,
+                    label = { Text("Duration") },
+                    value = data.duration,
+                    onValueChange = onDurationChanged,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+                Spacer.Vertical.Medium()
+                AppButton(onClick = onCalculateClick, text = "Calculate")
+                Spacer.Vertical.Large()
+                Text.Default(text = "Your lend = ${data.result}")
+            }
+        } else {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Title.Default(text = "Choose option for lend")
+                Spacer.Vertical.Default()
+                FormTextField(
+                    modifier = Modifier.width(150.dp),
+                    label = { Text("Total Loan Amount") },
+                    value = data.totalLoanAmount,
+                    onValueChange = onTotalLoanAmountChanged,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+                FormTextField(
+                    modifier = Modifier.width(150.dp),
+                    label = { Text("Contribution") },
+                    value = data.contribution,
+                    onValueChange = onContributionChanged,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+                Spacer.Horizontal.Default()
+                FormTextField(
+                    modifier = Modifier.width(150.dp),
+                    label = { Text("Rate") },
+                    value = data.rate,
+                    onValueChange = onRateChanged,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+                Spacer.Vertical.Small()
+                FormTextField(
+                    modifier = Modifier.width(150.dp),
+                    label = { Text("Duration") },
+                    value = data.duration,
+                    onValueChange = onDurationChanged,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    )
+                )
+                Spacer.Vertical.Medium()
+                AppButton(onClick = onCalculateClick, text = "Calculate")
+                Spacer.Vertical.Large()
+                Text.Default(text = "Your lend = ${data.result}")
+            }
         }
     }
 }

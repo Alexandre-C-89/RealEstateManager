@@ -27,16 +27,17 @@ fun RealEstateManagerApp(
         val navController = rememberNavController()
         val navigationActions = remember(navController) {
             RealEstateManagerNavigationActions(navController)
-            //JetnewsNavigationActions(navController)
         }
 
         val coroutineScope = rememberCoroutineScope()
 
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute =
-            navBackStackEntry?.destination?.route ?: Screen.HomeRoute.route//JetnewsDestinations.HOME_ROUTE
+            navBackStackEntry?.destination?.route ?: Screen.HomeRoute.route
 
         val isExpandedScreen = widthSizeClass == WindowWidthSizeClass.Expanded
+        val isMediumScreen = widthSizeClass == WindowWidthSizeClass.Medium
+        val isCompactScreen = widthSizeClass == WindowWidthSizeClass.Compact
         val sizeAwareDrawerState = rememberSizeAwareDrawerState(isExpandedScreen)
 
         ModalNavigationDrawer(

@@ -22,8 +22,6 @@ fun AppNavigation(
     isExpandedScreen: Boolean,
     navController: NavHostController
 ) {
-    //val navController = rememberNavController()
-
     NavHost(
         navController = navController,
         startDestination = Screen.HomeRoute.route
@@ -64,11 +62,12 @@ fun AppNavigation(
                     propertyId = 0,
                     onBackClick = { navController.popBackStack() },
                     onModifyClick = { navController.navigate(Screen.ModifyRoute.route) }
-                ) // Default value or navigate to an error screen
+                )
             }
         }
         composable(route = Screen.EditRoute.route) {
             EditRoute(
+                isExpandedScreen = isExpandedScreen,
                 onBackClick = { navController.popBackStack() }
             )
         }
@@ -82,11 +81,13 @@ fun AppNavigation(
         }
         composable(route = Screen.SearchRoute.route) {
             SearchRoute(
+                isExpandedScreen = isExpandedScreen,
                 onBackClick = { navController.popBackStack() }
             )
         }
         composable(route = Screen.LendRoute.route) {
             LendRoute(
+                isExpandedScreen = isExpandedScreen,
                 onBackClick = { navController.popBackStack() }
             )
         }
@@ -98,12 +99,14 @@ fun AppNavigation(
             Log.d("AppNavigation", "Navigating to Modify with ID: $propertyId")
             if (propertyId != null) {
                 ModifyRoute(
+                    isExpandedScreen = isExpandedScreen,
                     propertyId = propertyId,
                     onBackClick = { navController.popBackStack() },
                 )
             } else {
                 Log.e("AppNavigation", "propertyId is null")
                 ModifyRoute(
+                    isExpandedScreen = isExpandedScreen,
                     propertyId = 0,
                     onBackClick = { navController.popBackStack() }
                 )
