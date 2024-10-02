@@ -344,12 +344,6 @@ fun EditScreen(
                                 }
                             )
                         )
-                    }
-                    Column(
-                        modifier = Modifier.width(200.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
                         FormTextField(
                             modifier = Modifier.width(150.dp),
                             label = { Text("Surface") },
@@ -399,12 +393,6 @@ fun EditScreen(
                                 }
                             )
                         )
-                    }
-                    Column(
-                        modifier = Modifier.width(200.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
                         FormTextField(
                             modifier = Modifier.width(150.dp),
                             label = { Text("Address") },
@@ -467,12 +455,7 @@ fun EditScreen(
                                 }
                             )
                         )
-                    }
-                    Column(
-                        modifier = Modifier.width(200.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
+
                         FormTextField(
                             modifier = Modifier.width(150.dp),
                             label = { Text("Date of sold") },
@@ -501,6 +484,7 @@ fun EditScreen(
                                 }
                             )
                         )
+
                     }
                     Spacer.Vertical.Default()
                     AppButton(onClick = onSaveClick, text = "Save")
