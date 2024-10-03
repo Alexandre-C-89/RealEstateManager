@@ -51,7 +51,9 @@ import com.example.realestatemanager.designsystem.map.GoogleMapItem
 import com.example.realestatemanager.designsystem.ui.Default
 import com.example.realestatemanager.designsystem.ui.Spacer
 import com.example.realestatemanager.designsystem.ui.Spacings
+import com.example.realestatemanager.feature.details.DetailsRoute
 import com.example.realestatemanager.feature.details.model.LocationState
+import com.example.realestatemanager.feature.modify.ModifyRoute
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -69,45 +71,10 @@ fun HomeRoute(
     onHomeClick: () -> Unit,
     onMapClick: () -> Unit,
     onSearchClick: () -> Unit,
-    onLendClick: () -> Unit
+    onLendClick: () -> Unit,
+    onModifyClick: (Int) -> Unit,
 ) {
     val uiState by viewModel.properties.collectAsStateWithLifecycle()
-    val locationState by viewModel.locationState.collectAsStateWithLifecycle()
-
-    var latitude: Double? = uiState.selectedProperty?.latitude
-    var longitude: Double? = uiState.selectedProperty?.longitude
-
-    LaunchedEffect(uiState.selectedProperty) {
-        uiState.selectedProperty?.let { property ->
-            if (property.latitude == null || property.longitude == null) {
-                property.address?.let { address ->
-                    viewModel.fetchCoordinates(address)
-                }
-            }
-        }
-    }
-
-    when (val state = locationState) {
-        is LocationState.Loading -> {
-            CircularProgressIndicator()
-        }
-
-        is LocationState.Success -> {
-            val result = state.geocodingResult
-            if (result != null) {
-                latitude = result.results.firstOrNull()?.geometry?.location?.lat ?: latitude
-            }
-            if (result != null) {
-                longitude = result.results.firstOrNull()?.geometry?.location?.lng ?: longitude
-            }
-        }
-
-        is LocationState.Error -> {
-            val message = state.message
-        }
-
-        is LocationState.MultipleSuccess -> TODO()
-    }
 
     HomeScreen(
         isExpandedScreen = isExpandedScreen,
@@ -119,9 +86,7 @@ fun HomeRoute(
         onHomeClick = onHomeClick,
         onMapClick = onMapClick,
         onLendClick = onLendClick,
-        onPropertyDetailsClick = {},
-        latitude = latitude ?: 0.0,
-        longitude = longitude ?: 0.0
+        onModifyClick = onModifyClick
     )
 }
 
@@ -138,21 +103,8 @@ fun HomeScreen(
     onSearchClick: () -> Unit,
     onLendClick: () -> Unit,
     onPropertyClick: (Int) -> Unit,
-    onPropertyDetailsClick: (PropertyEntity) -> Unit,
-    latitude: Double,
-    longitude: Double
+    onModifyClick: (Int) -> Unit,
 ) {
-    /*val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 15f)
-    }
-    LaunchedEffect(latitude, longitude) {
-        cameraPositionState.move(
-            CameraUpdateFactory.newLatLngZoom(
-                LatLng(latitude, longitude),
-                15f
-            )
-        )
-    }*/
     AppScaffold(
         topBar = {
             if (!isExpandedScreen) {
@@ -227,75 +179,22 @@ fun HomeScreen(
                 detailPane = {
                     val selectedProperty = navigator.currentDestination?.content as? PropertyEntity
                     selectedProperty?.let { property ->
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .verticalScroll(rememberScrollState())
-                        ) {
-                            Spacer.Vertical.Large()
-                            Text(
-                                text = "Description",
-                                style = TextStyle(
-                                    fontSize = 24.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = fonts,
-                                    textAlign = TextAlign.Start,
-                                    color = Blue
-                                )
-                            )
-                            Spacer.Vertical.Large()
-                            Text(
-                                text = property.description ?: "",
-                                style = TextStyle(
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Normal,
-                                    fontFamily = fonts,
-                                    textAlign = TextAlign.Start,
-                                    color = Black
-                                )
-                            )
-                            Spacer.Vertical.ExtraLarge()
-                            Row(
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                CardWithIconExpandedScreen(
-                                    icon = R.drawable.ic_surface,
-                                    title = "Surface",
-                                    info = "${property.surface} + m²"
-                                )
-                                Spacer.Horizontal.Large()
-                                CardWithIconExpandedScreen(
-                                    icon = R.drawable.ic_bed,
-                                    title = "Room",
-                                    info = property.room.toString()
-                                )
-                            }
-                            Spacer.Vertical.Large()
-                            CardImage(
-                                imageUri = property.image ?: ""
-                            )
-                            Spacer.Vertical.Large()
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ){
-                                CardWithIcon(
-                                    icon = R.drawable.ic_location,
-                                    title = "Location",
-                                    info = property.address.toString()
-                                )
-                                GoogleMapItem(
-                                    modifier = Modifier
-                                        .size(300.dp)
-                                        .clip(CircleShape),
-                                    cameraPosition = CameraPositionState(
-                                        CameraPosition.fromLatLngZoom(LatLng(latitude, longitude), 15f)
-                                    ),
-                                    state = MarkerState(position = LatLng(latitude, longitude))
-                                )
-                            }
-                        }
+                        DetailsRoute(
+                            isExpandedScreen = isExpandedScreen,
+                            onBackClick = { },
+                            onModifyClick = {  },
+                            propertyId = property.id
+                        )
+                    }
+                },
+                extraPane = {
+                    val selectedProperty = navigator.currentDestination?.content as? PropertyEntity
+                    selectedProperty?.let { property ->
+                        ModifyRoute(
+                            isExpandedScreen = isExpandedScreen,
+                            propertyId = property.id,
+                            onBackClick = {}
+                        )
                     }
                 }
             )

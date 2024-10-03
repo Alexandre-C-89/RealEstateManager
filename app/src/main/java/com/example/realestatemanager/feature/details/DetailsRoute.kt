@@ -60,6 +60,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun DetailsRoute(
+    isExpandedScreen: Boolean,
     onBackClick: () -> Unit,
     onModifyClick: (Int) -> Unit,
     propertyId: Int,
@@ -105,6 +106,7 @@ fun DetailsRoute(
 
     property?.let {
         DetailsScreen(
+            isExpandedScreen = isExpandedScreen,
             propertyEntity = it,
             onBackClick = onBackClick,
             onModifyClick = onModifyClick,
@@ -125,6 +127,7 @@ fun DetailsRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreen(
+    isExpandedScreen: Boolean,
     propertyEntity: PropertyEntity,
     onBackClick: () -> Unit,
     onModifyClick: (Int) -> Unit,
@@ -145,11 +148,13 @@ fun DetailsScreen(
     }
     AppScaffold(
         topBar = {
-            TopBar(
-                onBackClick = onBackClick,
-                onModifyClick = { propertyEntity.id?.let { onModifyClick(it) } },
-                onDeleteClick = { propertyEntity.id?.let { onDeleteClick(it) } }
-            )
+            if (!isExpandedScreen) {
+                TopBar(
+                    onBackClick = onBackClick,
+                    onModifyClick = { propertyEntity.id?.let { onModifyClick(it) } },
+                    onDeleteClick = { propertyEntity.id?.let { onDeleteClick(it) } }
+                )
+            }
         }
     ) {
         Column(

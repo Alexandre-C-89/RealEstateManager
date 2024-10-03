@@ -36,7 +36,8 @@ fun AppNavigation(
                 },
                 onMapClick = { navController.navigate(Screen.MapRoute.route) },
                 onSearchClick = { navController.navigate(Screen.SearchRoute.route) },
-                onLendClick = { navController.navigate(Screen.LendRoute.route) }
+                onLendClick = { navController.navigate(Screen.LendRoute.route) },
+                onModifyClick = { navController.navigate(Screen.ModifyRoute.route) }
             )
         }
         composable(
@@ -48,6 +49,7 @@ fun AppNavigation(
             Log.d("AppNavigation", "Navigating to Details with ID: $propertyId")
             if (propertyId != null) {
                 DetailsRoute(
+                    isExpandedScreen = isExpandedScreen,
                     propertyId = propertyId,
                     onBackClick = { navController.popBackStack() },
                     onModifyClick = { propertyId ->
@@ -57,8 +59,8 @@ fun AppNavigation(
                 )
             } else {
                 Log.e("AppNavigation", "propertyId is null")
-                // Handle the null case or show an error
                 DetailsRoute(
+                    isExpandedScreen = isExpandedScreen,
                     propertyId = 0,
                     onBackClick = { navController.popBackStack() },
                     onModifyClick = { navController.navigate(Screen.ModifyRoute.route) }
