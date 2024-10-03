@@ -44,6 +44,7 @@ import com.example.realestatemanager.designsystem.bar.BottomBar
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.card.CardImage
 import com.example.realestatemanager.designsystem.card.CardWithIcon
+import com.example.realestatemanager.designsystem.card.CardWithIconExpandedScreen
 import com.example.realestatemanager.designsystem.card.CardWithInfo
 import com.example.realestatemanager.designsystem.fonts
 import com.example.realestatemanager.designsystem.map.GoogleMapItem
@@ -257,13 +258,13 @@ fun HomeScreen(
                             Row(
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                CardWithIcon(
+                                CardWithIconExpandedScreen(
                                     icon = R.drawable.ic_surface,
                                     title = "Surface",
                                     info = "${property.surface} + m²"
                                 )
                                 Spacer.Horizontal.Large()
-                                CardWithIcon(
+                                CardWithIconExpandedScreen(
                                     icon = R.drawable.ic_bed,
                                     title = "Room",
                                     info = property.room.toString()
