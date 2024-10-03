@@ -2,6 +2,7 @@ package com.example.realestatemanager.feature.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +20,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.layout.AnimatedPane
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.NavigableListDetailPaneScaffold
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
@@ -105,6 +107,7 @@ fun HomeScreen(
     onPropertyClick: (Int) -> Unit,
     onModifyClick: (Int) -> Unit,
 ) {
+    val navigator = rememberListDetailPaneScaffoldNavigator<Any>()
     AppScaffold(
         topBar = {
             if (!isExpandedScreen) {
@@ -148,7 +151,6 @@ fun HomeScreen(
                 }
             }
         } else {
-            val navigator = rememberListDetailPaneScaffoldNavigator<Any>()
             NavigableListDetailPaneScaffold(
                 navigator = navigator,
                 listPane = {
@@ -162,8 +164,8 @@ fun HomeScreen(
                                     CardWithInfo(
                                         onClick = {
                                             navigator.navigateTo(
-                                                ListDetailPaneScaffoldRole.Detail,
-                                                property
+                                                pane = ListDetailPaneScaffoldRole.Detail,
+                                                content = property
                                             )
                                         },
                                         type = it,
@@ -178,23 +180,22 @@ fun HomeScreen(
                 },
                 detailPane = {
                     val selectedProperty = navigator.currentDestination?.content as? PropertyEntity
-                    selectedProperty?.let { property ->
+                    if (selectedProperty != null) {
                         DetailsRoute(
                             isExpandedScreen = isExpandedScreen,
-                            onBackClick = { },
-                            onModifyClick = {  },
-                            propertyId = property.id
+                            onBackClick = {
+                                navigator.navigateBack()
+                            },
+                            onModifyClick = { onModifyClick(selectedProperty.id) },
+                            propertyId = selectedProperty.id
                         )
-                    }
-                },
-                extraPane = {
-                    val selectedProperty = navigator.currentDestination?.content as? PropertyEntity
-                    selectedProperty?.let { property ->
-                        ModifyRoute(
-                            isExpandedScreen = isExpandedScreen,
-                            propertyId = property.id,
-                            onBackClick = {}
-                        )
+                    } else {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = "Oh no something went wrong !")
+                        }
                     }
                 }
             )

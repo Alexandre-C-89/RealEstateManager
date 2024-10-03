@@ -1,5 +1,6 @@
 package com.example.realestatemanager.feature
 
+import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -54,11 +55,11 @@ fun RealEstateManagerApp(
                 )
             },
             drawerState = sizeAwareDrawerState,
-            // Only enable opening the drawer via gestures if the screen is not expanded
             gesturesEnabled = !isExpandedScreen
         ) {
             Row {
                 if (isExpandedScreen) {
+                    Log.d("MANAGERAPP", "AppNavRail is used")
                     AppNavRail(
                         currentRoute = currentRoute,
                         navigateToHome = navigationActions.navigateToHome,

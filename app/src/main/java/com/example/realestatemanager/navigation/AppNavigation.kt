@@ -37,7 +37,9 @@ fun AppNavigation(
                 onMapClick = { navController.navigate(Screen.MapRoute.route) },
                 onSearchClick = { navController.navigate(Screen.SearchRoute.route) },
                 onLendClick = { navController.navigate(Screen.LendRoute.route) },
-                onModifyClick = { navController.navigate(Screen.ModifyRoute.route) }
+                onModifyClick = { propertyId ->
+                    navController.navigate("modify/$propertyId")
+                }
             )
         }
         composable(
@@ -53,7 +55,6 @@ fun AppNavigation(
                     propertyId = propertyId,
                     onBackClick = { navController.popBackStack() },
                     onModifyClick = { propertyId ->
-                        // Logique de navigation vers ModifyRoute en passant l'ID de la propriété
                         navController.navigate("modify/$propertyId")
                     }
                 )

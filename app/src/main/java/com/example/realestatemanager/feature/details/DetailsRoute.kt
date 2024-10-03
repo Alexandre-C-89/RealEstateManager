@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -25,6 +28,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key.Companion.Ro
@@ -44,8 +48,10 @@ import com.example.realestatemanager.designsystem.Blue
 import com.example.realestatemanager.designsystem.Grey
 import com.example.realestatemanager.designsystem.LightGrey
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.designsystem.button.AppButton
 import com.example.realestatemanager.designsystem.card.CardImage
 import com.example.realestatemanager.designsystem.card.CardWithIcon
+import com.example.realestatemanager.designsystem.card.CardWithIconExpandedScreen
 import com.example.realestatemanager.designsystem.fonts
 import com.example.realestatemanager.designsystem.map.GoogleMapItem
 import com.example.realestatemanager.designsystem.ui.Default
@@ -157,70 +163,147 @@ fun DetailsScreen(
             }
         }
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
+        if (!isExpandedScreen){
             Column(
-                modifier = Modifier.padding(Spacings.Default)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
             ) {
-                Text(
-                    text = "Description",
-                    style = TextStyle(
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = fonts,
-                        textAlign = TextAlign.Start,
-                        color = Blue
-                    )
-                )
-                Spacer.Vertical.Default()
-                Text(
-                    text = propertyEntity.description ?: "",
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = fonts,
-                        textAlign = TextAlign.Start,
-                        color = Black
-                    )
-                )
-                Spacer.Vertical.Large()
-                Row(
-                    modifier = Modifier.fillMaxWidth()
+                Column(
+                    modifier = Modifier.padding(Spacings.Default)
                 ) {
-                    CardWithIcon(
-                        icon = R.drawable.ic_surface,
-                        title = "Surface",
-                        info = "${propertyEntity.surface} + m²"
+                    Text(
+                        text = "Description",
+                        style = TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = fonts,
+                            textAlign = TextAlign.Start,
+                            color = Blue
+                        )
                     )
-                    Spacer.Horizontal.Large()
+                    Spacer.Vertical.Default()
+                    Text(
+                        text = propertyEntity.description ?: "",
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = fonts,
+                            textAlign = TextAlign.Start,
+                            color = Black
+                        )
+                    )
+                    Spacer.Vertical.Large()
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        CardWithIcon(
+                            icon = R.drawable.ic_surface,
+                            title = "Surface",
+                            info = "${propertyEntity.surface} + m²"
+                        )
+                        Spacer.Horizontal.Large()
+                        CardWithIcon(
+                            icon = R.drawable.ic_bed,
+                            title = "Room",
+                            info = propertyEntity.room.toString()
+                        )
+                    }
+                    Spacer.Vertical.Large()
                     CardWithIcon(
-                        icon = R.drawable.ic_bed,
-                        title = "Room",
-                        info = propertyEntity.room.toString()
+                        icon = R.drawable.ic_location,
+                        title = "Location",
+                        info = propertyEntity.address.toString()
+                    )
+                    Spacer.Vertical.Large()
+                    CardImage(
+                        imageUri = propertyEntity.image ?: ""
                     )
                 }
                 Spacer.Vertical.Large()
-                CardWithIcon(
-                    icon = R.drawable.ic_location,
-                    title = "Location",
-                    info = propertyEntity.address.toString()
-                )
-                Spacer.Vertical.Large()
-                CardImage(
-                    imageUri = propertyEntity.image ?: ""
+                GoogleMapItem(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp),
+                    cameraPosition = cameraPositionState,
+                    state = MarkerState(position = LatLng(latitude, longitude))
                 )
             }
-            Spacer.Vertical.Large()
-            GoogleMapItem(
+        } else {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp),
-                cameraPosition = cameraPositionState,
-                state = MarkerState(position = LatLng(latitude, longitude))
-            )
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Column(
+                    modifier = Modifier.padding(Spacings.Default)
+                ) {
+                    Text(
+                        text = "Description",
+                        style = TextStyle(
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = fonts,
+                            textAlign = TextAlign.Start,
+                            color = Blue
+                        )
+                    )
+                    Spacer.Vertical.Default()
+                    Text(
+                        text = propertyEntity.description ?: "",
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = fonts,
+                            textAlign = TextAlign.Start,
+                            color = Black
+                        )
+                    )
+                    Spacer.Vertical.Large()
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        CardWithIconExpandedScreen(
+                            icon = R.drawable.ic_surface,
+                            title = "Surface",
+                            info = "${propertyEntity.surface} + m²"
+                        )
+                        Spacer.Horizontal.Large()
+                        CardWithIconExpandedScreen(
+                            icon = R.drawable.ic_bed,
+                            title = "Room",
+                            info = propertyEntity.room.toString()
+                        )
+                    }
+                    Spacer.Vertical.Large()
+                    Spacer.Vertical.Large()
+                    CardImage(
+                        imageUri = propertyEntity.image ?: ""
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    CardWithIcon(
+                        icon = R.drawable.ic_location,
+                        title = "Location",
+                        info = propertyEntity.address.toString()
+                    )
+                    GoogleMapItem(
+                        modifier = Modifier
+                            .size(300.dp)
+                            .clip(CircleShape),
+                        cameraPosition = cameraPositionState,
+                        state = MarkerState(position = LatLng(latitude, longitude))
+                    )
+                }
+                Spacer.Vertical.Default()
+                AppButton(onClick = { onModifyClick(propertyEntity.id) }, text = "Modify")
+            }
         }
     }
 }

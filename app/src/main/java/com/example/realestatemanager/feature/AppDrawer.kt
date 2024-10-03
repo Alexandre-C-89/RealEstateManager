@@ -93,12 +93,6 @@ private fun JetNewsLogo(modifier: Modifier = Modifier) {
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary
         )
-        Spacer(Modifier.width(8.dp))
-        Icon(
-            painter = painterResource(R.drawable.ic_launcher_foreground),
-            contentDescription = stringResource(R.string.app_name),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
-        )
     }
 }
 
