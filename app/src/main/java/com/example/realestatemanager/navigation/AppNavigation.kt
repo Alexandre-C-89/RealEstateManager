@@ -1,13 +1,10 @@
 package com.example.realestatemanager.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.realestatemanager.feature.details.DetailsRoute
 import com.example.realestatemanager.feature.edit.EditRoute
@@ -46,9 +43,7 @@ fun AppNavigation(
             route = Screen.DetailsScreen.route + "/{propertyId}",
             arguments = listOf(navArgument("propertyId") { type = NavType.IntType })
         ) { backStackEntry ->
-            // Use getInt() to retrieve the parameter value
             val propertyId = backStackEntry.arguments?.getInt("propertyId")
-            Log.d("AppNavigation", "Navigating to Details with ID: $propertyId")
             if (propertyId != null) {
                 DetailsRoute(
                     isExpandedScreen = isExpandedScreen,
@@ -59,7 +54,6 @@ fun AppNavigation(
                     }
                 )
             } else {
-                Log.e("AppNavigation", "propertyId is null")
                 DetailsRoute(
                     isExpandedScreen = isExpandedScreen,
                     propertyId = 0,
@@ -99,7 +93,6 @@ fun AppNavigation(
             arguments = listOf(navArgument("propertyId") { type = NavType.IntType })
         ) { backStackEntry ->
             val propertyId = backStackEntry.arguments?.getInt("propertyId")
-            Log.d("AppNavigation", "Navigating to Modify with ID: $propertyId")
             if (propertyId != null) {
                 ModifyRoute(
                     isExpandedScreen = isExpandedScreen,
@@ -107,7 +100,6 @@ fun AppNavigation(
                     onBackClick = { navController.popBackStack() },
                 )
             } else {
-                Log.e("AppNavigation", "propertyId is null")
                 ModifyRoute(
                     isExpandedScreen = isExpandedScreen,
                     propertyId = 0,

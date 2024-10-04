@@ -36,7 +36,7 @@ fun EditIconButton(
 ){
     IconButton(onClick = { onClick() }) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_edit),
+            painter = painterResource(id = R.drawable.ic_add),
             contentDescription = " edit button"
         )
     }
