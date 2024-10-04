@@ -1,5 +1,6 @@
 package com.example.realestatemanager.feature.edit
 
+import android.Manifest
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -45,14 +47,23 @@ fun EditRoute(
     onBackClick: () -> Unit,
     viewModel: EditViewModel = hiltViewModel(),
 ) {
-
+    val context = LocalContext.current
     val uiData by viewModel.data.collectAsStateWithLifecycle()
-    // Utilisation de ActivityResultLauncher pour sélectionner une image
-    val launcher = rememberLauncherForActivityResult(
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture()
+    ) { success: Boolean ->
+        if (success) {
+            viewModel.currentPhotoUri?.let { uri ->
+                viewModel.onImageChanged(uri.toString())
+            }
+        }
+    }
+
+    val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         uri?.let {
-            viewModel.onImageChanged(it.toString()) // Utilise l'URI pour l'image sélectionnée
+            viewModel.onImageChanged(it.toString())
         }
     }
 
@@ -61,7 +72,12 @@ fun EditRoute(
         onBackClick = onBackClick,
         onSaveClick = { viewModel.saveProperty(onBackClick) },
         data = uiData,
-        onPickImageClick = { launcher.launch("image/*") },
+        onPickImageClick = { galleryLauncher.launch("image/*") },
+        onCameraClick = {
+            viewModel.takePhoto(context) { uri ->
+                uri?.let { cameraLauncher.launch(it) }
+            }
+        },
         onTypeChanged = { viewModel.onTypeChanged(it) },
         onPriceChanged = { viewModel.onPriceChanged(it) },
         onSurfaceChanged = { viewModel.onSurfaceChanged(it) },
@@ -84,6 +100,7 @@ fun EditScreen(
     onSaveClick: () -> Unit,
     data: EditUiData,
     onPickImageClick: () -> Unit,
+    onCameraClick: () -> Unit,
     onTypeChanged: (TextFieldValue) -> Unit,
     onPriceChanged: (TextFieldValue) -> Unit,
     onSurfaceChanged: (TextFieldValue) -> Unit,
@@ -116,7 +133,8 @@ fun EditScreen(
                     modifier = Modifier
                         .padding(16.dp, 16.dp)
                         .verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
                     Text(
@@ -183,10 +201,20 @@ fun EditScreen(
                             }
                         )
                     )
-                    AppButton(
-                        onClick = onPickImageClick,
-                        text = "Select image"
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ){
+                        AppButton(
+                            onClick = onPickImageClick,
+                            text = "Select image from galery"
+                        )
+                        Spacer.Horizontal.Default()
+                        AppButton(
+                            onClick = onCameraClick,
+                            text = "Take a Photo"
+                        )
+                    }
                     FormTextField(
                         modifier = Modifier,
                         label = { Text("Description") },

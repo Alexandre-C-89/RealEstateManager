@@ -1,21 +1,31 @@
 package com.example.realestatemanager.feature.edit
 
+import android.content.Context
+import android.net.Uri
+import android.os.Environment
 import android.util.Log
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.domain.repository.PropertyRepository
+import com.example.realestatemanager.util.CameraManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class EditViewModel @Inject constructor(
     val repository: PropertyRepository
 ): ViewModel() {
+
+    var currentPhotoUri: Uri? = null
+        private set
 
     private val _data = MutableStateFlow(EditUiData())
     val data: StateFlow<EditUiData> = _data
@@ -94,6 +104,43 @@ class EditViewModel @Inject constructor(
             } catch (e: Exception){
                 Log.e("EditViewModel", "Error saving property: ${e.message}")
             }
+        }
+    }
+
+    fun takePhoto(context: Context, onPhotoUriReady: (Uri?) -> Unit) {
+        // Create Uri for keep image
+        currentPhotoUri = createImageUri(context)
+        onPhotoUriReady(currentPhotoUri)
+    }
+
+    private fun createImageUri(context: Context): Uri? {
+        return try {
+            val storageDir = File(
+                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                "my_images"
+            )
+
+            // Create repository if doesn't exist
+            if (!storageDir.exists()) {
+                storageDir.mkdirs()
+            }
+
+            // Create unique field for new image
+            val imageFile = File.createTempFile(
+                "IMG_", /* prefix */
+                ".jpg", /* suffix */
+                storageDir /* directory */
+            )
+
+            // Use FileProvider for get a secure Uri
+            FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.provider",
+                imageFile
+            )
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
         }
     }
 
