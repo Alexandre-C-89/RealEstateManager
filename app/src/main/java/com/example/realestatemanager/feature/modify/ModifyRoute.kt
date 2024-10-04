@@ -121,10 +121,11 @@ fun ModifyScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(8.dp)
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Type") },
                     value = data.type,
                     onValueChange = { newValue -> onTypeChanged(newValue) },
@@ -138,7 +139,7 @@ fun ModifyScreen(
                     )
                 )
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Price") },
                     value = data.price,
                     onValueChange = { newValue -> onPriceChanged(newValue) },
@@ -153,7 +154,7 @@ fun ModifyScreen(
                 )
                 Spacer.Vertical.Default()
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Surface") },
                     value = data.surface,
                     onValueChange = { newValue -> onSurfaceChanged(newValue) },
@@ -168,7 +169,7 @@ fun ModifyScreen(
                 )
                 Spacer.Horizontal.Default()
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Room") },
                     value = data.room,
                     onValueChange = { newValue -> onRoomChanged(newValue) },
@@ -183,7 +184,7 @@ fun ModifyScreen(
                 )
                 Spacer.Vertical.Default()
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Description") },
                     value = data.description,
                     onValueChange = { newValue -> onDescriptionChanged(newValue) },
@@ -198,7 +199,7 @@ fun ModifyScreen(
                 )
                 Spacer.Vertical.Default()
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Address") },
                     value = data.address,
                     onValueChange = { newValue -> onAddressChanged(newValue) },
@@ -213,7 +214,7 @@ fun ModifyScreen(
                 )
                 Spacer.Vertical.Default()
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Interest") },
                     value = data.interest,
                     onValueChange = { newValue -> onInterestChanged(newValue) },
@@ -227,7 +228,7 @@ fun ModifyScreen(
                     )
                 )
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Status") },
                     value = data.status,
                     onValueChange = { newValue -> onStatusChanged(newValue) },
@@ -241,7 +242,7 @@ fun ModifyScreen(
                     )
                 )
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Date of creation") },
                     value = data.dateOfCreation,
                     onValueChange = { newValue -> onDateOfCreationChanged(newValue) },
@@ -256,7 +257,7 @@ fun ModifyScreen(
                 )
                 Spacer.Horizontal.Default()
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("date of sold") },
                     value = data.dateOfSold,
                     onValueChange = { newValue -> onDateOfSoldChanged(newValue) },
@@ -271,7 +272,7 @@ fun ModifyScreen(
                 )
                 Spacer.Vertical.Default()
                 FormTextField(
-                    modifier = Modifier.width(150.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     label = { Text("Agent") },
                     value = data.agent,
                     onValueChange = { newValue -> onAgentChanged(newValue) },

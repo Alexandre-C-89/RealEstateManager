@@ -115,7 +115,7 @@ dependencies {
     //androidTestImplementation("org.robolectric:robolectric:4.9.2")
     // Optional -- Mockito framework
     testImplementation (libs.mockito.core)
-    debugImplementation ("org.mockito:mockito-android:3.2.4")
-    debugImplementation ("org.mockito:mockito-inline:3.2.4")
+    debugImplementation (libs.mockito.android)
+    //debugImplementation (libs.mockito.inline)
 
 }

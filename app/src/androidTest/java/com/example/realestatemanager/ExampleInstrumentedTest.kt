@@ -1,18 +1,11 @@
 package com.example.realestatemanager
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.realestatemanager.util.NetworkUtil
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.Date
+import java.time.LocalDate
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -32,17 +25,28 @@ class ExampleInstrumentedTest {
     val EURO_TO_DOLLAR_RATE = 1.1
     val DOLLAR_TO_EURO_RATE = 1 / EURO_TO_DOLLAR_RATE
 
-    fun convertEuroToDollar(euro: Double): Double {
+    private fun convertEuroToDollar(euro: Double): Double {
         return euro * EURO_TO_DOLLAR_RATE
     }
 
-    fun convertDollarToEuro(dollar: Double): Double {
+    private fun convertDollarToEuro(dollar: Double): Double {
         return dollar * DOLLAR_TO_EURO_RATE
     }
 
-    fun getTodayDate(): String {
-        val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
-        return dateFormat.format(Date())
+    fun getTodayDate(): LocalDate {
+        return LocalDate.now()
+    }
+
+    @Test
+    fun testGetTodayDate() {
+        // keep date
+        val today = LocalDate.now()
+
+        // Call function for test
+        val result = getTodayDate()
+
+        // Vérifier que la date retournée par la fonction est bien la date du jour
+        assertEquals(today, result)
     }
 
     @Test
@@ -57,12 +61,6 @@ class ExampleInstrumentedTest {
         val dollars = 100.0
         val expectedEuros = dollars * DOLLAR_TO_EURO_RATE
         assertEquals(expectedEuros, convertDollarToEuro(dollars), 0.001)
-    }
-
-    @Test
-    fun testGetTodayDate() {
-        val dollars = 2024/10/30
-        val expectedEuros = dollars * DOLLAR_TO_EURO_RATE
     }
 
     /*@Test
