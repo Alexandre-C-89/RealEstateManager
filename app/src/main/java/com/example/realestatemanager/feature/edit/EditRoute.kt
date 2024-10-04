@@ -204,7 +204,7 @@ fun EditScreen(
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
-                    ){
+                    ) {
                         AppButton(
                             onClick = onPickImageClick,
                             text = "Select image from galery"
@@ -514,8 +514,16 @@ fun EditScreen(
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
-                ){
-                    AppButton(onClick = onPickImageClick, text = "select image")
+                ) {
+                    AppButton(
+                        onClick = onPickImageClick,
+                        text = "Select image from galery"
+                    )
+                    Spacer.Horizontal.Default()
+                    AppButton(
+                        onClick = onCameraClick,
+                        text = "Take a Photo"
+                    )
                     Spacer.Horizontal.Small()
                     AppButton(onClick = onSaveClick, text = "Save")
                 }
