@@ -110,4 +110,12 @@ dependencies {
     implementation("androidx.compose.material3.adaptive:adaptive-navigation")
 
 
+    //testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    //Android UI Test
+    //androidTestImplementation("org.robolectric:robolectric:4.9.2")
+    // Optional -- Mockito framework
+    testImplementation (libs.mockito.core)
+    debugImplementation ("org.mockito:mockito-android:3.2.4")
+    debugImplementation ("org.mockito:mockito-inline:3.2.4")
+
 }

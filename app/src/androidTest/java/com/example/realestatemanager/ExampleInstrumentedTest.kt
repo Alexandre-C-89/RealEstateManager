@@ -1,12 +1,18 @@
 package com.example.realestatemanager
 
-import androidx.test.platform.app.InstrumentationRegistry
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import androidx.test.platform.app.InstrumentationRegistry
+import com.example.realestatemanager.util.NetworkUtil
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
+import org.mockito.Mockito.mock
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.Date
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -34,6 +40,11 @@ class ExampleInstrumentedTest {
         return dollar * DOLLAR_TO_EURO_RATE
     }
 
+    fun getTodayDate(): String {
+        val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
+        return dateFormat.format(Date())
+    }
+
     @Test
     fun testConvertEuroToDollar() {
         val euros = 100.0
@@ -47,5 +58,28 @@ class ExampleInstrumentedTest {
         val expectedEuros = dollars * DOLLAR_TO_EURO_RATE
         assertEquals(expectedEuros, convertDollarToEuro(dollars), 0.001)
     }
+
+    @Test
+    fun testGetTodayDate() {
+        val dollars = 2024/10/30
+        val expectedEuros = dollars * DOLLAR_TO_EURO_RATE
+    }
+
+    /*@Test
+    fun testIsNetworkAvailable() {
+        // Crée un mock du Context et du ConnectivityManager
+        val context: Context = mock()
+        val connectivityManager: ConnectivityManager = mock()
+        val networkInfo: NetworkInfo = mock()
+
+        // Définis le comportement attendu
+        whenever(context.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(connectivityManager)
+        whenever(connectivityManager.activeNetworkInfo).thenReturn(networkInfo)
+        whenever(networkInfo.isConnected).thenReturn(true)
+
+        // Vérifie que la méthode isNetworkAvailable() renvoie true
+        val result = NetworkUtil.isNetworkAvailable(context)
+        assert(result)
+    }*/
 
 }
