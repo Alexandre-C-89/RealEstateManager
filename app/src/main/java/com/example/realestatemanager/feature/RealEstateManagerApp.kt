@@ -1,6 +1,5 @@
 package com.example.realestatemanager.feature
 
-import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -10,7 +9,6 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.realestatemanager.designsystem.RealEstateManagerTheme
@@ -18,7 +16,6 @@ import com.example.realestatemanager.navigation.AppNavRail
 import com.example.realestatemanager.navigation.AppNavigation
 import com.example.realestatemanager.navigation.RealEstateManagerNavigationActions
 import com.example.realestatemanager.navigation.Screen
-import kotlinx.coroutines.launch
 
 @Composable
 fun RealEstateManagerApp(
@@ -30,7 +27,7 @@ fun RealEstateManagerApp(
             RealEstateManagerNavigationActions(navController)
         }
 
-        val coroutineScope = rememberCoroutineScope()
+        //val coroutineScope = rememberCoroutineScope()
 
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute =
@@ -43,7 +40,7 @@ fun RealEstateManagerApp(
 
         ModalNavigationDrawer(
             drawerContent = {
-                AppDrawer(
+                /*AppDrawer(
                     drawerState = sizeAwareDrawerState,
                     currentRoute = currentRoute,
                     navigateToHome = navigationActions.navigateToHome,
@@ -52,14 +49,13 @@ fun RealEstateManagerApp(
                     navigateToMap = navigationActions.navigateToMap,
                     navigateToLend = navigationActions.navigateToLend,
                     closeDrawer = { coroutineScope.launch { sizeAwareDrawerState.close() } }
-                )
+                )*/
             },
             drawerState = sizeAwareDrawerState,
             gesturesEnabled = !isExpandedScreen
         ) {
             Row {
                 if (isExpandedScreen) {
-                    Log.d("MANAGERAPP", "AppNavRail is used")
                     AppNavRail(
                         currentRoute = currentRoute,
                         navigateToHome = navigationActions.navigateToHome,

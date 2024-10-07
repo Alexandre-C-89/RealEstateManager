@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -26,6 +27,7 @@ import com.example.realestatemanager.designsystem.bar.BottomBar
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.card.CardWithInfo
 import com.example.realestatemanager.feature.details.DetailsRoute
+import com.google.android.gms.maps.MapsInitializer
 
 
 @Composable
@@ -112,6 +114,8 @@ fun HomeScreen(
                 }
             }
         } else {
+            val context = LocalContext.current
+            MapsInitializer.initialize(context)
             NavigableListDetailPaneScaffold(
                 navigator = navigator,
                 listPane = {

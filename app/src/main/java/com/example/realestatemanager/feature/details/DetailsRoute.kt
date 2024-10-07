@@ -302,7 +302,14 @@ fun DetailsScreen(
                     )
                 }
                 Spacer.Vertical.Default()
-                AppButton(onClick = { onModifyClick(propertyEntity.id) }, text = "Modify")
+                Row(
+                    modifier = Modifier.padding(8.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    AppButton(onClick = { onDeleteClick(propertyEntity.id) }, text = "Delete")
+                    Spacer.Horizontal.Default()
+                    AppButton(onClick = { onModifyClick(propertyEntity.id) }, text = "Modify")
+                }
             }
         }
     }

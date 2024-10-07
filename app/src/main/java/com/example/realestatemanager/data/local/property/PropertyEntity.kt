@@ -1,8 +1,11 @@
 package com.example.realestatemanager.data.local.property
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "properties")
 data class PropertyEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
@@ -20,4 +23,4 @@ data class PropertyEntity(
     val agent: String?,
     val latitude: Double?,
     val longitude: Double?
-)
+): Parcelable
