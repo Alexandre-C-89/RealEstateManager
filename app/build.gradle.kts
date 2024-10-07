@@ -90,6 +90,12 @@ dependencies {
     implementation ("com.google.android.gms:play-services-maps:19.0.0")
     implementation ("com.google.android.gms:play-services-location:21.3.0")
 
+    // Location
+    implementation(libs.play.services.location)
+
+    //permissions
+    implementation ("com.google.accompanist:accompanist-permissions:0.29.0-alpha")
+
     implementation ("com.google.code.gson:gson:2.10.1")
 
     // Retrofit

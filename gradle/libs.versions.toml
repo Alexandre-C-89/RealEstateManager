@@ -14,6 +14,7 @@ mockitoCore = "4.0.0"
 mockitoInline = "3.2.4"
 roomCommon = "2.6.1"
 lifecycleRuntimeComposeAndroid = "2.8.3"
+play-services-location = "21.1.0"
 material3AdaptiveNavigationSuiteAndroid = "1.3.0"
 androidxHiltNavigationCompose = "1.2.0"
 
@@ -44,6 +45,7 @@ androidx-compose-material3-adaptive-layout = { module = "androidx.compose.materi
 androidx-compose-material3-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation" }
 androidx-compose-material3-adaptive-navigationSuite = { module = "androidx.compose.material3:material3-adaptive-navigation-suite" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "play-services-location" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
