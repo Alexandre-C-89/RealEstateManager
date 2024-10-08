@@ -1,5 +1,6 @@
 package com.example.realestatemanager.domain.repository
 
+import android.database.Cursor
 import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.domain.model.FormData
 import kotlinx.coroutines.flow.Flow
@@ -21,5 +22,7 @@ interface PropertyRepository {
     fun searchProperties(formData: FormData): Flow<List<PropertyEntity>>
 
     fun getAllAddresses(): Flow<List<String>>
+
+    fun getAllPropertiesAsCursor(): Cursor
 
 }

@@ -1,5 +1,6 @@
 package com.example.realestatemanager.data.repository.property.mapper
 
+import android.content.ContentValues
 import androidx.compose.ui.text.input.TextFieldValue
 import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.feature.modify.model.ModifyUiData
@@ -42,4 +43,25 @@ class PropertyMapper {
             longitude = null
         )
     }
+
+    fun fromContentValues(values: ContentValues): PropertyEntity {
+        return PropertyEntity(
+            id = values.getAsInteger("id") ?: 0,
+            type = values.getAsString("type"),
+            price = values.getAsDouble("price"),
+            surface = values.getAsInteger("surface"),
+            room = values.getAsInteger("room"),
+            image = values.getAsString("image"),
+            description = values.getAsString("description"),
+            address = values.getAsString("address"),
+            interest = values.getAsString("interest"),
+            status = values.getAsString("status"),
+            dateOfCreation = values.getAsLong("dateOfCreation"),
+            dateOfSold = values.getAsLong("dateOfSold"),
+            agent = values.getAsString("agent"),
+            latitude = values.getAsDouble("latitude"),
+            longitude = values.getAsDouble("longitude")
+        )
+    }
+
 }

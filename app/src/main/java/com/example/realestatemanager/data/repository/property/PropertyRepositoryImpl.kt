@@ -1,5 +1,6 @@
 package com.example.realestatemanager.data.repository.property
 
+import android.database.Cursor
 import com.example.realestatemanager.data.local.AppDatabase
 import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.domain.model.FormData
@@ -46,6 +47,10 @@ class PropertyRepositoryImpl @Inject constructor(
 
     override fun getAllAddresses(): Flow<List<String>> {
         return appDatabase.propertyDao.getAllAddresses()
+    }
+
+    override fun getAllPropertiesAsCursor(): Cursor {
+        return appDatabase.propertyDao.getAllPropertiesAsCursor()
     }
 
 }
