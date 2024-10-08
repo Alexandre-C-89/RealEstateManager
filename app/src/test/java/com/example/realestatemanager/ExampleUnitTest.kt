@@ -2,11 +2,10 @@ package com.example.realestatemanager
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 import com.example.realestatemanager.util.NetworkUtil
 import org.junit.Test
-
 import org.junit.Assert.*
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
@@ -65,7 +64,7 @@ class ExampleUnitTest {
         assertEquals(today, result)
     }
 
-    /*@Test
+    @Test
     fun testIsNetworkAvailable() {
         // Mock Context et ConnectivityManager
         val context: Context = mock(Context::class.java)
@@ -73,15 +72,35 @@ class ExampleUnitTest {
         val network: Network = mock(Network::class.java)
         val networkCapabilities: NetworkCapabilities = mock(NetworkCapabilities::class.java)
 
-        // Définir le comportement attendu
+        // Simuler le comportement pour une connexion Internet simple
         Mockito.`when`(context.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(connectivityManager)
         Mockito.`when`(connectivityManager.activeNetwork).thenReturn(network)
         Mockito.`when`(connectivityManager.getNetworkCapabilities(network)).thenReturn(networkCapabilities)
+
+        // Simuler que le réseau a la capacité d'accéder à Internet
         Mockito.`when`(networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)).thenReturn(true)
 
-        // Vérification du résultat
+        // Vérifier le résultat
         val result = NetworkUtil.isNetworkAvailable(context)
         assertTrue(result)
-    }*/
+    }
+
+
+    @Test
+    fun testNoNetworkAvailable() {
+        // Mock Context et ConnectivityManager
+        val context: Context = mock(Context::class.java)
+        val connectivityManager: ConnectivityManager = mock(ConnectivityManager::class.java)
+        val network: Network = mock(Network::class.java)
+        val networkCapabilities: NetworkCapabilities = mock(NetworkCapabilities::class.java)
+
+        // Simuler le comportement pour une absence de connexion
+        Mockito.`when`(context.getSystemService(Context.CONNECTIVITY_SERVICE)).thenReturn(connectivityManager)
+        Mockito.`when`(connectivityManager.activeNetwork).thenReturn(null)
+
+        // Vérifier le résultat
+        val result = NetworkUtil.isNetworkAvailable(context)
+        assertFalse(result)
+    }
 
 }

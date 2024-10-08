@@ -120,9 +120,9 @@ dependencies {
     //Android UI Test
     //androidTestImplementation("org.robolectric:robolectric:4.9.2")
     // Optional -- Mockito framework
-    testImplementation (libs.mockito.core)
-    debugImplementation (libs.mockito.android)
-    testImplementation ("org.robolectric:robolectric:4.9.2")
+    testImplementation ("org.mockito:mockito-core:4.+")
+    testImplementation ("org.mockito:mockito-core:4.+")
+    androidTestImplementation ("org.mockito:mockito-android:4.+")
     //debugImplementation (libs.mockito.inline)
 
 }
