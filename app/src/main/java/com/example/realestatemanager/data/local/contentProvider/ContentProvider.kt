@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class ContentProvider : ContentProvider() {
 
     @Inject
