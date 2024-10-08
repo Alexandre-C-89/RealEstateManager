@@ -1,4 +1,4 @@
-package com.example.realestatemanager.data.repository
+package com.example.realestatemanager.data.repository.property
 
 import com.example.realestatemanager.data.local.AppDatabase
 import com.example.realestatemanager.data.local.property.PropertyEntity

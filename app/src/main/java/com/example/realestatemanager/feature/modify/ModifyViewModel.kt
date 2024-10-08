@@ -8,12 +8,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.realestatemanager.data.local.property.PropertyEntity
-import com.example.realestatemanager.data.local.property.PropertyMapper
+import com.example.realestatemanager.data.repository.property.mapper.PropertyMapper
 import com.example.realestatemanager.domain.repository.PropertyRepository
 import com.example.realestatemanager.feature.modify.model.ModifyUiData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

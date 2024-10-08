@@ -1,4 +1,4 @@
-package com.example.realestatemanager.data.repository
+package com.example.realestatemanager.data.repository.location
 
 import android.util.Log
 import com.example.realestatemanager.data.remote.location.LocationApi

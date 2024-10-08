@@ -1,8 +1,8 @@
-package com.example.realestatemanager.data.local.property
+package com.example.realestatemanager.data.repository.property.mapper
 
 import androidx.compose.ui.text.input.TextFieldValue
+import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.feature.modify.model.ModifyUiData
-import kotlinx.coroutines.flow.Flow
 
 class PropertyMapper {
 

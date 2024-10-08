@@ -1,4 +1,4 @@
-package com.example.realestatemanager.data.repository
+package com.example.realestatemanager.data.repository.contentProvider
 
 import android.content.Context
 import android.net.Uri

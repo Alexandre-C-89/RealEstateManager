@@ -1,6 +1,6 @@
 package com.example.realestatemanager.data.remote.di
 
-import com.example.realestatemanager.data.local.property.PropertyMapper
+import com.example.realestatemanager.data.repository.property.mapper.PropertyMapper
 import com.example.realestatemanager.data.remote.location.LocationApi
 import dagger.Module
 import dagger.Provides
@@ -65,7 +65,7 @@ class RemoteModule {
     }
 
     @Provides
-    fun providePropertyMapper(): PropertyMapper{
+    fun providePropertyMapper(): PropertyMapper {
         return PropertyMapper()
     }
 

@@ -2,9 +2,9 @@ package com.example.realestatemanager.data.repository.di
 
 import com.example.realestatemanager.data.local.AppDatabase
 import com.example.realestatemanager.data.remote.location.LocationApi
-import com.example.realestatemanager.data.repository.ContentProviderRepositoryImpl
-import com.example.realestatemanager.data.repository.LocationRepositoryImpl
-import com.example.realestatemanager.data.repository.PropertyRepositoryImpl
+import com.example.realestatemanager.data.repository.contentProvider.ContentProviderRepositoryImpl
+import com.example.realestatemanager.data.repository.location.LocationRepositoryImpl
+import com.example.realestatemanager.data.repository.property.PropertyRepositoryImpl
 import com.example.realestatemanager.domain.repository.ContentProviderRepository
 import com.example.realestatemanager.domain.repository.LocationRepository
 import com.example.realestatemanager.domain.repository.PropertyRepository
