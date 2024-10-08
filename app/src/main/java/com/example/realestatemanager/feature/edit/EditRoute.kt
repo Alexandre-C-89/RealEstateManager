@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.realestatemanager.designsystem.AppScaffold
@@ -120,25 +121,22 @@ fun EditScreen(
     ) {
         if (!isExpandedScreen) {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().padding(16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Text(
+                    text = "Create new property",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp
+                )
+
+                Spacer.Vertical.Small()
                 Column(
-                    modifier = Modifier
-                        .padding(16.dp, 16.dp)
-                        .verticalScroll(rememberScrollState()),
+                    modifier = Modifier.verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
-                    Text(
-                        text = "Create new property",
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.displaySmall
-                    )
-
-                    Spacer.Vertical.Small()
 
                     FormTextField(
                         modifier = Modifier,
