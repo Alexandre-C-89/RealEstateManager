@@ -47,8 +47,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            insertFake() // Insert fake data
-            getProperties() // Then load the properties
+            getProperties()
         }
     }
 
@@ -102,52 +101,6 @@ class HomeViewModel @Inject constructor(
                         _locationState.value = LocationState.Error("Could not fetch coordinates")
                     }
                 }
-        }
-    }
-
-    private suspend fun insertFake() {
-        try {
-            val fakeProperties = listOf(
-                PropertyEntity(
-                    id = 0,
-                    type = "Lounge",
-                    price = 410.045,
-                    surface = 140,
-                    room = 4,
-                    image = "",
-                    description = "A wonderful house type of Lounge with a good view on the city",
-                    address = "9 Rue Marcellin Berthelot, Le Bourget",
-                    interest = "",
-                    status = "For sell",
-                    dateOfCreation = 12022024,
-                    dateOfSold = 14052024,
-                    agent = "Axel",
-                    latitude = null,
-                    longitude = null
-                ),
-                PropertyEntity(
-                    id = 1,
-                    type = "House",
-                    price = 456.012,
-                    surface = 160,
-                    room = 5,
-                    image = "",
-                    description = "A wonderful house with a good view on the city. possibility of changing the attic into a bedroom",
-                    address = "10-16 Rue de l'Égalité, Le Bourget",
-                    interest = "",
-                    status = "Sold",
-                    dateOfCreation = 12022024,
-                    dateOfSold = 14052024,
-                    agent = "Axel",
-                    latitude = null,
-                    longitude = null
-                )
-            )
-            fakeProperties.forEach { property ->
-                propertyRepository.insertFake(property)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 
