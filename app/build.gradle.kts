@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
+    implementation(libs.androidx.runtime.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -94,7 +95,7 @@ dependencies {
     implementation(libs.play.services.location)
 
     //permissions
-    implementation ("com.google.accompanist:accompanist-permissions:0.29.0-alpha")
+    implementation ("com.google.accompanist:accompanist-permissions:0.32.0")
 
     implementation ("com.google.code.gson:gson:2.10.1")
 

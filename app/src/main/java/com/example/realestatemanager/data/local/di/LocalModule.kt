@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.example.realestatemanager.data.local.AppDatabase
+import com.example.realestatemanager.data.remote.location.ILocationService
+import com.example.realestatemanager.data.remote.location.LocationService
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
@@ -16,6 +18,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object LocalModule {
+
+    @Provides
+    @Singleton
+    fun provideApplicationContext(@ApplicationContext context: Context): Context {
+        return context
+    }
 
     @Provides
     @Singleton
@@ -34,5 +42,14 @@ object LocalModule {
     ): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(context)
     }
+
+    @Singleton
+    @Provides
+    fun provideLocationClient(
+        @ApplicationContext context: Context
+    ): ILocationService = LocationService(
+        context,
+        LocationServices.getFusedLocationProviderClient(context)
+    )
 
 }

@@ -1,17 +1,20 @@
 package com.example.realestatemanager.feature.map
 
+import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.realestatemanager.domain.model.GeocodingResult
-import com.example.realestatemanager.domain.model.Geometry
-import com.example.realestatemanager.domain.model.Location
-import com.example.realestatemanager.domain.model.Result
+import com.example.realestatemanager.data.local.contentProvider.ContentProviderHelper.init
+import com.example.realestatemanager.domain.GetLocationUseCase
 import com.example.realestatemanager.domain.repository.LocationRepository
 import com.example.realestatemanager.domain.repository.PropertyRepository
 import com.example.realestatemanager.feature.details.model.LocationState
 import com.example.realestatemanager.util.Resource
 import com.google.android.gms.location.FusedLocationProviderClient
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,11 +26,16 @@ import javax.inject.Inject
 class MapViewModel @Inject constructor(
     private val locationRepository: LocationRepository,
     private val propertyRepository: PropertyRepository,
-    private val locationProvider: FusedLocationProviderClient
+    private val getLocationUseCase: GetLocationUseCase,
 ) : ViewModel() {
 
     private val _locationState = MutableStateFlow<LocationState>(LocationState.Loading)
     val locationState: StateFlow<LocationState> = _locationState
+
+    private val _userLocationState = MutableStateFlow<UserLocationState>(UserLocationState.Loading)
+    val userLocationState: StateFlow<UserLocationState> = _userLocationState
+
+    val isLocationPermissionGranted = MutableLiveData(false)
 
     init {
         getAllPropertiesMarker()
@@ -60,41 +68,26 @@ class MapViewModel @Inject constructor(
         }
     }
 
-    fun updateLocation() {
-        // Méthode pour récupérer la localisation dès que la permission est accordée
-        if (areLocationPermissionsGranted()) {
-            locationProvider.lastLocation
-                .addOnSuccessListener { location ->
-                    if (location != null) {
-                        // Créer un `GeocodingResult` ou un objet similaire à partir de la localisation
-                        val geocodingResult = GeocodingResult(
-                            results = listOf(
-                                Result(
-                                    formattedAddress = "Current Location",
-                                    geometry = Geometry(
-                                        location = Location(location.latitude, location.longitude)
-                                    )
-                                )
-                            ),
-                            status = "OK"
-                        )
-
-                        _locationState.value = LocationState.Success(geocodingResult)
-                    } else {
-                        _locationState.value = LocationState.Error("Unable to retrieve location")
+    @RequiresApi(Build.VERSION_CODES.S)
+    fun handle(event: PermissionEvent) {
+        when (event) {
+            PermissionEvent.Granted -> {
+                viewModelScope.launch {
+                    getLocationUseCase.invoke().collect { location ->
+                        _userLocationState.value = UserLocationState.Success(location)
                     }
                 }
-                .addOnFailureListener {
-                    _locationState.value = LocationState.Error(it.message ?: "Error fetching location")
-                }
-        } else {
-            _locationState.value = LocationState.Error("Permission not granted")
+            }
+
+            PermissionEvent.Revoked -> {
+                _userLocationState.value = UserLocationState.RevokedPermissions
+            }
         }
     }
 
-    private fun areLocationPermissionsGranted(): Boolean {
-        // Implémentation de vérification des permissions
-        return true // remplace par une vérification réelle des permissions
-    }
+}
 
+sealed interface PermissionEvent {
+    object Granted : PermissionEvent
+    object Revoked : PermissionEvent
 }
