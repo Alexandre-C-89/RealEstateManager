@@ -42,7 +42,6 @@ class DetailsViewModel @Inject constructor(
                     if (result.data != null) {
                         _locationState.value = LocationState.Success(result.data)
                     } else {
-                        // Handle the case where data is null, for example:
                         _locationState.value = LocationState.Error("Could not fetch coordinates")
                     }
                 }
@@ -53,7 +52,6 @@ class DetailsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 repository.delete(propertyId)
-                Log.d("DetailsViewModel", "Property deleted successfully.")
                 onSuccess()
             } catch (e: Exception){
                 Log.e("DetailsViewModel", "Error deleting property: ${e.message}")

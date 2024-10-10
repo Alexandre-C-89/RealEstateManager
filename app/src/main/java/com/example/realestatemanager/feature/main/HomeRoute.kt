@@ -102,7 +102,7 @@ fun HomeScreen(
                         property.address?.let { it1 ->
                             CardWithInfo(
                                 onClick = {
-                                    property.id?.let { onPropertyClick(it) }
+                                    onPropertyClick(property.id)
                                 },
                                 type = it,
                                 location = it1,

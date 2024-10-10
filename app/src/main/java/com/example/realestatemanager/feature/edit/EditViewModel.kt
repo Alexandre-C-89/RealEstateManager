@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.domain.repository.PropertyRepository
-import com.example.realestatemanager.util.CameraManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -99,7 +98,6 @@ class EditViewModel @Inject constructor(
                     longitude = null
                 )
                 repository.insert(propertyEntity = propertyEntity)
-                Log.d("EditViewModel", "Property saved successfully.")
                 onSuccess()
             } catch (e: Exception){
                 Log.e("EditViewModel", "Error saving property: ${e.message}")
@@ -108,7 +106,6 @@ class EditViewModel @Inject constructor(
     }
 
     fun takePhoto(context: Context, onPhotoUriReady: (Uri?) -> Unit) {
-        // Create Uri for keep image
         currentPhotoUri = createImageUri(context)
         onPhotoUriReady(currentPhotoUri)
     }
@@ -120,19 +117,16 @@ class EditViewModel @Inject constructor(
                 "my_images"
             )
 
-            // Create repository if doesn't exist
             if (!storageDir.exists()) {
                 storageDir.mkdirs()
             }
 
-            // Create unique field for new image
             val imageFile = File.createTempFile(
                 "IMG_", /* prefix */
                 ".jpg", /* suffix */
                 storageDir /* directory */
             )
 
-            // Use FileProvider for get a secure Uri
             FileProvider.getUriForFile(
                 context,
                 "${context.packageName}.provider",

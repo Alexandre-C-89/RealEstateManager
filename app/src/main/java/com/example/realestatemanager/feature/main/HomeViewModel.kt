@@ -29,7 +29,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val propertyRepository: PropertyRepository,
-    private val locationRepository: LocationRepository,
     private val contentProviderRepository: ContentProviderRepository,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
@@ -39,9 +38,6 @@ class HomeViewModel @Inject constructor(
 
     private val _propertiesOffline = MutableLiveData<List<PropertyEntity>>()
     val propertiesOffline: LiveData<List<PropertyEntity>> = _propertiesOffline
-
-    private val _locationState = MutableStateFlow<LocationState>(LocationState.Loading)
-    val locationState: StateFlow<LocationState> = _locationState
 
     private val uiState = mutableStateOf(UiState())
 
@@ -53,7 +49,6 @@ class HomeViewModel @Inject constructor(
 
     private suspend fun getProperties() {
         if (NetworkUtil.isNetworkAvailable(context)) {
-            Log.d("HOMEVIEWMODEL", "NETWORK IS AVAILABLE")
             when (uiState.value.displayType) {
                 DISPLAY_TYPE.ALL -> {
                     propertyRepository.getAllProperties().collect { list ->
@@ -66,7 +61,6 @@ class HomeViewModel @Inject constructor(
                 }
             }
         } else {
-            Log.d("HOMEVIEWMODEL", "NETWORK IS UNAVAILABLE")
             fetchProperties()
         }
     }
@@ -75,32 +69,6 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val result = contentProviderRepository.getAllProperties()
             _propertiesOffline.postValue(result)
-        }
-    }
-
-    fun selectProperty(property: PropertyEntity) {
-        _properties.update { currentState ->
-            currentState.copy(selectedProperty = property)
-        }
-    }
-
-    fun fetchCoordinates(address: String) {
-        viewModelScope.launch {
-            locationRepository.getConvertAddress(address)
-                .onStart {
-                    _locationState.value = LocationState.Loading
-                }
-                .catch { e ->
-                    _locationState.value = LocationState.Error(e.message ?: "An error occurred")
-                }
-                .collect { result ->
-                    if (result.data != null) {
-                        _locationState.value = LocationState.Success(result.data)
-                    } else {
-                        // Handle the case where data is null, for example:
-                        _locationState.value = LocationState.Error("Could not fetch coordinates")
-                    }
-                }
         }
     }
 

@@ -56,12 +56,10 @@ class SearchViewModel @Inject constructor(
                     if (properties.isEmpty()) {
                         _searchState.value = SearchState.Error("No properties found")
                     } else {
-                        Log.d("SearchViewModel", "Result of research $properties")
                         _propertyList.value = properties
                         _searchState.value = SearchState.Success(properties)
                     }
                 }
-                Log.d("SearchViewModel", "Form send successfully.")
             } catch (e: Exception){
                 Log.e("SearchViewModel", "Error send form: ${e.message}")
             }

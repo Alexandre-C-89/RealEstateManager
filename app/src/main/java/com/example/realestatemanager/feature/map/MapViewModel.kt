@@ -1,20 +1,15 @@
 package com.example.realestatemanager.feature.map
 
-import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.realestatemanager.data.local.contentProvider.ContentProviderHelper.init
 import com.example.realestatemanager.domain.GetLocationUseCase
 import com.example.realestatemanager.domain.repository.LocationRepository
 import com.example.realestatemanager.domain.repository.PropertyRepository
 import com.example.realestatemanager.feature.details.model.LocationState
 import com.example.realestatemanager.util.Resource
-import com.google.android.gms.location.FusedLocationProviderClient
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,8 +34,6 @@ class MapViewModel @Inject constructor(
 
     private val _eventFlow = MutableSharedFlow<MapEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
-
-    val isLocationPermissionGranted = MutableLiveData(false)
 
     init {
         getAllPropertiesMarker()

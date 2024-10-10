@@ -33,9 +33,7 @@ class ModifyViewModel @Inject constructor(
 
     fun loadProperty(propertyId: Int) {
         viewModelScope.launch {
-            // Collecte du Flow de PropertyEntity
             repository.getPropertyById(propertyId).collect { propertyEntity ->
-                // Utilise le PropertyMapper pour mapper l'entité à l'UI
                 _data.value = propertyMapper.toModifyUiData(propertyEntity)
             }
         }
@@ -61,7 +59,7 @@ class ModifyViewModel @Inject constructor(
         _data.value = data.value.copy(image = value)
     }
 
-    fun onDescritpionChanged(value: TextFieldValue) {
+    fun onDescriptionChanged(value: TextFieldValue) {
         _data.value = data.value.copy(description = value)
     }
 
@@ -92,7 +90,6 @@ class ModifyViewModel @Inject constructor(
     fun modifyProperty(propertyId: Int, onSuccess: () -> Unit) {
         viewModelScope.launch {
             try {
-                // Utiliser le mapper pour convertir ModifyUiData en PropertyEntity
                 val propertyEntity = propertyMapper.toPropertyEntity(_data.value, propertyId)
                 repository.update(propertyEntity)
                 onSuccess()
@@ -103,7 +100,6 @@ class ModifyViewModel @Inject constructor(
     }
 
     fun takePhoto(context: Context, onPhotoUriReady: (Uri?) -> Unit) {
-        // Create Uri for keep image
         currentPhotoUri = createImageUri(context)
         onPhotoUriReady(currentPhotoUri)
     }
@@ -115,19 +111,16 @@ class ModifyViewModel @Inject constructor(
                 "my_images"
             )
 
-            // Create repository if doesn't exist
             if (!storageDir.exists()) {
                 storageDir.mkdirs()
             }
 
-            // Create unique field for new image
             val imageFile = File.createTempFile(
                 "IMG_", /* prefix */
                 ".jpg", /* suffix */
                 storageDir /* directory */
             )
 
-            // Use FileProvider for get a secure Uri
             FileProvider.getUriForFile(
                 context,
                 "${context.packageName}.provider",

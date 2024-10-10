@@ -1,9 +1,6 @@
 package com.example.realestatemanager.feature.map
 
 import android.Manifest
-import android.content.Intent
-import android.provider.Settings
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.realestatemanager.designsystem.AppScaffold
@@ -35,7 +31,6 @@ import com.example.realestatemanager.feature.details.model.LocationState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
@@ -69,21 +64,18 @@ fun MapRoute(
 
     when {
         permissionState.allPermissionsGranted -> {
-            Log.d("ALLPERMISSIONSGRANTED","$permissionState")
             LaunchedEffect(Unit) {
                 viewModel.handle(PermissionEvent.Granted)
             }
         }
 
         permissionState.shouldShowRationale -> {
-            Log.d("ALLPERMISSIONSRATIONALE","$permissionState")
             RationaleAlert(onDismiss = { }) {
                 permissionState.launchMultiplePermissionRequest()
             }
         }
 
         !permissionState.allPermissionsGranted && !permissionState.shouldShowRationale -> {
-            Log.d("ALLPERMISSIONSGRANTEDRATIONALE","$permissionState")
             LaunchedEffect(Unit) {
                 viewModel.handle(PermissionEvent.Revoked)
             }
@@ -93,7 +85,6 @@ fun MapRoute(
     with(userLocationState) {
         when (this) {
             UserLocationState.Loading -> {
-                Log.d("USERLOCATIONSTATELOADING","$userLocationState")
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -103,7 +94,6 @@ fun MapRoute(
             }
 
             UserLocationState.RevokedPermissions -> {
-                Log.d("USERLOCATIONSTATEREVOKED","$userLocationState")
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -129,14 +119,12 @@ fun MapRoute(
 
             is UserLocationState.Success -> {
                 val currentLoc = this.location
-                Log.d("USERLOCATIONSTATESUCCCESS","$currentLoc")
                 currentLoc?.let {
                     LaunchedEffect(key1 = currentLoc) {
                         cameraPositionState.centerOnLocation(currentLoc)
                     }
                     MapScreen(
                         locationState = locationState,
-                        currentLoc = currentLoc,
                         cameraPositionState = cameraPositionState,
                         onBackClick = onBackClick,
                         onMapClick = onMapClick,
@@ -161,7 +149,6 @@ fun MapRoute(
 @Composable
 fun MapScreen(
     locationState: LocationState,
-    currentLoc: LatLng?,
     cameraPositionState : CameraPositionState,
     onBackClick: () -> Unit,
     onMapClick: () -> Unit,
