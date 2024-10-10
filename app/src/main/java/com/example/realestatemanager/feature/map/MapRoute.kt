@@ -3,6 +3,7 @@ package com.example.realestatemanager.feature.map
 import android.Manifest
 import android.content.Intent
 import android.provider.Settings
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,7 +55,7 @@ fun MapRoute(
     val context = LocalContext.current
     val locationState by viewModel.locationState.collectAsStateWithLifecycle()
     val userLocationState by viewModel.userLocationState.collectAsStateWithLifecycle()
-
+    val cameraPositionState = rememberCameraPositionState()
     val permissionState = rememberMultiplePermissionsState(
         permissions = listOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -68,18 +69,21 @@ fun MapRoute(
 
     when {
         permissionState.allPermissionsGranted -> {
+            Log.d("ALLPERMISSIONSGRANTED","$permissionState")
             LaunchedEffect(Unit) {
                 viewModel.handle(PermissionEvent.Granted)
             }
         }
 
         permissionState.shouldShowRationale -> {
+            Log.d("ALLPERMISSIONSRATIONALE","$permissionState")
             RationaleAlert(onDismiss = { }) {
                 permissionState.launchMultiplePermissionRequest()
             }
         }
 
         !permissionState.allPermissionsGranted && !permissionState.shouldShowRationale -> {
+            Log.d("ALLPERMISSIONSGRANTEDRATIONALE","$permissionState")
             LaunchedEffect(Unit) {
                 viewModel.handle(PermissionEvent.Revoked)
             }
@@ -89,6 +93,7 @@ fun MapRoute(
     with(userLocationState) {
         when (this) {
             UserLocationState.Loading -> {
+                Log.d("USERLOCATIONSTATELOADING","$userLocationState")
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -98,6 +103,7 @@ fun MapRoute(
             }
 
             UserLocationState.RevokedPermissions -> {
+                Log.d("USERLOCATIONSTATEREVOKED","$userLocationState")
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -108,7 +114,7 @@ fun MapRoute(
                     Text("We need permissions to use this app")
                     Button(
                         onClick = {
-                            viewModel.onOpenLocationSettings()//Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                            viewModel.onOpenLocationSettings()
                         },
                         enabled = !context.hasLocationPermission()
                     ) {
@@ -122,41 +128,41 @@ fun MapRoute(
             }
 
             is UserLocationState.Success -> {
-                val currentLoc =
-                    LatLng(
-                        this.location?.latitude ?: 0.0,
-                        this.location?.longitude ?: 0.0
+                val currentLoc = this.location
+                Log.d("USERLOCATIONSTATESUCCCESS","$currentLoc")
+                currentLoc?.let {
+                    LaunchedEffect(key1 = currentLoc) {
+                        cameraPositionState.centerOnLocation(currentLoc)
+                    }
+                    MapScreen(
+                        locationState = locationState,
+                        currentLoc = currentLoc,
+                        cameraPositionState = cameraPositionState,
+                        onBackClick = onBackClick,
+                        onMapClick = onMapClick,
+                        onHomeClick = onHomeClick,
+                        onEditClick = onEditClick
                     )
-                val cameraState = rememberCameraPositionState()
 
-                LaunchedEffect(key1 = currentLoc) {
-                    cameraState.centerOnLocation(currentLoc)
+                } ?: run {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("Unable to retrieve user location")
+                    }
                 }
-
-                MapScreen(
-                    locationState = locationState,
-                    onBackClick = onBackClick,
-                    onMapClick = onMapClick,
-                    onHomeClick = onHomeClick,
-                    onEditClick = onEditClick
-                )
             }
         }
     }
-
-    /*MapScreen(
-        locationState = locationState,
-        onBackClick = onBackClick,
-        onMapClick = onMapClick,
-        onHomeClick = onHomeClick,
-        onEditClick = onEditClick
-    )*/
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MapScreen(
     locationState: LocationState,
+    currentLoc: LatLng?,
+    cameraPositionState : CameraPositionState,
     onBackClick: () -> Unit,
     onMapClick: () -> Unit,
     onHomeClick: () -> Unit,
@@ -178,16 +184,11 @@ fun MapScreen(
             }
         }
     ) {
-        val cameraPositionState = rememberCameraPositionState {
-            position = CameraPosition.fromLatLngZoom(LatLng(0.0, 0.0), 12f)
-        }
         Box(modifier = Modifier.fillMaxSize()) {
             if (locationState is LocationState.Success || locationState is LocationState.MultipleSuccess) {
                 GoogleMap(
                     modifier = Modifier.fillMaxSize(),
-                    cameraPositionState = rememberCameraPositionState {
-                        position = CameraPosition.fromLatLngZoom(LatLng(0.0, 0.0), 12f)
-                    }
+                    cameraPositionState = cameraPositionState
                 ) {
                     when (locationState) {
                         is LocationState.Success -> {
@@ -200,8 +201,6 @@ fun MapScreen(
                                     state = rememberMarkerState(position = it),
                                     title = "Propriété"
                                 )
-
-                                // Animation pour déplacer la caméra
                                 LaunchedEffect(it) {
                                     cameraPositionState.animate(
                                         CameraUpdateFactory.newLatLngZoom(it, 15f)
