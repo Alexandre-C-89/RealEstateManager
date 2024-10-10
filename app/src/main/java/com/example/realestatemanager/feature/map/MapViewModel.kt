@@ -16,8 +16,10 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,6 +36,9 @@ class MapViewModel @Inject constructor(
 
     private val _userLocationState = MutableStateFlow<UserLocationState>(UserLocationState.Loading)
     val userLocationState: StateFlow<UserLocationState> = _userLocationState
+
+    private val _eventFlow = MutableSharedFlow<MapEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     val isLocationPermissionGranted = MutableLiveData(false)
 
@@ -82,6 +87,12 @@ class MapViewModel @Inject constructor(
             PermissionEvent.Revoked -> {
                 _userLocationState.value = UserLocationState.RevokedPermissions
             }
+        }
+    }
+
+    fun onOpenLocationSettings() {
+        viewModelScope.launch {
+            _eventFlow.emit(MapEvent.OpenLocationSettings)
         }
     }
 

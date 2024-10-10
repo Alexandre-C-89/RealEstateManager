@@ -5,7 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Looper
 import androidx.annotation.RequiresApi
-import com.example.realestatemanager.feature.map.hasLocationPermission
+import com.example.realestatemanager.extension.hasLocationPermission
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest

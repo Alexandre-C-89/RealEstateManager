@@ -1,4 +1,4 @@
-package com.example.realestatemanager.feature.map
+package com.example.realestatemanager.extension
 
 import android.Manifest
 import android.content.Context

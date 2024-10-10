@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,6 +29,7 @@ import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.alert.RationaleAlert
 import com.example.realestatemanager.designsystem.bar.BottomBar
 import com.example.realestatemanager.designsystem.bar.TopBar
+import com.example.realestatemanager.extension.hasLocationPermission
 import com.example.realestatemanager.feature.details.model.LocationState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
@@ -39,7 +41,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
-import com.example.realestatemanager.feature.map.hasLocationPermission
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -50,7 +51,7 @@ fun MapRoute(
     onHomeClick: () -> Unit,
     onEditClick: () -> Unit
 ) {
-
+    val context = LocalContext.current
     val locationState by viewModel.locationState.collectAsStateWithLifecycle()
     val userLocationState by viewModel.userLocationState.collectAsStateWithLifecycle()
 
@@ -61,7 +62,7 @@ fun MapRoute(
         )
     )
 
-    LaunchedEffect(!hasLocationPermission()) {
+    LaunchedEffect(!context.hasLocationPermission()) {
         permissionState.launchMultiplePermissionRequest()
     }
 
@@ -107,11 +108,11 @@ fun MapRoute(
                     Text("We need permissions to use this app")
                     Button(
                         onClick = {
-                            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                            viewModel.onOpenLocationSettings()//Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                         },
-                        enabled = !hasLocationPermission()
+                        enabled = !context.hasLocationPermission()
                     ) {
-                        if (hasLocationPermission()) CircularProgressIndicator(
+                        if (context.hasLocationPermission()) CircularProgressIndicator(
                             modifier = Modifier.size(14.dp),
                             color = Color.White
                         )
