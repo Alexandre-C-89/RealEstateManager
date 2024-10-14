@@ -445,7 +445,7 @@ fun EditScreen(
                         modifier = Modifier.width(200.dp),
                         label = { Text("Status") },
                         value = data.status,
-                        onValueChange = onSurfaceChanged,
+                        onValueChange = onStatusChanged,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next
                         ),
