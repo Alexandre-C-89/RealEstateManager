@@ -1,6 +1,7 @@
 package com.example.realestatemanager.feature.edit
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
@@ -11,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.domain.repository.PropertyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -20,7 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditViewModel @Inject constructor(
-    val repository: PropertyRepository
+    val repository: PropertyRepository,
+    @ApplicationContext private val context: Context
 ): ViewModel() {
 
     var currentPhotoUri: Uri? = null
@@ -77,7 +80,7 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(agent = value)
     }
 
-    fun saveProperty(onSuccess:() -> Unit){
+    fun saveProperty(onSuccess:() -> Unit = {}){
         viewModelScope.launch {
             try {
                 val propertyEntity = PropertyEntity(
@@ -135,6 +138,22 @@ class EditViewModel @Inject constructor(
         } catch (e: IOException) {
             e.printStackTrace()
             null
+        }
+    }
+
+    fun chooseImageFromGallery(uri: Uri) {
+        currentPhotoUri = uri
+        _data.value = _data.value.copy(image = uri.toString())
+        takePersistableUriPermission(uri)
+        saveProperty()
+    }
+
+    private fun takePersistableUriPermission(uri: Uri) {
+        try {
+            val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            context.contentResolver.takePersistableUriPermission(uri, takeFlags)
+        } catch (e: SecurityException) {
+            e.printStackTrace()
         }
     }
 

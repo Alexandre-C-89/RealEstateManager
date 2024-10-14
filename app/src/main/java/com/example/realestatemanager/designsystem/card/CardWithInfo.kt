@@ -1,5 +1,6 @@
 package com.example.realestatemanager.designsystem.card
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.example.realestatemanager.R
 import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.LightBlue
@@ -53,9 +55,9 @@ fun CardWithInfo(
             verticalAlignment = Alignment.CenterVertically
         ) {
             imageUri?.let {
-                AsyncImage(
+                Image(
                     modifier = Modifier.width(100.dp),
-                    model = imageUri,
+                    painter = rememberAsyncImagePainter(model = Uri.parse(imageUri)),
                     contentDescription = "Image of property",
                     contentScale = ContentScale.Crop
                 )

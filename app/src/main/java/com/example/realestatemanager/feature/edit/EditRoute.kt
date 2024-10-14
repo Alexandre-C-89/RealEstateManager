@@ -55,11 +55,9 @@ fun EditRoute(
         }
     }
 
-    val galleryLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let {
-            viewModel.onImageChanged(it.toString())
+    val galleryLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.OpenDocument()) {
+        it?.let { uri ->
+            viewModel.chooseImageFromGallery(uri)
         }
     }
 
@@ -68,7 +66,7 @@ fun EditRoute(
         onBackClick = onBackClick,
         onSaveClick = { viewModel.saveProperty(onBackClick) },
         data = uiData,
-        onPickImageClick = { galleryLauncher.launch("image/*") },
+        onPickImageClick = { galleryLauncher.launch(arrayOf("image/*")) },
         onCameraClick = {
             viewModel.takePhoto(context) { uri ->
                 uri?.let { cameraLauncher.launch(it) }
