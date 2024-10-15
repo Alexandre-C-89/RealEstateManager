@@ -3,6 +3,7 @@ package com.example.realestatemanager.feature.main
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -93,22 +94,26 @@ fun HomeScreen(
         }
     ) {
         if (!isExpandedScreen) {
-            LazyColumn(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(uiState.currentList) { property ->
-                    property.type?.let {
-                        property.address?.let { it1 ->
-                            CardWithInfo(
-                                onClick = {
-                                    onPropertyClick(property.id)
-                                },
-                                type = it,
-                                location = it1,
-                                price = "€ ${property.price.toString()}",
-                                imageUri = property.image
-                            )
+            Column(
+                verticalArrangement = Arrangement.Center
+            ){
+                LazyColumn(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(uiState.currentList) { property ->
+                        property.type?.let {
+                            property.address?.let { it1 ->
+                                CardWithInfo(
+                                    onClick = {
+                                        onPropertyClick(property.id)
+                                    },
+                                    type = it,
+                                    location = it1,
+                                    price = "€ ${property.price.toString()}",
+                                    imageUri = property.image
+                                )
+                            }
                         }
                     }
                 }
