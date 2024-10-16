@@ -74,7 +74,7 @@ class ContentProvider : ContentProvider() {
                     existingProperty?.let { property ->
                         val updatedProperty = property.copy(
                             type = values.getAsString("type"),
-                            price = values.getAsDouble("price"),
+                            price = values.getAsLong("price"),
                             surface = values.getAsInteger("surface"),
                             room = values.getAsInteger("room"),
                             image = values.getAsString("image"),

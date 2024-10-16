@@ -25,7 +25,7 @@ class ContentProviderRepositoryImpl @Inject constructor(
                 do {
                     val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
                     val type = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("type"))
-                    val price = cursor.getDoubleOrNull(cursor.getColumnIndexOrThrow("price"))
+                    val price = cursor.getLongOrNull(cursor.getColumnIndexOrThrow("price"))
                     val surface = cursor.getIntOrNull(cursor.getColumnIndexOrThrow("surface"))
                     val room = cursor.getIntOrNull(cursor.getColumnIndexOrThrow("room"))
                     val image = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("image"))

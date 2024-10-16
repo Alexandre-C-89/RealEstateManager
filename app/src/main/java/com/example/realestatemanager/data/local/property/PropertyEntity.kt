@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 data class PropertyEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val type: String?,
-    val price: Double?,
+    val price: Long?,
     val surface: Int?,
     val room: Int?,
     val image: String?,

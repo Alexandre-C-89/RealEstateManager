@@ -27,18 +27,18 @@ class PropertyMapper {
     fun toPropertyEntity(modifyUiData: ModifyUiData, propertyId: Int): PropertyEntity {
         return PropertyEntity(
             id = propertyId,
-            type = modifyUiData.type.text,
-            price = modifyUiData.price.text.toDouble(),
-            surface = modifyUiData.surface.text.toInt(),
-            room = modifyUiData.room.text.toInt(),
+            type = modifyUiData.type.text.ifBlank { null },
+            price = modifyUiData.price.text.toLongOrNull(),
+            surface = modifyUiData.surface.text.toIntOrNull(),
+            room = modifyUiData.room.text.toIntOrNull(),
             image = modifyUiData.image,
-            description = modifyUiData.description.text,
-            address = modifyUiData.address.text,
-            interest = modifyUiData.interest.text,
-            status = modifyUiData.status.text,
-            dateOfCreation = modifyUiData.dateOfCreation.text.toLong(),
-            dateOfSold = modifyUiData.dateOfSold.text.toLong(),
-            agent = modifyUiData.agent.text,
+            description = modifyUiData.description.text.ifBlank { null },
+            address = modifyUiData.address.text.ifBlank { null },
+            interest = modifyUiData.interest.text.ifBlank { null },
+            status = modifyUiData.status.text.ifBlank { null },
+            dateOfCreation = modifyUiData.dateOfCreation.text.toLongOrNull(),
+            dateOfSold = modifyUiData.dateOfSold.text.toLongOrNull(),
+            agent = modifyUiData.agent.text.ifBlank { null },
             latitude = null,
             longitude = null
         )
@@ -48,7 +48,7 @@ class PropertyMapper {
         return PropertyEntity(
             id = values.getAsInteger("id") ?: 0,
             type = values.getAsString("type"),
-            price = values.getAsDouble("price"),
+            price = values.getAsLong("price"),
             surface = values.getAsInteger("surface"),
             room = values.getAsInteger("room"),
             image = values.getAsString("image"),

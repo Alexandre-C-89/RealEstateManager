@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
@@ -85,22 +86,23 @@ class EditViewModel @Inject constructor(
             try {
                 val propertyEntity = PropertyEntity(
                     id = 0,
-                    type = _data.value.type.text,
-                    price = _data.value.price.text.toDouble(),
-                    surface = _data.value.surface.text.toInt(),
-                    room = _data.value.room.text.toInt(),
+                    type = _data.value.type.text.ifBlank { null },
+                    price = _data.value.price.text.toLongOrNull(),
+                    surface = _data.value.surface.text.toIntOrNull(),
+                    room = _data.value.room.text.toIntOrNull(),
                     image = _data.value.image,
-                    description = _data.value.description.text,
-                    address = _data.value.address.text,
-                    interest = _data.value.interest.text,
-                    status = _data.value.status.text,
-                    dateOfCreation = _data.value.dateOfCreation.text.toLong(),
-                    dateOfSold = _data.value.dateOfSold.text.toLong(),
-                    agent = _data.value.agent.text,
+                    description = _data.value.description.text.ifBlank { null },
+                    address = _data.value.address.text.ifBlank { null },
+                    interest = _data.value.interest.text.ifBlank { null },
+                    status = _data.value.status.text.ifBlank { null },
+                    dateOfCreation = _data.value.dateOfCreation.text.toLongOrNull(),
+                    dateOfSold = _data.value.dateOfSold.text.toLongOrNull(),
+                    agent = _data.value.agent.text.ifBlank { null },
                     latitude = null,
                     longitude = null
                 )
                 repository.insert(propertyEntity = propertyEntity)
+                Toast.makeText(context, "Property is saved !",Toast.LENGTH_LONG).show()
                 onSuccess()
             } catch (e: Exception){
                 Log.e("EditViewModel", "Error saving property: ${e.message}")
