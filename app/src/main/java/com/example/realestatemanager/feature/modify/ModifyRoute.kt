@@ -124,6 +124,7 @@ fun ModifyScreen(
     AppScaffold(
         topBar = {
             TopBar(
+                title = "Modify",
                 onBackClick = onBackClick
             )
         }

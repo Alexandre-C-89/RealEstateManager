@@ -36,6 +36,7 @@ import com.example.realestatemanager.designsystem.fonts
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
+    title: String? = null,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     onNavigationClick: (() -> Unit)? = null,
     onMapClick: (() -> Unit)? = null,
@@ -58,7 +59,7 @@ fun TopBar(
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = "RealEstateManager",
+                        text = title ?: "RealEstateManager",
                         style = TextStyle(
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,

@@ -74,6 +74,7 @@ fun LendScreen(
     AppScaffold(
         topBar = {
             TopBar(
+                title = "Lend",
                 onBackClick = onBackClick
             )
         },

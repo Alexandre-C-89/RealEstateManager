@@ -113,6 +113,7 @@ fun EditScreen(
     AppScaffold(
         topBar = {
             TopBar(
+                title = "Create property",
                 onBackClick = onBackClick
             )
         }
@@ -123,12 +124,6 @@ fun EditScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = "Create new property",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
-
                 Spacer.Vertical.Small()
                 Column(
                     modifier = Modifier.verticalScroll(rememberScrollState()),
@@ -318,12 +313,6 @@ fun EditScreen(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer.Vertical.Default()
-                Text(
-                    text = "Create new property",
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.displaySmall
-                )
                 Spacer.Vertical.ExtraLarge()
                 Row(
                     modifier = Modifier.fillMaxWidth(),

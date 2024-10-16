@@ -158,6 +158,7 @@ fun MapScreen(
     AppScaffold(
         topBar = {
             TopBar(
+                title = "Map",
                 onBackClick = onBackClick
             )
         },

@@ -86,6 +86,7 @@ fun SearchScreen(
     AppScaffold(
         topBar = {
             TopBar(
+                title = "Search property",
                 onBackClick = onBackClick
             )
         }
