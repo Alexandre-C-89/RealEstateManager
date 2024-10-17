@@ -147,7 +147,6 @@ class EditViewModel @Inject constructor(
         currentPhotoUri = uri
         _data.value = _data.value.copy(image = uri.toString())
         takePersistableUriPermission(uri)
-        saveProperty()
     }
 
     private fun takePersistableUriPermission(uri: Uri) {
