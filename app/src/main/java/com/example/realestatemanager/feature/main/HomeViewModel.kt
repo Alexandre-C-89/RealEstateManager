@@ -28,48 +28,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val propertyRepository: PropertyRepository,
-    private val contentProviderRepository: ContentProviderRepository,
-    @ApplicationContext private val context: Context
+    private val propertyRepository: PropertyRepository
 ) : ViewModel() {
 
     private val _properties = MutableStateFlow(UiState())
     val properties: StateFlow<UiState> = _properties
 
-    private val _propertiesOffline = MutableLiveData<List<PropertyEntity>>()
-    val propertiesOffline: LiveData<List<PropertyEntity>> = _propertiesOffline
-
-    private val uiState = mutableStateOf(UiState())
-
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            getProperties()
-        }
+        getProperties()
     }
 
-    private suspend fun getProperties() {
-        if (NetworkUtil.isNetworkAvailable(context)) {
-            when (uiState.value.displayType) {
-                DISPLAY_TYPE.ALL -> {
-                    propertyRepository.getAllProperties().collect { list ->
-                        withContext(Dispatchers.Main) {
-                            _properties.value = properties.value.copy(
-                                currentList = list
-                            )
-                        }
-                    }
+    private fun getProperties() {
+        viewModelScope.launch(Dispatchers.IO) {
+            propertyRepository.getAllProperties().collect { list ->
+                withContext(Dispatchers.Main) {
+                    _properties.value = properties.value.copy(
+                        currentList = list
+                    )
                 }
             }
-        } else {
-            fetchProperties()
         }
     }
-
-    private fun fetchProperties() {
-        viewModelScope.launch {
-            val result = contentProviderRepository.getAllProperties()
-            _propertiesOffline.postValue(result)
-        }
-    }
-
 }

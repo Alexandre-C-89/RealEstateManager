@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.example.realestatemanager.data.local.AppDatabase
+import com.example.realestatemanager.data.local.property.PropertyDao
 import com.example.realestatemanager.data.remote.location.ILocationService
 import com.example.realestatemanager.data.remote.location.LocationService
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -51,5 +52,11 @@ object LocalModule {
         context,
         LocationServices.getFusedLocationProviderClient(context)
     )
+
+    @Provides
+    fun providePropertyDao(appDatabase: AppDatabase): PropertyDao {
+        return appDatabase.propertyDao
+    }
+
 
 }
