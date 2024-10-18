@@ -53,6 +53,7 @@ object LocalModule {
         LocationServices.getFusedLocationProviderClient(context)
     )
 
+    @Singleton
     @Provides
     fun providePropertyDao(appDatabase: AppDatabase): PropertyDao {
         return appDatabase.propertyDao

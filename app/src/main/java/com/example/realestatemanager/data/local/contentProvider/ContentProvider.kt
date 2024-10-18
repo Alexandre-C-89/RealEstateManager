@@ -5,14 +5,13 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import android.util.Log
-import com.example.realestatemanager.RealApp
 import com.example.realestatemanager.data.local.property.PropertyDao
 import com.example.realestatemanager.data.repository.property.mapper.PropertyMapper
 import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-class PropertyContentProvider : ContentProvider() {
+class ContentProvider : ContentProvider() {
 
     @Inject
     lateinit var propertyDao: PropertyDao
