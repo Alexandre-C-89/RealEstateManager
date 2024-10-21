@@ -56,11 +56,12 @@ fun EditRoute(
         }
     }
 
-    val galleryLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.OpenDocument()) {
-        it?.let { uri ->
-            viewModel.chooseImageFromGallery(uri)
+    val galleryLauncher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.OpenDocument()) {
+            it?.let { uri ->
+                viewModel.chooseImageFromGallery(uri)
+            }
         }
-    }
 
     EditScreen(
         isExpandedScreen = isExpandedScreen,
@@ -431,29 +432,6 @@ fun EditScreen(
                         )
                     )
                     Spacer.Horizontal.Small()
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Checkbox(
-                            checked = !searchByNearbySchools,
-                            onCheckedChange = { isChecked ->
-                                searchByNearbySchools = isChecked
-                                onSchoolChanged(isChecked)
-                            }
-                        )
-                        Text(text = "school")
-                        Checkbox(
-                            checked = !searchByNearbyBusinesses,
-                            onCheckedChange = { isChecked ->
-                                searchByNearbyBusinesses = isChecked
-                                onShopsChanged(isChecked)
-                            }
-                        )
-                        Text(text = "school")
-                    }
-                    Spacer.Horizontal.Small()
                     FormTextField(
                         modifier = Modifier.width(200.dp),
                         label = { Text("Status") },
@@ -500,20 +478,29 @@ fun EditScreen(
                     )
                 }
                 Spacer.Vertical.Default()
-                FormTextField(
-                    modifier = Modifier.width(180.dp),
-                    label = { Text("Agent") },
-                    value = data.agent,
-                    onValueChange = onAgentChanged,
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onNext = {
-                            focusManager.moveFocus(FocusDirection.Next)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(
+                        checked = searchByNearbySchools,
+                        onCheckedChange = { isChecked ->
+                            searchByNearbySchools = isChecked
+                            onSchoolChanged(isChecked)
                         }
                     )
-                )
+                    Text(text = "School")
+                    Spacer.Horizontal.Large()
+                    Checkbox(
+                        checked = searchByNearbyBusinesses,
+                        onCheckedChange = { isChecked ->
+                            searchByNearbyBusinesses = isChecked
+                            onShopsChanged(isChecked)
+                        }
+                    )
+                    Text(text = "Shops")
+                }
                 Spacer.Vertical.Large()
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -538,7 +525,7 @@ fun EditScreen(
 
 @Preview
 @Composable
-fun EditScreenPreview(){
+fun EditScreenPreview() {
     EditScreen(
         data = EditUiData(shops = true, school = false),
         isExpandedScreen = false,
@@ -552,8 +539,8 @@ fun EditScreenPreview(){
         onSurfaceChanged = { TextFieldValue("") },
         onRoomChanged = { TextFieldValue("") },
         onDescriptionChanged = { TextFieldValue("") },
-        onSchoolChanged = {} ,
-        onShopsChanged = {} ,
+        onSchoolChanged = {},
+        onShopsChanged = {},
         onStatusChanged = { TextFieldValue("") },
         onDateOfCreationChanged = { TextFieldValue("") },
         onDateOfSoldChanged = { TextFieldValue("") },
