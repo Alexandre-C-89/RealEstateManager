@@ -31,7 +31,8 @@ class ContentProviderRepositoryImpl @Inject constructor(
                     val image = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("image"))
                     val description = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("description"))
                     val address = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("address"))
-                    val interest = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("interest"))
+                    val school = cursor.getIntOrNull(cursor.getColumnIndexOrThrow("school")) == 1
+                    val shops = cursor.getIntOrNull(cursor.getColumnIndexOrThrow("shops")) == 1
                     val status = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("status"))
                     val dateOfCreation = cursor.getLongOrNull(cursor.getColumnIndexOrThrow("dateOfCreation"))
                     val dateOfSold = cursor.getLongOrNull(cursor.getColumnIndexOrThrow("dateOfSold"))
@@ -47,7 +48,8 @@ class ContentProviderRepositoryImpl @Inject constructor(
                         image,
                         description,
                         address,
-                        interest,
+                        school,
+                        shops,
                         status,
                         dateOfCreation,
                         dateOfSold,

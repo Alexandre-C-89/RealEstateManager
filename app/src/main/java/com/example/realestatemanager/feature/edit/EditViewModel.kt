@@ -30,7 +30,7 @@ class EditViewModel @Inject constructor(
     var currentPhotoUri: Uri? = null
         private set
 
-    private val _data = MutableStateFlow(EditUiData())
+    private val _data = MutableStateFlow(EditUiData(school = false, shops = false))
     val data: StateFlow<EditUiData> = _data
 
     fun onTypeChanged(value: TextFieldValue) {
@@ -53,7 +53,7 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(image = value)
     }
 
-    fun onDescritpionChanged(value: TextFieldValue) {
+    fun onDescriptionChanged(value: TextFieldValue) {
         _data.value = data.value.copy(description = value)
     }
 
@@ -61,8 +61,12 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(address = value)
     }
 
-    fun onInterestChanged(value: TextFieldValue) {
-        _data.value = data.value.copy(interest = value)
+    fun onSchoolChanged(value: Boolean) {
+        _data.value = data.value.copy(school = value)
+    }
+
+    fun onShopsChanged(value: Boolean) {
+        _data.value = data.value.copy(shops = value)
     }
 
     fun onStatusChanged(value: TextFieldValue) {
@@ -93,7 +97,8 @@ class EditViewModel @Inject constructor(
                     image = _data.value.image,
                     description = _data.value.description.text.ifBlank { null },
                     address = _data.value.address.text.ifBlank { null },
-                    interest = _data.value.interest.text.ifBlank { null },
+                    school = _data.value.school.or(false),
+                    shops = _data.value.shops.or(false),
                     status = _data.value.status.text.ifBlank { null },
                     dateOfCreation = _data.value.dateOfCreation.text.toLongOrNull(),
                     dateOfSold = _data.value.dateOfSold.text.toLongOrNull(),

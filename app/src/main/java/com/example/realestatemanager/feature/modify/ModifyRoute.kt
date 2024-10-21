@@ -15,12 +15,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -88,7 +92,8 @@ fun ModifyRoute(
         onRoomChanged = { viewModel.onRoomChanged(it) },
         onDescriptionChanged = { viewModel.onDescriptionChanged(it) },
         onAddressChanged = { viewModel.onAddressChanged(it) },
-        onInterestChanged = { viewModel.onInterestChanged(it) },
+        onSchoolChanged = { viewModel.onSchoolChanged(it) },
+        onShopsChanged = { viewModel.onShopsChanged(it) },
         onStatusChanged = { viewModel.onStatusChanged(it) },
         onDateOfCreationChanged = { viewModel.onDateOfCreationChanged(it) },
         onDateOfSoldChanged = { viewModel.onDateOfSoldChanged(it) },
@@ -112,7 +117,8 @@ fun ModifyScreen(
     onRoomChanged: (TextFieldValue) -> Unit,
     onDescriptionChanged: (TextFieldValue) -> Unit,
     onAddressChanged: (TextFieldValue) -> Unit,
-    onInterestChanged: (TextFieldValue) -> Unit,
+    onSchoolChanged: (Boolean) -> Unit,
+    onShopsChanged: (Boolean) -> Unit,
     onStatusChanged: (TextFieldValue) -> Unit,
     onDateOfCreationChanged: (TextFieldValue) -> Unit,
     onDateOfSoldChanged: (TextFieldValue) -> Unit,
@@ -120,7 +126,8 @@ fun ModifyScreen(
 ) {
 
     val focusManager = LocalFocusManager.current
-
+    var searchByNearbySchools by remember { mutableStateOf(false) }
+    var searchByNearbyBusinesses by remember { mutableStateOf(false) }
     AppScaffold(
         topBar = {
             TopBar(
@@ -226,20 +233,28 @@ fun ModifyScreen(
                     )
                 )
                 Spacer.Vertical.Default()
-                FormTextField(
+                Row(
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Interest") },
-                    value = data.interest,
-                    onValueChange = { newValue -> onInterestChanged(newValue) },
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            focusManager.moveFocus(FocusDirection.Down)
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(
+                        checked = !searchByNearbySchools,
+                        onCheckedChange = { isChecked ->
+                            searchByNearbySchools = isChecked
+                            onSchoolChanged(isChecked)
                         }
                     )
-                )
+                    Text(text = "school")
+                    Checkbox(
+                        checked = !searchByNearbyBusinesses,
+                        onCheckedChange = { isChecked ->
+                            searchByNearbyBusinesses = isChecked
+                            onShopsChanged(isChecked)
+                        }
+                    )
+                    Text(text = "school")
+                }
                 FormTextField(
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text("Status") },
@@ -423,20 +438,28 @@ fun ModifyScreen(
                         )
                     )
                     Spacer.Horizontal.Small()
-                    FormTextField(
-                        modifier = Modifier.width(200.dp),
-                        label = { Text("Interest") },
-                        value = data.interest,
-                        onValueChange = { newValue -> onInterestChanged(newValue) },
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = !searchByNearbySchools,
+                            onCheckedChange = { isChecked ->
+                                searchByNearbySchools = isChecked
+                                onSchoolChanged(isChecked)
                             }
                         )
-                    )
+                        Text(text = "school")
+                        Checkbox(
+                            checked = !searchByNearbyBusinesses,
+                            onCheckedChange = { isChecked ->
+                                searchByNearbyBusinesses = isChecked
+                                onShopsChanged(isChecked)
+                            }
+                        )
+                        Text(text = "school")
+                    }
                     Spacer.Horizontal.Small()
                     FormTextField(
                         modifier = Modifier.width(200.dp),

@@ -1,6 +1,5 @@
 package com.example.realestatemanager.feature.edit
 
-import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -14,21 +13,23 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.realestatemanager.designsystem.AppScaffold
@@ -76,9 +77,10 @@ fun EditRoute(
         onPriceChanged = { viewModel.onPriceChanged(it) },
         onSurfaceChanged = { viewModel.onSurfaceChanged(it) },
         onRoomChanged = { viewModel.onRoomChanged(it) },
-        onDescriptionChanged = { viewModel.onDescritpionChanged(it) },
+        onDescriptionChanged = { viewModel.onDescriptionChanged(it) },
         onAddressChanged = { viewModel.onAddressChanged(it) },
-        onInterestChanged = { viewModel.onInterestChanged(it) },
+        onSchoolChanged = { viewModel.onSchoolChanged(it) },
+        onShopsChanged = { viewModel.onShopsChanged(it) },
         onStatusChanged = { viewModel.onStatusChanged(it) },
         onDateOfCreationChanged = { viewModel.onDateOfCreationChanged(it) },
         onDateOfSoldChanged = { viewModel.onDateOfSoldChanged(it) },
@@ -101,7 +103,8 @@ fun EditScreen(
     onRoomChanged: (TextFieldValue) -> Unit,
     onDescriptionChanged: (TextFieldValue) -> Unit,
     onAddressChanged: (TextFieldValue) -> Unit,
-    onInterestChanged: (TextFieldValue) -> Unit,
+    onSchoolChanged: (Boolean) -> Unit,
+    onShopsChanged: (Boolean) -> Unit,
     onStatusChanged: (TextFieldValue) -> Unit,
     onDateOfCreationChanged: (TextFieldValue) -> Unit,
     onDateOfSoldChanged: (TextFieldValue) -> Unit,
@@ -109,6 +112,8 @@ fun EditScreen(
 ) {
 
     val focusManager = LocalFocusManager.current
+    var searchByNearbySchools by remember { mutableStateOf(false) }
+    var searchByNearbyBusinesses by remember { mutableStateOf(false) }
 
     AppScaffold(
         topBar = {
@@ -120,7 +125,9 @@ fun EditScreen(
     ) {
         if (!isExpandedScreen) {
             Column(
-                modifier = Modifier.fillMaxSize().padding(16.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -229,20 +236,29 @@ fun EditScreen(
                             }
                         )
                     )
-                    FormTextField(
-                        modifier = Modifier,
-                        label = { Text("Interest") },
-                        value = data.interest,
-                        onValueChange = onInterestChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = searchByNearbySchools,
+                            onCheckedChange = { isChecked ->
+                                searchByNearbySchools = isChecked
+                                onSchoolChanged(isChecked)
                             }
                         )
-                    )
+                        Text(text = "school")
+                        Spacer.Horizontal.Large()
+                        Checkbox(
+                            checked = searchByNearbyBusinesses,
+                            onCheckedChange = { isChecked ->
+                                searchByNearbyBusinesses = isChecked
+                                onShopsChanged(isChecked)
+                            }
+                        )
+                        Text(text = "school")
+                    }
                     FormTextField(
                         modifier = Modifier,
                         label = { Text("Status") },
@@ -415,20 +431,28 @@ fun EditScreen(
                         )
                     )
                     Spacer.Horizontal.Small()
-                    FormTextField(
-                        modifier = Modifier.width(200.dp),
-                        label = { Text("Interest") },
-                        value = data.interest,
-                        onValueChange = onInterestChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onNext = {
-                                focusManager.moveFocus(FocusDirection.Next)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = !searchByNearbySchools,
+                            onCheckedChange = { isChecked ->
+                                searchByNearbySchools = isChecked
+                                onSchoolChanged(isChecked)
                             }
                         )
-                    )
+                        Text(text = "school")
+                        Checkbox(
+                            checked = !searchByNearbyBusinesses,
+                            onCheckedChange = { isChecked ->
+                                searchByNearbyBusinesses = isChecked
+                                onShopsChanged(isChecked)
+                            }
+                        )
+                        Text(text = "school")
+                    }
                     Spacer.Horizontal.Small()
                     FormTextField(
                         modifier = Modifier.width(200.dp),
@@ -510,4 +534,29 @@ fun EditScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun EditScreenPreview(){
+    EditScreen(
+        data = EditUiData(shops = true, school = false),
+        isExpandedScreen = false,
+        onBackClick = {},
+        onSaveClick = {},
+        onAddressChanged = { TextFieldValue("") },
+        onPickImageClick = {},
+        onCameraClick = {},
+        onTypeChanged = { TextFieldValue("") },
+        onPriceChanged = { TextFieldValue("") },
+        onSurfaceChanged = { TextFieldValue("") },
+        onRoomChanged = { TextFieldValue("") },
+        onDescriptionChanged = { TextFieldValue("") },
+        onSchoolChanged = {} ,
+        onShopsChanged = {} ,
+        onStatusChanged = { TextFieldValue("") },
+        onDateOfCreationChanged = { TextFieldValue("") },
+        onDateOfSoldChanged = { TextFieldValue("") },
+        onAgentChanged = { TextFieldValue("") },
+    )
 }
