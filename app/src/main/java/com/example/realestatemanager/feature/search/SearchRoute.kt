@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -25,6 +26,9 @@ import androidx.compose.material3.adaptive.navigation.NavigableListDetailPaneSca
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -33,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -64,6 +69,8 @@ fun SearchRoute(
         onPriceMaxChanged = { viewModel.onPriceMaxChanged(it) },
         onSurfaceMinChanged = { viewModel.onSurfaceMinChanged(it) },
         onSurfaceMaxChanged = { viewModel.onSurfaceMaxChanged(it) },
+        onSchoolChanged = { viewModel.onSchoolChanged(it) },
+        onShopsChanged = { viewModel.onShopsChanged(it) },
         onBackClick = onBackClick,
         onSaveClick = { viewModel.searchProperties() },
     )
@@ -79,10 +86,14 @@ fun SearchScreen(
     onPriceMaxChanged: (TextFieldValue) -> Unit,
     onSurfaceMinChanged: (TextFieldValue) -> Unit,
     onSurfaceMaxChanged: (TextFieldValue) -> Unit,
+    onSchoolChanged: (Boolean) -> Unit,
+    onShopsChanged: (Boolean) -> Unit,
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
+    var searchByNearbySchools by remember { mutableStateOf(false) }
+    var searchByNearbyBusinesses by remember { mutableStateOf(false) }
     AppScaffold(
         topBar = {
             TopBar(
@@ -208,6 +219,30 @@ fun SearchScreen(
                     )
                 }
                 Spacer.Vertical.Default()
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(
+                        checked = searchByNearbySchools,
+                        onCheckedChange = { isChecked ->
+                            searchByNearbySchools = isChecked
+                            onSchoolChanged(isChecked)
+                        }
+                    )
+                    Text(text = "School")
+                    Spacer.Horizontal.Large()
+                    Checkbox(
+                        checked = searchByNearbyBusinesses,
+                        onCheckedChange = { isChecked ->
+                            searchByNearbyBusinesses = isChecked
+                            onShopsChanged(isChecked)
+                        }
+                    )
+                    Text(text = "Shops")
+                }
+                Spacer.Vertical.Default()
                 AppButton(
                     onClick = onSaveClick,
                     text = "Search"
@@ -328,6 +363,23 @@ fun SearchScreen(
                                 imeAction = ImeAction.Done
                             ),
                         )
+                        Checkbox(
+                            checked = searchByNearbySchools,
+                            onCheckedChange = { isChecked ->
+                                searchByNearbySchools = isChecked
+                                onSchoolChanged(isChecked)
+                            }
+                        )
+                        Text(text = "School")
+                        Spacer.Horizontal.Large()
+                        Checkbox(
+                            checked = searchByNearbyBusinesses,
+                            onCheckedChange = { isChecked ->
+                                searchByNearbyBusinesses = isChecked
+                                onShopsChanged(isChecked)
+                            }
+                        )
+                        Text(text = "Shops")
                         Spacer.Vertical.Default()
                         AppButton(onClick = onSaveClick, text = "Search")
                     }
@@ -373,4 +425,22 @@ fun SearchScreen(
         }
 
     }
+}
+
+@Preview
+@Composable
+fun SearchScreenPreview(){
+    SearchScreen(
+        isExpandedScreen = false,
+        data = SearchUiData(shops = true, school = false),
+        searchState = SearchState.Loading,
+        onPriceMinChanged = { TextFieldValue("") },
+        onPriceMaxChanged = { TextFieldValue("") },
+        onSurfaceMinChanged = { TextFieldValue("") },
+        onSurfaceMaxChanged = { TextFieldValue("") },
+        onSchoolChanged = { true },
+        onShopsChanged = { true },
+        onBackClick = {},
+        onSaveClick = {}
+    )
 }
