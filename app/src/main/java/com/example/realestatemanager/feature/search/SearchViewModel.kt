@@ -18,7 +18,7 @@ class SearchViewModel @Inject constructor(
     private val repository: PropertyRepository
 ): ViewModel(){
 
-    private val _data = MutableStateFlow(SearchUiData(school = false, shops = false, sale = false))
+    private val _data = MutableStateFlow(SearchUiData())
     val data: StateFlow<SearchUiData> = _data
 
     private val _searchState = MutableStateFlow<SearchState>(SearchState.Loading)
@@ -55,6 +55,14 @@ class SearchViewModel @Inject constructor(
         _data.value = data.value.copy(sale = value)
     }
 
+    fun onMinPhotosChanged(value: TextFieldValue) {
+        _data.value = data.value.copy(minPhotos = value)
+    }
+
+    fun onMaxPhotosChanged(value: TextFieldValue) {
+        _data.value = data.value.copy(maxPhotos = value)
+    }
+
     fun searchProperties(){
         viewModelScope.launch {
             try {
@@ -65,7 +73,9 @@ class SearchViewModel @Inject constructor(
                     surfaceMax = _data.value.surfaceMax.text,
                     school = _data.value.school,
                     shops = _data.value.shops,
-                    sale = _data.value.sale
+                    sale = _data.value.sale,
+                    minPhotos = _data.value.minPhotos.text,
+                    maxPhotos = _data.value.maxPhotos.text
                 )
                 repository.searchProperties(formData).collect { properties ->
                     if (properties.isEmpty()) {

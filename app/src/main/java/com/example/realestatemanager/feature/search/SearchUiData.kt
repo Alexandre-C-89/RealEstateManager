@@ -7,7 +7,9 @@ data class SearchUiData(
     val priceMax: TextFieldValue = TextFieldValue(),
     val surfaceMin: TextFieldValue = TextFieldValue(),
     val surfaceMax: TextFieldValue = TextFieldValue(),
-    val school: Boolean,
-    val shops: Boolean,
-    val sale: Boolean
+    val school: Boolean = false,
+    val shops: Boolean = false,
+    val sale: Boolean = false,
+    val minPhotos: TextFieldValue = TextFieldValue(),
+    val maxPhotos: TextFieldValue = TextFieldValue(),
 )

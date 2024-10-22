@@ -33,7 +33,7 @@ interface PropertyDao {
     fun getPropertyById(propertyId: Int): Flow<PropertyEntity>
 
     @Query("""
-        SELECT * FROM properties 
+        SELECT * FROM properties
         WHERE (:priceMin IS NULL OR price >= :priceMin)
         AND (:priceMax IS NULL OR price <= :priceMax)
         AND (:surfaceMin IS NULL OR surface >= :surfaceMin)
@@ -41,6 +41,8 @@ interface PropertyDao {
         AND (:school IS NULL OR school = :school)
         AND (:shops IS NULL OR shops = :shops)
         AND (:sale IS NULL OR sale = :sale)
+        AND (:minPhotos IS NULL OR (image IS NOT NULL AND image <> '' AND LENGTH(image) - LENGTH(REPLACE(image, ',', '')) + 1 >= :minPhotos))
+        AND (:maxPhotos IS NULL OR (image IS NOT NULL AND image <> '' AND LENGTH(image) - LENGTH(REPLACE(image, ',', '')) + 1 <= :maxPhotos))
     """)
     fun searchProperties(
         priceMin: Double?,
@@ -50,6 +52,8 @@ interface PropertyDao {
         school: Boolean?,
         shops: Boolean?,
         sale: Boolean?,
+        minPhotos: Int?,
+        maxPhotos: Int?,
     ): Flow<List<PropertyEntity>>
 
     @Query("SELECT address FROM properties")

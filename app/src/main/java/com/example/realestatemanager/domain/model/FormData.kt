@@ -7,5 +7,7 @@ data class FormData(
     val surfaceMax: String,
     val school: Boolean,
     val shops: Boolean,
-    val sale: Boolean
+    val sale: Boolean,
+    val minPhotos: String,
+    val maxPhotos: String
 )

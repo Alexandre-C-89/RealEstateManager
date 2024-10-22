@@ -72,6 +72,8 @@ fun SearchRoute(
         onSchoolChanged = { viewModel.onSchoolChanged(it) },
         onShopsChanged = { viewModel.onShopsChanged(it) },
         onSaleChanged = { viewModel.onSaleChanged(it) },
+        onMinPhotosChanged = { viewModel.onMinPhotosChanged(it) },
+        onMaxPhotosChanged = { viewModel.onMaxPhotosChanged(it) },
         onBackClick = onBackClick,
         onSaveClick = { viewModel.searchProperties() },
     )
@@ -90,6 +92,8 @@ fun SearchScreen(
     onSchoolChanged: (Boolean) -> Unit,
     onShopsChanged: (Boolean) -> Unit,
     onSaleChanged: (Boolean) -> Unit,
+    onMinPhotosChanged: (TextFieldValue) -> Unit,
+    onMaxPhotosChanged: (TextFieldValue) -> Unit,
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
 ) {
@@ -254,6 +258,55 @@ fun SearchScreen(
                     Text(text = "For sale")
                 }
                 Spacer.Vertical.Default()
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 100.dp, min = 60.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    OutlinedTextField(
+                        modifier = Modifier.weight(1f),
+                        label = { Text("Photos min.") },
+                        value = data.minPhotos,
+                        onValueChange = onMinPhotosChanged,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onNext = {
+                                focusManager.moveFocus(FocusDirection.Next)
+                            }
+                        ),
+                        shape = RoundedCornerShape(6.dp),
+                        singleLine = true,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedContainerColor = LightBlue,
+                            focusedContainerColor = White
+                        )
+                    )
+                    Spacer.Horizontal.Small()
+                    OutlinedTextField(
+                        modifier = Modifier.weight(1f),
+                        label = { Text("Photos max") },
+                        value = data.maxPhotos,
+                        onValueChange = onMaxPhotosChanged,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        ),
+                        shape = RoundedCornerShape(6.dp),
+                        singleLine = true,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedContainerColor = LightBlue,
+                            focusedContainerColor = White
+                        )
+                    )
+                }
                 AppButton(
                     onClick = onSaveClick,
                     text = "Search"
@@ -263,7 +316,7 @@ fun SearchScreen(
 
                 when (searchState) {
                     is SearchState.Error -> {
-                        ErrorCard(message = "Error with research !")
+                        ErrorCard(message = "No properties found with our criteria !")
                     }
 
                     SearchState.Loading -> {
@@ -458,6 +511,8 @@ fun SearchScreenPreview(){
         onPriceMaxChanged = { TextFieldValue("") },
         onSurfaceMinChanged = { TextFieldValue("") },
         onSurfaceMaxChanged = { TextFieldValue("") },
+        onMinPhotosChanged = { TextFieldValue("") },
+        onMaxPhotosChanged = { TextFieldValue("") },
         onSchoolChanged = { true },
         onShopsChanged = { true },
         onSaleChanged = { true },
