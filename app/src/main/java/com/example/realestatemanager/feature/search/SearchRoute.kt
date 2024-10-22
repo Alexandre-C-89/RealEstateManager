@@ -119,13 +119,6 @@ fun SearchScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Spacer.Vertical.Default()
-                Text(
-                    text = "Search your property",
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.displaySmall,
-                    textAlign = TextAlign.Center
-                )
-                Spacer.Vertical.Default()
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -257,7 +250,7 @@ fun SearchScreen(
                     )
                     Text(text = "For sale")
                 }
-                Spacer.Vertical.Default()
+                Spacer.Vertical.Small()
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

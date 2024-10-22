@@ -78,11 +78,17 @@ class SearchViewModel @Inject constructor(
                     maxPhotos = _data.value.maxPhotos.text
                 )
                 repository.searchProperties(formData).collect { properties ->
-                    if (properties.isEmpty()) {
+                    val filteredProperties = if (_data.value.sale) {
+                        properties.filter { it.sale == true } // Si sale est true, on ne garde que celles à vendre
+                    } else {
+                        properties.filter { it.sale == false } // Si non cochée, on garde toutes les propriétés
+                    }
+
+                    if (filteredProperties.isEmpty()) {
                         _searchState.value = SearchState.Error("No properties found")
                     } else {
-                        _propertyList.value = properties
-                        _searchState.value = SearchState.Success(properties)
+                        _propertyList.value = filteredProperties
+                        _searchState.value = SearchState.Success(filteredProperties)
                     }
                 }
             } catch (e: Exception){
