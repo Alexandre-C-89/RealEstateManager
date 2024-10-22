@@ -79,9 +79,9 @@ class SearchViewModel @Inject constructor(
                 )
                 repository.searchProperties(formData).collect { properties ->
                     val filteredProperties = if (_data.value.sale) {
-                        properties.filter { it.sale == true } // Si sale est true, on ne garde que celles à vendre
+                        properties.filter { it.sale == true }
                     } else {
-                        properties.filter { it.sale == false } // Si non cochée, on garde toutes les propriétés
+                        properties.filter { it.sale == false }
                     }
 
                     if (filteredProperties.isEmpty()) {
