@@ -18,7 +18,7 @@ data class PropertyEntity(
     val address: String?,
     val school: Boolean?,
     val shops: Boolean?,
-    val status: String?,
+    val sale: Boolean?,
     val dateOfCreation: Long?,
     val dateOfSold: Long?,
     val agent: String?,

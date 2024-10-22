@@ -82,7 +82,7 @@ fun EditRoute(
         onAddressChanged = { viewModel.onAddressChanged(it) },
         onSchoolChanged = { viewModel.onSchoolChanged(it) },
         onShopsChanged = { viewModel.onShopsChanged(it) },
-        onStatusChanged = { viewModel.onStatusChanged(it) },
+        onSaleChanged = { viewModel.onSaleChanged(it) },
         onDateOfCreationChanged = { viewModel.onDateOfCreationChanged(it) },
         onDateOfSoldChanged = { viewModel.onDateOfSoldChanged(it) },
         onAgentChanged = { viewModel.onAgentChanged(it) }
@@ -106,7 +106,7 @@ fun EditScreen(
     onAddressChanged: (TextFieldValue) -> Unit,
     onSchoolChanged: (Boolean) -> Unit,
     onShopsChanged: (Boolean) -> Unit,
-    onStatusChanged: (TextFieldValue) -> Unit,
+    onSaleChanged: (Boolean) -> Unit,
     onDateOfCreationChanged: (TextFieldValue) -> Unit,
     onDateOfSoldChanged: (TextFieldValue) -> Unit,
     onAgentChanged: (TextFieldValue) -> Unit
@@ -115,6 +115,7 @@ fun EditScreen(
     val focusManager = LocalFocusManager.current
     var searchByNearbySchools by remember { mutableStateOf(false) }
     var searchByNearbyBusinesses by remember { mutableStateOf(false) }
+    var forSale by remember { mutableStateOf(false) }
 
     AppScaffold(
         topBar = {
@@ -258,22 +259,16 @@ fun EditScreen(
                                 onShopsChanged(isChecked)
                             }
                         )
-                        Text(text = "school")
-                    }
-                    FormTextField(
-                        modifier = Modifier,
-                        label = { Text("Status") },
-                        value = data.status,
-                        onValueChange = onStatusChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
+                        Text(text = "shops")
+                        Checkbox(
+                            checked = forSale,
+                            onCheckedChange = { isChecked ->
+                                forSale = isChecked
+                                onSaleChanged(isChecked)
                             }
                         )
-                    )
+                        Text(text = "For sale")
+                    }
                     FormTextField(
                         modifier = Modifier,
                         label = { Text("Date of creation") },
@@ -434,21 +429,6 @@ fun EditScreen(
                     Spacer.Horizontal.Small()
                     FormTextField(
                         modifier = Modifier.width(200.dp),
-                        label = { Text("Status") },
-                        value = data.status,
-                        onValueChange = onStatusChanged,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onNext = {
-                                focusManager.moveFocus(FocusDirection.Next)
-                            }
-                        )
-                    )
-                    Spacer.Horizontal.Small()
-                    FormTextField(
-                        modifier = Modifier.width(200.dp),
                         label = { Text("Date of creation") },
                         value = data.dateOfCreation,
                         onValueChange = onDateOfCreationChanged,
@@ -500,6 +480,14 @@ fun EditScreen(
                         }
                     )
                     Text(text = "Shops")
+                    Checkbox(
+                        checked = forSale,
+                        onCheckedChange = { isChecked ->
+                            forSale = isChecked
+                            onSaleChanged(isChecked)
+                        }
+                    )
+                    Text(text = "For sale")
                 }
                 Spacer.Vertical.Large()
                 Row(
@@ -527,7 +515,7 @@ fun EditScreen(
 @Composable
 fun EditScreenPreview() {
     EditScreen(
-        data = EditUiData(shops = true, school = false),
+        data = EditUiData(shops = true, school = false, sale = false),
         isExpandedScreen = false,
         onBackClick = {},
         onSaveClick = {},
@@ -541,7 +529,7 @@ fun EditScreenPreview() {
         onDescriptionChanged = { TextFieldValue("") },
         onSchoolChanged = {},
         onShopsChanged = {},
-        onStatusChanged = { TextFieldValue("") },
+        onSaleChanged = {},
         onDateOfCreationChanged = { TextFieldValue("") },
         onDateOfSoldChanged = { TextFieldValue("") },
         onAgentChanged = { TextFieldValue("") },

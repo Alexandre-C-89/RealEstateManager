@@ -44,6 +44,7 @@ class PropertyRepositoryImpl @Inject constructor(
            surfaceMax =  formData.surfaceMax.takeIf{it.isNotBlank()}?.toDoubleOrNull(),
            school =  formData.school.takeIf { it },
            shops =  formData.shops.takeIf { it },
+           sale =  formData.sale.takeIf { it },
         )
     }
 

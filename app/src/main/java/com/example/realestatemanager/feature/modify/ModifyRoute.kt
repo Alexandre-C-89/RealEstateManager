@@ -94,7 +94,7 @@ fun ModifyRoute(
         onAddressChanged = { viewModel.onAddressChanged(it) },
         onSchoolChanged = { viewModel.onSchoolChanged(it) },
         onShopsChanged = { viewModel.onShopsChanged(it) },
-        onStatusChanged = { viewModel.onStatusChanged(it) },
+        onSaleChanged = { viewModel.onSaleChanged(it) },
         onDateOfCreationChanged = { viewModel.onDateOfCreationChanged(it) },
         onDateOfSoldChanged = { viewModel.onDateOfSoldChanged(it) },
         onAgentChanged = { viewModel.onAgentChanged(it) }
@@ -119,7 +119,7 @@ fun ModifyScreen(
     onAddressChanged: (TextFieldValue) -> Unit,
     onSchoolChanged: (Boolean) -> Unit,
     onShopsChanged: (Boolean) -> Unit,
-    onStatusChanged: (TextFieldValue) -> Unit,
+    onSaleChanged: (Boolean) -> Unit,
     onDateOfCreationChanged: (TextFieldValue) -> Unit,
     onDateOfSoldChanged: (TextFieldValue) -> Unit,
     onAgentChanged: (TextFieldValue) -> Unit
@@ -128,6 +128,7 @@ fun ModifyScreen(
     val focusManager = LocalFocusManager.current
     var searchByNearbySchools by remember { mutableStateOf(false) }
     var searchByNearbyBusinesses by remember { mutableStateOf(false) }
+    var forSale by remember { mutableStateOf(false) }
     AppScaffold(
         topBar = {
             TopBar(
@@ -255,20 +256,6 @@ fun ModifyScreen(
                     )
                     Text(text = "school")
                 }
-                FormTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Status") },
-                    value = data.status,
-                    onValueChange = { newValue -> onStatusChanged(newValue) },
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            focusManager.moveFocus(FocusDirection.Down)
-                        }
-                    )
-                )
                 FormTextField(
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text("Date of creation") },
@@ -444,7 +431,7 @@ fun ModifyScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Checkbox(
-                            checked = !searchByNearbySchools,
+                            checked = searchByNearbySchools,
                             onCheckedChange = { isChecked ->
                                 searchByNearbySchools = isChecked
                                 onSchoolChanged(isChecked)
@@ -452,29 +439,22 @@ fun ModifyScreen(
                         )
                         Text(text = "school")
                         Checkbox(
-                            checked = !searchByNearbyBusinesses,
+                            checked = searchByNearbyBusinesses,
                             onCheckedChange = { isChecked ->
                                 searchByNearbyBusinesses = isChecked
                                 onShopsChanged(isChecked)
                             }
                         )
                         Text(text = "school")
-                    }
-                    Spacer.Horizontal.Small()
-                    FormTextField(
-                        modifier = Modifier.width(200.dp),
-                        label = { Text("Status") },
-                        value = data.status,
-                        onValueChange = { newValue -> onStatusChanged(newValue) },
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                focusManager.moveFocus(FocusDirection.Down)
+                        Checkbox(
+                            checked = forSale,
+                            onCheckedChange = { isChecked ->
+                                forSale = isChecked
+                                onSaleChanged(isChecked)
                             }
                         )
-                    )
+                        Text(text = "For sale")
+                    }
                     Spacer.Horizontal.Small()
                     FormTextField(
                         modifier = Modifier.width(200.dp),

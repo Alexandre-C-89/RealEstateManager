@@ -33,7 +33,7 @@ class ContentProviderRepositoryImpl @Inject constructor(
                     val address = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("address"))
                     val school = cursor.getIntOrNull(cursor.getColumnIndexOrThrow("school")) == 1
                     val shops = cursor.getIntOrNull(cursor.getColumnIndexOrThrow("shops")) == 1
-                    val status = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("status"))
+                    val sale = cursor.getIntOrNull(cursor.getColumnIndexOrThrow("sale")) == 1
                     val dateOfCreation = cursor.getLongOrNull(cursor.getColumnIndexOrThrow("dateOfCreation"))
                     val dateOfSold = cursor.getLongOrNull(cursor.getColumnIndexOrThrow("dateOfSold"))
                     val agent = cursor.getStringOrNull(cursor.getColumnIndexOrThrow("agent"))
@@ -50,7 +50,7 @@ class ContentProviderRepositoryImpl @Inject constructor(
                         address,
                         school,
                         shops,
-                        status,
+                        sale,
                         dateOfCreation,
                         dateOfSold,
                         agent,

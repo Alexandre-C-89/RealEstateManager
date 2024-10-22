@@ -71,6 +71,7 @@ fun SearchRoute(
         onSurfaceMaxChanged = { viewModel.onSurfaceMaxChanged(it) },
         onSchoolChanged = { viewModel.onSchoolChanged(it) },
         onShopsChanged = { viewModel.onShopsChanged(it) },
+        onSaleChanged = { viewModel.onSaleChanged(it) },
         onBackClick = onBackClick,
         onSaveClick = { viewModel.searchProperties() },
     )
@@ -88,12 +89,14 @@ fun SearchScreen(
     onSurfaceMaxChanged: (TextFieldValue) -> Unit,
     onSchoolChanged: (Boolean) -> Unit,
     onShopsChanged: (Boolean) -> Unit,
+    onSaleChanged: (Boolean) -> Unit,
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     var searchByNearbySchools by remember { mutableStateOf(false) }
     var searchByNearbyBusinesses by remember { mutableStateOf(false) }
+    var forSale by remember { mutableStateOf(false) }
     AppScaffold(
         topBar = {
             TopBar(
@@ -241,6 +244,14 @@ fun SearchScreen(
                         }
                     )
                     Text(text = "Shops")
+                    Checkbox(
+                        checked = forSale,
+                        onCheckedChange = { isChecked ->
+                            forSale = isChecked
+                            onSaleChanged(isChecked)
+                        }
+                    )
+                    Text(text = "For sale")
                 }
                 Spacer.Vertical.Default()
                 AppButton(
@@ -380,6 +391,15 @@ fun SearchScreen(
                             }
                         )
                         Text(text = "Shops")
+                        Spacer.Horizontal.Large()
+                        Checkbox(
+                            checked = forSale,
+                            onCheckedChange = { isChecked ->
+                                forSale = isChecked
+                                onSaleChanged(isChecked)
+                            }
+                        )
+                        Text(text = "For sale")
                         Spacer.Vertical.Default()
                         AppButton(onClick = onSaveClick, text = "Search")
                     }
@@ -432,7 +452,7 @@ fun SearchScreen(
 fun SearchScreenPreview(){
     SearchScreen(
         isExpandedScreen = false,
-        data = SearchUiData(shops = true, school = false),
+        data = SearchUiData(shops = true, school = false, sale = false),
         searchState = SearchState.Loading,
         onPriceMinChanged = { TextFieldValue("") },
         onPriceMaxChanged = { TextFieldValue("") },
@@ -440,6 +460,7 @@ fun SearchScreenPreview(){
         onSurfaceMaxChanged = { TextFieldValue("") },
         onSchoolChanged = { true },
         onShopsChanged = { true },
+        onSaleChanged = { true },
         onBackClick = {},
         onSaveClick = {}
     )

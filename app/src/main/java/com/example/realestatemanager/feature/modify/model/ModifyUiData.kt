@@ -12,7 +12,7 @@ data class ModifyUiData(
     val address: TextFieldValue = TextFieldValue(),
     val school: Boolean = false,
     val shops: Boolean = false,
-    val status: TextFieldValue = TextFieldValue(),
+    val sale: Boolean = false,
     val dateOfCreation: TextFieldValue = TextFieldValue(),
     val dateOfSold: TextFieldValue = TextFieldValue(),
     val agent: TextFieldValue = TextFieldValue(),

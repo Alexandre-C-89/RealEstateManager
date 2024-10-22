@@ -12,7 +12,7 @@ data class EditUiData(
     val address: TextFieldValue = TextFieldValue(),
     val school: Boolean,
     val shops: Boolean,
-    val status: TextFieldValue = TextFieldValue(),
+    val sale: Boolean,
     val dateOfCreation: TextFieldValue = TextFieldValue(),
     val dateOfSold: TextFieldValue = TextFieldValue(),
     val agent: TextFieldValue = TextFieldValue(),

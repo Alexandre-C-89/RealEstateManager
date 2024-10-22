@@ -40,6 +40,7 @@ interface PropertyDao {
         AND (:surfaceMax IS NULL OR surface <= :surfaceMax)
         AND (:school IS NULL OR school = :school)
         AND (:shops IS NULL OR shops = :shops)
+        AND (:sale IS NULL OR sale = :sale)
     """)
     fun searchProperties(
         priceMin: Double?,
@@ -48,6 +49,7 @@ interface PropertyDao {
         surfaceMax: Double?,
         school: Boolean?,
         shops: Boolean?,
+        sale: Boolean?,
     ): Flow<List<PropertyEntity>>
 
     @Query("SELECT address FROM properties")

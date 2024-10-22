@@ -6,5 +6,6 @@ data class FormData(
     val surfaceMin: String,
     val surfaceMax: String,
     val school: Boolean,
-    val shops: Boolean
+    val shops: Boolean,
+    val sale: Boolean
 )

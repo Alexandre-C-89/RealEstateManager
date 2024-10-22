@@ -75,8 +75,8 @@ class ModifyViewModel @Inject constructor(
         _data.value = data.value.copy(shops = value)
     }
 
-    fun onStatusChanged(value: TextFieldValue) {
-        _data.value = data.value.copy(status = value)
+    fun onSaleChanged(value: Boolean) {
+        _data.value = data.value.copy(sale = value)
     }
 
     fun onDateOfCreationChanged(value: TextFieldValue) {

@@ -8,5 +8,6 @@ data class SearchUiData(
     val surfaceMin: TextFieldValue = TextFieldValue(),
     val surfaceMax: TextFieldValue = TextFieldValue(),
     val school: Boolean,
-    val shops: Boolean
+    val shops: Boolean,
+    val sale: Boolean
 )
