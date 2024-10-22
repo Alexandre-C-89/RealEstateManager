@@ -236,25 +236,35 @@ fun ModifyScreen(
                 Spacer.Vertical.Default()
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Checkbox(
-                        checked = !searchByNearbySchools,
+                        checked = searchByNearbySchools,
                         onCheckedChange = { isChecked ->
                             searchByNearbySchools = isChecked
                             onSchoolChanged(isChecked)
                         }
                     )
                     Text(text = "school")
+                    Spacer.Horizontal.Small()
                     Checkbox(
-                        checked = !searchByNearbyBusinesses,
+                        checked = searchByNearbyBusinesses,
                         onCheckedChange = { isChecked ->
                             searchByNearbyBusinesses = isChecked
                             onShopsChanged(isChecked)
                         }
                     )
-                    Text(text = "school")
+                    Text(text = "shops")
+                    Spacer.Horizontal.Small()
+                    Checkbox(
+                        checked = forSale,
+                        onCheckedChange = { isChecked ->
+                            forSale = isChecked
+                            onSaleChanged(isChecked)
+                        }
+                    )
+                    Text(text = "For Sale")
                 }
                 FormTextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -427,7 +437,7 @@ fun ModifyScreen(
                     Spacer.Horizontal.Small()
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
+                        horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Checkbox(
@@ -445,7 +455,7 @@ fun ModifyScreen(
                                 onShopsChanged(isChecked)
                             }
                         )
-                        Text(text = "school")
+                        Text(text = "shops")
                         Checkbox(
                             checked = forSale,
                             onCheckedChange = { isChecked ->
