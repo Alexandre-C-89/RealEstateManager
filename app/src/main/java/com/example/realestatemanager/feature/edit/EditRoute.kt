@@ -51,16 +51,14 @@ fun EditRoute(
     ) { success: Boolean ->
         if (success) {
             viewModel.currentPhotoUri?.let { uri ->
-                viewModel.onImageChanged(uri.toString())
+                viewModel.onImageChanged(listOf(uri.toString()))
             }
         }
     }
 
     val galleryLauncher =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.OpenDocument()) {
-            it?.let { uri ->
-                viewModel.chooseImageFromGallery(uri)
-            }
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.OpenMultipleDocuments()) {
+            it?.let { viewModel.chooseImageFromGallery(it) }
         }
 
     EditScreen(
@@ -515,7 +513,7 @@ fun EditScreen(
 @Composable
 fun EditScreenPreview() {
     EditScreen(
-        data = EditUiData(shops = true, school = false, sale = false),
+        data = EditUiData(),
         isExpandedScreen = false,
         onBackClick = {},
         onSaveClick = {},

@@ -27,7 +27,10 @@ class EditViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ): ViewModel() {
 
-    var currentPhotoUri: Uri? = null
+    var currentPhotoUri: List<Uri>? = null
+        private set
+
+    var currentTakePhotoUri: Uri? = null
         private set
 
     private val _data = MutableStateFlow(EditUiData(school = false, shops = false, sale = false))
@@ -49,8 +52,8 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(room = value)
     }
 
-    fun onImageChanged(value: String) {
-        _data.value = data.value.copy(image = value)
+    fun onImageChanged(value: List<String>) {
+        _data.value = data.value.copy(image = _data.value.image + value)
     }
 
     fun onDescriptionChanged(value: TextFieldValue) {
@@ -94,7 +97,7 @@ class EditViewModel @Inject constructor(
                     price = _data.value.price.text.toLongOrNull(),
                     surface = _data.value.surface.text.toIntOrNull(),
                     room = _data.value.room.text.toIntOrNull(),
-                    image = _data.value.image,
+                    image = _data.value.image.toString(),
                     description = _data.value.description.text.ifBlank { null },
                     address = _data.value.address.text.ifBlank { null },
                     school = _data.value.school.or(false),
@@ -116,8 +119,8 @@ class EditViewModel @Inject constructor(
     }
 
     fun takePhoto(context: Context, onPhotoUriReady: (Uri?) -> Unit) {
-        currentPhotoUri = createImageUri(context)
-        onPhotoUriReady(currentPhotoUri)
+        currentTakePhotoUri = createImageUri(context)
+        onPhotoUriReady(currentTakePhotoUri)
     }
 
     private fun createImageUri(context: Context): Uri? {
@@ -148,10 +151,11 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun chooseImageFromGallery(uri: Uri) {
-        currentPhotoUri = uri
-        _data.value = _data.value.copy(image = uri.toString())
-        takePersistableUriPermission(uri)
+    fun chooseImageFromGallery(uris: List<Uri>) {
+        currentPhotoUri = uris
+        val imagePaths = uris.map { it.toString() }
+        _data.value = _data.value.copy(image = _data.value.image + imagePaths)
+        uris.forEach { takePersistableUriPermission(it) }
     }
 
     private fun takePersistableUriPermission(uri: Uri) {

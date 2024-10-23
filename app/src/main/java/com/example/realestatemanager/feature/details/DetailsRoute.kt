@@ -1,6 +1,7 @@
 package com.example.realestatemanager.feature.details
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,8 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,12 +29,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.example.realestatemanager.R
 import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.designsystem.AppScaffold
@@ -204,9 +212,19 @@ fun DetailsScreen(
                         info = propertyEntity.address.toString()
                     )
                     Spacer.Vertical.Large()
-                    CardImage(
-                        imageUri = propertyEntity.image ?: ""
-                    )
+                    val imageList: List<String> = propertyEntity.image
+                        ?.removeSurrounding("[", "]")  // Remove extra brackets
+                        ?.split(",")?.map { it.trim() } ?: emptyList()
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(imageList) { imageUri ->
+                            CardImage(
+                                imageUri = imageUri,
+                            )
+                        }
+                    }
                 }
                 Spacer.Vertical.Large()
                 GoogleMapItem(
@@ -265,9 +283,22 @@ fun DetailsScreen(
                     }
                     Spacer.Vertical.Large()
                     Spacer.Vertical.Large()
-                    CardImage(
-                        imageUri = propertyEntity.image ?: ""
-                    )
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items((propertyEntity.image) as Int) { imageUri ->
+                            AsyncImage(
+                                model = imageUri,  // imageUri is a String (URI of the image)
+                                contentDescription = "Selected Image",
+                                modifier = Modifier
+                                    .size(100.dp)
+                                    .clip(RoundedCornerShape(8.dp)),
+                                placeholder = painterResource(id = R.drawable.ic_error),  // Placeholder image in case the URI is empty
+                                error = painterResource(id = R.drawable.ic_error)   // Error placeholder if loading fails
+                            )
+                        }
+                    }
                 }
                 Row(
                     modifier = Modifier
