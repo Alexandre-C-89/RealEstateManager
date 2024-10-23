@@ -96,12 +96,14 @@ fun HomeScreen(
         if (!isExpandedScreen) {
             Column(
                 verticalArrangement = Arrangement.Center
-            ){
+            ) {
                 LazyColumn(
                     modifier = Modifier.padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(uiState.currentList) { property ->
+                        val imageList = property.image?.removeSurrounding("[", "]")?.split(",")
+                            ?.map { it.trim() } ?: emptyList()
                         CardWithInfo(
                             onClick = {
                                 onPropertyClick(property.id)
@@ -109,7 +111,7 @@ fun HomeScreen(
                             type = property.type ?: "No Type !",
                             location = property.address ?: "No address !",
                             price = "€ ${property.price.toString()}" ?: "€ 0",
-                            imageUri = property.image
+                            imageUri = imageList.firstOrNull()
                         )
                     }
                 }
@@ -125,6 +127,8 @@ fun HomeScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(uiState.currentList) { property ->
+                            val imageList =
+                                property.image?.split(",")?.map { it.trim() } ?: emptyList()
                             property.type?.let {
                                 property.address?.let { it1 ->
                                     CardWithInfo(
@@ -137,7 +141,7 @@ fun HomeScreen(
                                         type = it,
                                         location = it1,
                                         price = "€ ${property.price.toString()}",
-                                        imageUri = property.image
+                                        imageUri = imageList.firstOrNull()
                                     )
                                 }
                             }
