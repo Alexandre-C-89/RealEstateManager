@@ -95,7 +95,8 @@ fun HomeScreen(
     ) {
         if (!isExpandedScreen) {
             Column(
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 LazyColumn(
                     modifier = Modifier.padding(16.dp),
