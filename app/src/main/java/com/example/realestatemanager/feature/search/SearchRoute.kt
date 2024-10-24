@@ -3,6 +3,7 @@ package com.example.realestatemanager.feature.search
 import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -335,8 +336,9 @@ fun SearchScreen(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             items(searchState.dataList) { property ->
-                                val imageList = property.image?.removeSurrounding("[", "]")?.split(",")
-                                    ?.map { it.trim() } ?: emptyList()
+                                val imageList =
+                                    property.image?.removeSurrounding("[", "]")?.split(",")
+                                        ?.map { it.trim() } ?: emptyList()
                                 CardWithInfo(
                                     location = property.address ?: "",
                                     price = property.price.toString(),
@@ -369,8 +371,8 @@ fun SearchScreen(
                             modifier = Modifier.width(200.dp),
                             label = { Text(text = "Price min.") },
                             value = data.priceMin,
-                            onValueChange = onPriceMinChanged ,
-                            keyboardActions =KeyboardActions(
+                            onValueChange = onPriceMinChanged,
+                            keyboardActions = KeyboardActions(
                                 onNext = {
                                     focusManager.moveFocus(FocusDirection.Next)
                                 }
@@ -383,8 +385,8 @@ fun SearchScreen(
                             modifier = Modifier.width(200.dp),
                             label = { Text(text = "Price max.") },
                             value = data.priceMax,
-                            onValueChange = onPriceMaxChanged ,
-                            keyboardActions =KeyboardActions(
+                            onValueChange = onPriceMaxChanged,
+                            keyboardActions = KeyboardActions(
                                 onNext = {
                                     focusManager.moveFocus(FocusDirection.Next)
                                 }
@@ -397,8 +399,8 @@ fun SearchScreen(
                             modifier = Modifier.width(200.dp),
                             label = { Text(text = "Surface min.") },
                             value = data.surfaceMin,
-                            onValueChange = onSurfaceMinChanged ,
-                            keyboardActions =KeyboardActions(
+                            onValueChange = onSurfaceMinChanged,
+                            keyboardActions = KeyboardActions(
                                 onNext = {
                                     focusManager.moveFocus(FocusDirection.Next)
                                 }
@@ -411,8 +413,8 @@ fun SearchScreen(
                             modifier = Modifier.width(200.dp),
                             label = { Text(text = "Surface max.") },
                             value = data.surfaceMax,
-                            onValueChange = onSurfaceMaxChanged ,
-                            keyboardActions =KeyboardActions(
+                            onValueChange = onSurfaceMaxChanged,
+                            keyboardActions = KeyboardActions(
                                 onDone = {
                                     focusManager.moveFocus(FocusDirection.Down)
                                 }
@@ -421,32 +423,78 @@ fun SearchScreen(
                                 imeAction = ImeAction.Done
                             ),
                         )
-                        Checkbox(
-                            checked = searchByNearbySchools,
-                            onCheckedChange = { isChecked ->
-                                searchByNearbySchools = isChecked
-                                onSchoolChanged(isChecked)
-                            }
+                        OutlinedTextField(
+                            modifier = Modifier.width(200.dp),
+                            label = { Text("Photos min.") },
+                            value = data.minPhotos,
+                            onValueChange = onMinPhotosChanged,
+                            keyboardOptions = KeyboardOptions(
+                                imeAction = ImeAction.Next
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onNext = {
+                                    focusManager.moveFocus(FocusDirection.Next)
+                                }
+                            ),
+                            shape = RoundedCornerShape(6.dp),
+                            singleLine = true,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                unfocusedContainerColor = LightBlue,
+                                focusedContainerColor = White
+                            )
                         )
-                        Text(text = "School")
-                        Spacer.Horizontal.Default()
-                        Checkbox(
-                            checked = searchByNearbyBusinesses,
-                            onCheckedChange = { isChecked ->
-                                searchByNearbyBusinesses = isChecked
-                                onShopsChanged(isChecked)
-                            }
+                        OutlinedTextField(
+                            modifier = Modifier.width(200.dp),
+                            label = { Text("Photos max") },
+                            value = data.maxPhotos,
+                            onValueChange = onMaxPhotosChanged,
+                            keyboardOptions = KeyboardOptions(
+                                imeAction = ImeAction.Done
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onDone = {
+                                    focusManager.moveFocus(FocusDirection.Down)
+                                }
+                            ),
+                            shape = RoundedCornerShape(6.dp),
+                            singleLine = true,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                unfocusedContainerColor = LightBlue,
+                                focusedContainerColor = White
+                            )
                         )
-                        Text(text = "Shops")
-                        Spacer.Horizontal.Default()
-                        Checkbox(
-                            checked = forSale,
-                            onCheckedChange = { isChecked ->
-                                forSale = isChecked
-                                onSaleChanged(isChecked)
-                            }
-                        )
-                        Text(text = "For sale")
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Checkbox(
+                                checked = searchByNearbySchools,
+                                onCheckedChange = { isChecked ->
+                                    searchByNearbySchools = isChecked
+                                    onSchoolChanged(isChecked)
+                                }
+                            )
+                            Text(text = "School")
+                            Spacer.Horizontal.Small()
+                            Checkbox(
+                                checked = searchByNearbyBusinesses,
+                                onCheckedChange = { isChecked ->
+                                    searchByNearbyBusinesses = isChecked
+                                    onShopsChanged(isChecked)
+                                }
+                            )
+                            Text(text = "Shops")
+                            Spacer.Horizontal.Small()
+                            Checkbox(
+                                checked = forSale,
+                                onCheckedChange = { isChecked ->
+                                    forSale = isChecked
+                                    onSaleChanged(isChecked)
+                                }
+                            )
+                            Text(text = "For sale")
+                        }
                         Spacer.Vertical.Small()
                         AppButton(onClick = onSaveClick, text = "Search")
                     }
@@ -454,7 +502,12 @@ fun SearchScreen(
                 detailPane = {
                     when (searchState) {
                         is SearchState.Error -> {
-                            ErrorCard(message = "Error with research !")
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ){
+                                ErrorCard(message = "Error with research !")
+                            }
                         }
 
                         SearchState.Loading -> {
@@ -476,8 +529,9 @@ fun SearchScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 items(searchState.dataList) { property ->
-                                val imageList = property.image?.removeSurrounding("[", "]")?.split(",")
-                                    ?.map { it.trim() } ?: emptyList()
+                                    val imageList =
+                                        property.image?.removeSurrounding("[", "]")?.split(",")
+                                            ?.map { it.trim() } ?: emptyList()
                                     CardWithInfo(
                                         location = property.address ?: "",
                                         price = property.price.toString(),
@@ -498,7 +552,7 @@ fun SearchScreen(
 
 @Preview
 @Composable
-fun SearchScreenPreview(){
+fun SearchScreenPreview() {
     SearchScreen(
         isExpandedScreen = false,
         data = SearchUiData(shops = true, school = false, sale = false),
