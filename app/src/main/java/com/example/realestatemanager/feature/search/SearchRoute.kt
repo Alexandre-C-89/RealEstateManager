@@ -331,12 +331,14 @@ fun SearchScreen(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             items(searchState.dataList) { property ->
+                                val imageList = property.image?.removeSurrounding("[", "]")?.split(",")
+                                    ?.map { it.trim() } ?: emptyList()
                                 CardWithInfo(
                                     location = property.address ?: "",
                                     price = property.price.toString(),
                                     type = property.type ?: "",
                                     onClick = {},
-                                    imageUri = property.image
+                                    imageUri = imageList.firstOrNull()
                                 )
                             }
                         }
@@ -476,12 +478,14 @@ fun SearchScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 items(searchState.dataList) { property ->
+                                val imageList = property.image?.removeSurrounding("[", "]")?.split(",")
+                                    ?.map { it.trim() } ?: emptyList()
                                     CardWithInfo(
                                         location = property.address ?: "",
                                         price = property.price.toString(),
                                         type = property.type ?: "",
                                         onClick = {},
-                                        imageUri = property.image
+                                        imageUri = imageList.firstOrNull()
                                     )
                                 }
                             }

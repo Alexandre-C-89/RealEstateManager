@@ -100,7 +100,8 @@ fun HomeScreen(
             ) {
                 LazyColumn(
                     modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(uiState.currentList) { property ->
                         val imageList = property.image?.removeSurrounding("[", "]")?.split(",")
