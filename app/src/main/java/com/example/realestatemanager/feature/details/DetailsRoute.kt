@@ -282,20 +282,16 @@ fun DetailsScreen(
                         )
                     }
                     Spacer.Vertical.Large()
-                    Spacer.Vertical.Large()
+                    val imageList: List<String> = propertyEntity.image
+                        ?.removeSurrounding("[", "]")  // Remove extra brackets
+                        ?.split(",")?.map { it.trim() } ?: emptyList()
                     LazyRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        items((propertyEntity.image) as Int) { imageUri ->
-                            AsyncImage(
-                                model = imageUri,  // imageUri is a String (URI of the image)
-                                contentDescription = "Selected Image",
-                                modifier = Modifier
-                                    .size(100.dp)
-                                    .clip(RoundedCornerShape(8.dp)),
-                                placeholder = painterResource(id = R.drawable.ic_error),  // Placeholder image in case the URI is empty
-                                error = painterResource(id = R.drawable.ic_error)   // Error placeholder if loading fails
+                        items(imageList) { imageUri ->
+                            CardImage(
+                                imageUri = imageUri,
                             )
                         }
                     }

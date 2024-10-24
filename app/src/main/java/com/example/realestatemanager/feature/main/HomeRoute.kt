@@ -128,24 +128,17 @@ fun HomeScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(uiState.currentList) { property ->
-                            val imageList =
-                                property.image?.split(",")?.map { it.trim() } ?: emptyList()
-                            property.type?.let {
-                                property.address?.let { it1 ->
-                                    CardWithInfo(
-                                        onClick = {
-                                            navigator.navigateTo(
-                                                pane = ListDetailPaneScaffoldRole.Detail,
-                                                content = property
-                                            )
-                                        },
-                                        type = it,
-                                        location = it1,
-                                        price = "€ ${property.price.toString()}",
-                                        imageUri = imageList.firstOrNull()
-                                    )
-                                }
-                            }
+                            val imageList = property.image?.removeSurrounding("[", "]")?.split(",")
+                                ?.map { it.trim() } ?: emptyList()
+                            CardWithInfo(
+                                onClick = {
+                                    onPropertyClick(property.id)
+                                },
+                                type = property.type ?: "No Type !",
+                                location = property.address ?: "No address !",
+                                price = "€ ${property.price.toString()}" ?: "€ 0",
+                                imageUri = imageList.firstOrNull()
+                            )
                         }
                     }
                 },
