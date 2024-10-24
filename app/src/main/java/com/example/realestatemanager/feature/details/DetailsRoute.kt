@@ -212,8 +212,8 @@ fun DetailsScreen(
                         info = propertyEntity.address.toString()
                     )
                     Spacer.Vertical.Large()
-                    val imageList: List<String> = propertyEntity.image
-                        ?.removeSurrounding("[", "]")  // Remove extra brackets
+                    val imageList = propertyEntity.image
+                        ?.removeSurrounding("[", "]")
                         ?.split(",")?.map { it.trim() } ?: emptyList()
                     LazyRow(
                         modifier = Modifier.fillMaxWidth(),
