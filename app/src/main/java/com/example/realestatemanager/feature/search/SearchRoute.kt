@@ -1,5 +1,7 @@
 package com.example.realestatemanager.feature.search
 
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,9 +14,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -355,17 +359,11 @@ fun SearchScreen(
                         modifier = Modifier
                             .width(150.dp)
                             .fillMaxHeight()
-                            .padding(Spacings.Small),
+                            .padding(Spacings.Small)
+                            .verticalScroll(rememberScrollState()),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Spacer.Vertical.Default()
-                        Text(
-                            text = "Search your property",
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.displaySmall,
-                            textAlign = TextAlign.Center
-                        )
                         Spacer.Vertical.Default()
                         FormTextField(
                             modifier = Modifier.width(200.dp),
@@ -431,7 +429,7 @@ fun SearchScreen(
                             }
                         )
                         Text(text = "School")
-                        Spacer.Horizontal.Large()
+                        Spacer.Horizontal.Default()
                         Checkbox(
                             checked = searchByNearbyBusinesses,
                             onCheckedChange = { isChecked ->
@@ -440,7 +438,7 @@ fun SearchScreen(
                             }
                         )
                         Text(text = "Shops")
-                        Spacer.Horizontal.Large()
+                        Spacer.Horizontal.Default()
                         Checkbox(
                             checked = forSale,
                             onCheckedChange = { isChecked ->
@@ -449,7 +447,7 @@ fun SearchScreen(
                             }
                         )
                         Text(text = "For sale")
-                        Spacer.Vertical.Default()
+                        Spacer.Vertical.Small()
                         AppButton(onClick = onSaveClick, text = "Search")
                     }
                 },
