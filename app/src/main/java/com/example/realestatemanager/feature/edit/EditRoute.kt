@@ -50,7 +50,7 @@ fun EditRoute(
         contract = ActivityResultContracts.TakePicture()
     ) { success: Boolean ->
         if (success) {
-            viewModel.currentPhotoUri?.let { uri ->
+            viewModel.currentTakePhotoUri?.let { uri ->
                 viewModel.onImageChanged(listOf(uri.toString()))
             }
         }
