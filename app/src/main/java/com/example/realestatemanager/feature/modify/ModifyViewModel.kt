@@ -1,6 +1,7 @@
 package com.example.realestatemanager.feature.modify
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
@@ -12,6 +13,7 @@ import com.example.realestatemanager.data.repository.property.mapper.PropertyMap
 import com.example.realestatemanager.domain.repository.PropertyRepository
 import com.example.realestatemanager.feature.modify.model.ModifyUiData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,10 +24,14 @@ import javax.inject.Inject
 @HiltViewModel
 class ModifyViewModel @Inject constructor(
     private val repository: PropertyRepository,
-    private val propertyMapper: PropertyMapper
+    private val propertyMapper: PropertyMapper,
+    @ApplicationContext private val context: Context
 ): ViewModel() {
 
-    var currentPhotoUri: Uri? = null
+    var currentPhotoUri: List<Uri>? = null
+        private set
+
+    var currentTakePhotoUri: Uri? = null
         private set
 
     private val _data = MutableStateFlow(ModifyUiData())
@@ -55,8 +61,8 @@ class ModifyViewModel @Inject constructor(
         _data.value = data.value.copy(room = value)
     }
 
-    fun onImageChanged(value: String) {
-        _data.value = data.value.copy(image = value)
+    fun onImageChanged(value: List<String>) {
+        _data.value = data.value.copy(image = _data.value.image + value)
     }
 
     fun onDescriptionChanged(value: TextFieldValue) {
@@ -104,8 +110,8 @@ class ModifyViewModel @Inject constructor(
     }
 
     fun takePhoto(context: Context, onPhotoUriReady: (Uri?) -> Unit) {
-        currentPhotoUri = createImageUri(context)
-        onPhotoUriReady(currentPhotoUri)
+        currentTakePhotoUri = createImageUri(context)
+        onPhotoUriReady(currentTakePhotoUri)
     }
 
     private fun createImageUri(context: Context): Uri? {
@@ -133,6 +139,22 @@ class ModifyViewModel @Inject constructor(
         } catch (e: IOException) {
             e.printStackTrace()
             null
+        }
+    }
+
+    fun chooseImageFromGallery(uris: List<Uri>) {
+        currentPhotoUri = uris
+        val imagePaths = uris.map { it.toString() }
+        _data.value = _data.value.copy(image = _data.value.image + imagePaths)
+        uris.forEach { takePersistableUriPermission(it) }
+    }
+
+    private fun takePersistableUriPermission(uri: Uri) {
+        try {
+            val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            context.contentResolver.takePersistableUriPermission(uri, takeFlags)
+        } catch (e: SecurityException) {
+            e.printStackTrace()
         }
     }
 

@@ -33,7 +33,7 @@ class EditViewModel @Inject constructor(
     var currentTakePhotoUri: Uri? = null
         private set
 
-    private val _data = MutableStateFlow(EditUiData(school = false, shops = false, sale = false))
+    private val _data = MutableStateFlow(EditUiData())
     val data: StateFlow<EditUiData> = _data
 
     fun onTypeChanged(value: TextFieldValue) {

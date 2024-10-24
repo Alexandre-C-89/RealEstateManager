@@ -57,18 +57,15 @@ fun ModifyRoute(
         contract = ActivityResultContracts.TakePicture()
     ) { success: Boolean ->
         if (success) {
-            viewModel.currentPhotoUri?.let { uri ->
-                viewModel.onImageChanged(uri.toString())
+            viewModel.currentTakePhotoUri?.let { uri ->
+                viewModel.onImageChanged(listOf(uri.toString()))
             }
         }
     }
 
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let {
-            viewModel.onImageChanged(it.toString())
-        }
+    val galleryLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenMultipleDocuments()) {
+        it?.let { viewModel.chooseImageFromGallery(it) }
     }
 
     LaunchedEffect(propertyId) {
@@ -80,7 +77,7 @@ fun ModifyRoute(
         onBackClick = onBackClick,
         onSaveClick = { viewModel.modifyProperty(propertyId, onBackClick) },
         data = data,
-        onPickImageClick = { launcher.launch("image/*") },
+        onPickImageClick = { galleryLauncher.launch(arrayOf("image/*")) },
         onCameraClick = {
             viewModel.takePhoto(context) { uri ->
                 uri?.let { cameraLauncher.launch(it) }
@@ -137,7 +134,7 @@ fun ModifyScreen(
             )
         }
     ) {
-        if (!isExpandedScreen){
+        if (!isExpandedScreen) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -325,7 +322,7 @@ fun ModifyScreen(
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
                 Spacer.Vertical.Default()
                 Text(
                     text = "Modify this property",
