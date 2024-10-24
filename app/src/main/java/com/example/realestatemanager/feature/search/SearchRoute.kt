@@ -116,7 +116,7 @@ fun SearchScreen(
                     .fillMaxSize()
                     .padding(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.Center
             ) {
                 Spacer.Vertical.Default()
                 Row(
@@ -327,7 +327,8 @@ fun SearchScreen(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .wrapContentHeight(),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             items(searchState.dataList) { property ->
                                 CardWithInfo(
