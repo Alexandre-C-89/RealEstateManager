@@ -34,6 +34,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
@@ -159,7 +160,7 @@ fun DetailsScreen(
             }
         }
     ) {
-        if (!isExpandedScreen){
+        if (!isExpandedScreen) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -204,6 +205,45 @@ fun DetailsScreen(
                             title = "Room",
                             info = propertyEntity.room.toString()
                         )
+                    }
+                    Spacer.Vertical.Large()
+                    Row(
+                        modifier = Modifier.widthIn(min = 200.dp, max = 400.dp)
+                    ) {
+                        Text(
+                            text = "interest : ",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Normal,
+                                fontFamily = fonts,
+                                textAlign = TextAlign.Start,
+                                color = Black
+                            )
+                        )
+                        if (propertyEntity.school == true) {
+                            Text(
+                                text = "School ,",
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Normal,
+                                    fontFamily = fonts,
+                                    textAlign = TextAlign.Start,
+                                    color = Black
+                                )
+                            )
+                        }
+                        if (propertyEntity.shops == true) {
+                            Text(
+                                text = "Shops",
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Normal,
+                                    fontFamily = fonts,
+                                    textAlign = TextAlign.Start,
+                                    color = Black
+                                )
+                            )
+                        }
                     }
                     Spacer.Vertical.Large()
                     CardWithIcon(
@@ -281,6 +321,45 @@ fun DetailsScreen(
                             info = propertyEntity.room.toString()
                         )
                     }
+                    Spacer.Vertical.Default()
+                    Row(
+                        modifier = Modifier.widthIn(min = 200.dp, max = 400.dp)
+                    ) {
+                        Text(
+                            text = "interest : ",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Normal,
+                                fontFamily = fonts,
+                                textAlign = TextAlign.Start,
+                                color = Black
+                            )
+                        )
+                        if (propertyEntity.school == true) {
+                            Text(
+                                text = "School ,",
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Normal,
+                                    fontFamily = fonts,
+                                    textAlign = TextAlign.Start,
+                                    color = Black
+                                )
+                            )
+                        }
+                        if (propertyEntity.shops == true) {
+                            Text(
+                                text = "Shops",
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Normal,
+                                    fontFamily = fonts,
+                                    textAlign = TextAlign.Start,
+                                    color = Black
+                                )
+                            )
+                        }
+                    }
                     Spacer.Vertical.Large()
                     val imageList: List<String> = propertyEntity.image
                         ?.removeSurrounding("[", "]")  // Remove extra brackets
@@ -302,7 +381,7 @@ fun DetailsScreen(
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     CardWithIcon(
                         icon = R.drawable.ic_location,
                         title = "Location",
