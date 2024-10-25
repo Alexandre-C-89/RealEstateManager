@@ -433,7 +433,6 @@ fun ModifyScreen(
                     )
                     Spacer.Horizontal.Small()
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
