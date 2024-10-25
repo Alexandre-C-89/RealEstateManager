@@ -506,7 +506,7 @@ fun SearchScreen(
                                 modifier = Modifier.fillMaxSize(),
                                 contentAlignment = Alignment.Center
                             ){
-                                ErrorCard(message = "Error with research !")
+                                ErrorCard(message = "No properties found with our criteria !")
                             }
                         }
 
