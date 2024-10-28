@@ -454,6 +454,21 @@ fun EditScreen(
                             }
                         )
                     )
+                    Spacer.Horizontal.Small()
+                    FormTextField(
+                        modifier = Modifier,
+                        label = { Text("Agent") },
+                        value = data.agent,
+                        onValueChange = onAgentChanged,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                            }
+                        )
+                    )
                 }
                 Spacer.Vertical.Default()
                 Row(
