@@ -162,7 +162,7 @@ fun HomeScreen(
                             modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(text = "Oh no something went wrong !")
+                            Text(text = "Please select a property from the list.")
                         }
                     }
                 }
