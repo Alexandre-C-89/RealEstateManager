@@ -136,7 +136,10 @@ fun HomeScreen(
                                 ?.map { it.trim() } ?: emptyList()
                             CardWithInfo(
                                 onClick = {
-                                    onPropertyClick(property.id)
+                                    navigator.navigateTo(
+                                        pane = ListDetailPaneScaffoldRole.Detail,
+                                        content = property
+                                    )
                                 },
                                 type = property.type ?: "No Type !",
                                 location = property.address ?: "No address !",
@@ -152,7 +155,7 @@ fun HomeScreen(
                         DetailsRoute(
                             isExpandedScreen = isExpandedScreen,
                             onBackClick = {
-                                navigator.navigateBack()
+                                //navigator.navigateBack()
                             },
                             onModifyClick = { onModifyClick(selectedProperty.id) },
                             propertyId = selectedProperty.id
