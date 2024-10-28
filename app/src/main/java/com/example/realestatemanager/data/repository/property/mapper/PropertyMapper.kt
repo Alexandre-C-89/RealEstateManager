@@ -13,7 +13,10 @@ class PropertyMapper {
             price = TextFieldValue(property.price.toString()),
             surface = TextFieldValue(property.surface.toString()),
             room = TextFieldValue(property.room.toString()),
-            image = property.image ?: "",
+            image = property.image?.removeSurrounding("[", "]")
+                ?.split(",")
+                ?.map { it.trim() }
+                ?: emptyList(),
             description = TextFieldValue(property.description ?: ""),
             address = TextFieldValue(property.address ?: ""),
             school = property.school!!,
@@ -32,7 +35,7 @@ class PropertyMapper {
             price = modifyUiData.price.text.toLongOrNull(),
             surface = modifyUiData.surface.text.toIntOrNull(),
             room = modifyUiData.room.text.toIntOrNull(),
-            image = modifyUiData.image.split(",").map { it.trim() }.toString(),
+            image = modifyUiData.image.joinToString (","),
             description = modifyUiData.description.text.ifBlank { null },
             address = modifyUiData.address.text.ifBlank { null },
             school = modifyUiData.school,

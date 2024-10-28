@@ -259,6 +259,7 @@ fun DetailsScreen(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
+                        Log.d("LAZYROWDETAILSROUTE", "$imageList")
                         items(imageList) { imageUri ->
                             CardImage(
                                 imageUri = imageUri,

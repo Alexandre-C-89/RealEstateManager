@@ -26,7 +26,7 @@ class ModifyViewModel @Inject constructor(
     private val repository: PropertyRepository,
     private val propertyMapper: PropertyMapper,
     @ApplicationContext private val context: Context
-): ViewModel() {
+) : ViewModel() {
 
     var currentPhotoUri: List<Uri>? = null
         private set
@@ -62,7 +62,9 @@ class ModifyViewModel @Inject constructor(
     }
 
     fun onImageChanged(value: List<String>) {
-        _data.value = data.value.copy(image = _data.value.image + value)
+        val currentImages = _data.value.image
+        val updatedImages = (currentImages + value).distinct()
+        _data.value = _data.value.copy(image = updatedImages)
     }
 
     fun onDescriptionChanged(value: TextFieldValue) {
@@ -101,6 +103,7 @@ class ModifyViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val propertyEntity = propertyMapper.toPropertyEntity(_data.value, propertyId)
+                Log.d("MODIFYPROPERTY", "$propertyEntity")
                 repository.update(propertyEntity)
                 onSuccess()
             } catch (e: Exception) {
@@ -145,13 +148,14 @@ class ModifyViewModel @Inject constructor(
     fun chooseImageFromGallery(uris: List<Uri>) {
         currentPhotoUri = uris
         val imagePaths = uris.map { it.toString() }
-        _data.value = _data.value.copy(image = _data.value.image + imagePaths)
+        onImageChanged(imagePaths)
         uris.forEach { takePersistableUriPermission(it) }
     }
 
     private fun takePersistableUriPermission(uri: Uri) {
         try {
-            val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            val takeFlags: Int =
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             context.contentResolver.takePersistableUriPermission(uri, takeFlags)
         } catch (e: SecurityException) {
             e.printStackTrace()

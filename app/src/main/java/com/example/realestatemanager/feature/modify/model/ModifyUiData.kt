@@ -7,7 +7,7 @@ data class ModifyUiData(
     val price: TextFieldValue = TextFieldValue(),
     val surface: TextFieldValue = TextFieldValue(),
     val room: TextFieldValue = TextFieldValue(),
-    val image: String = "",
+    val image: List<String> = emptyList(),
     val description: TextFieldValue = TextFieldValue(),
     val address: TextFieldValue = TextFieldValue(),
     val school: Boolean = false,
