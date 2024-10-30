@@ -101,7 +101,22 @@ fun DetailsRoute(
         }
 
         is LocationState.Error -> {
-            ErrorCard(message = state.message)
+            property?.let {
+                DetailsScreen(
+                    isExpandedScreen = isExpandedScreen,
+                    propertyEntity = it,
+                    onBackClick = onBackClick,
+                    onModifyClick = onModifyClick,
+                    onDeleteClick = { viewModel.deleteProperty(propertyId, onBackClick) },
+                    latitude = latitude ?: it.latitude ?: 0.0,
+                    longitude = longitude ?: it.longitude ?: 0.0
+                )
+            } ?: Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
         }
 
         is LocationState.MultipleSuccess -> TODO()
@@ -259,7 +274,6 @@ fun DetailsScreen(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Log.d("LAZYROWDETAILSROUTE", "$imageList")
                         items(imageList) { imageUri ->
                             CardImage(
                                 imageUri = imageUri,
