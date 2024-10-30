@@ -305,6 +305,7 @@ fun SearchScreen(
                         )
                     )
                 }
+                Spacer.Vertical.Default()
                 AppButton(
                     onClick = onSaveClick,
                     text = "Search"
