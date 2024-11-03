@@ -104,6 +104,7 @@ fun DetailsRoute(
             property?.let {
                 DetailsScreen(
                     isExpandedScreen = isExpandedScreen,
+                    viewModel = viewModel,
                     propertyEntity = it,
                     onBackClick = onBackClick,
                     onModifyClick = onModifyClick,
@@ -125,6 +126,7 @@ fun DetailsRoute(
     property?.let {
         DetailsScreen(
             isExpandedScreen = isExpandedScreen,
+            viewModel = viewModel,
             propertyEntity = it,
             onBackClick = onBackClick,
             onModifyClick = onModifyClick,
@@ -146,6 +148,7 @@ fun DetailsRoute(
 @Composable
 fun DetailsScreen(
     isExpandedScreen: Boolean,
+    viewModel: DetailsViewModel,
     propertyEntity: PropertyEntity,
     onBackClick: () -> Unit,
     onModifyClick: (Int) -> Unit,
@@ -279,6 +282,54 @@ fun DetailsScreen(
                                 imageUri = imageUri,
                             )
                         }
+                    }
+                    Spacer.Vertical.Default()
+                    Log.d("DETAILSSCREEN", "${propertyEntity.dateOfCreation} + ${propertyEntity.dateOfSold}")
+                    Text(
+                        text = "creation date : ${viewModel.formatCustomDate(propertyEntity.dateOfCreation)}" ?: "Date not specified",
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = fonts,
+                            textAlign = TextAlign.Start,
+                            color = Black
+                        )
+                    )
+                    Spacer.Vertical.Default()
+                    Text(
+                        text = "Date of sale : ${viewModel.formatCustomDate(propertyEntity.dateOfSold)}" ?: "Date not specified",
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = fonts,
+                            textAlign = TextAlign.Start,
+                            color = Black
+                        )
+                    )
+                    if (propertyEntity.sale == true) {
+                        Spacer.Vertical.Default()
+                        Text(
+                            text = "Property sold !",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Normal,
+                                fontFamily = fonts,
+                                textAlign = TextAlign.Start,
+                                color = Black
+                            )
+                        )
+                    } else {
+                        Spacer.Vertical.Default()
+                        Text(
+                            text = "Property for sale !",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Normal,
+                                fontFamily = fonts,
+                                textAlign = TextAlign.Start,
+                                color = Black
+                            )
+                        )
                     }
                 }
                 Spacer.Vertical.Large()

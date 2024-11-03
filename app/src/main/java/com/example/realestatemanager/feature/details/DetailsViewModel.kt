@@ -14,6 +14,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -46,6 +49,17 @@ class DetailsViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    fun formatCustomDate(dateLong: Long?): String {
+        if (dateLong == null) return "Date not specified"
+
+        val dateStr = dateLong.toString().padStart(8, '0') // Ensure it's 8 digits
+        val day = dateStr.substring(0, 2)
+        val month = dateStr.substring(2, 4)
+        val year = dateStr.substring(4, 8)
+
+        return "$day-$month-$year"
     }
 
     fun deleteProperty(propertyId: Int, onSuccess:() -> Unit){
