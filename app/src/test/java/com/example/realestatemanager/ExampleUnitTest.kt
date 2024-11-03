@@ -5,11 +5,14 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import com.example.realestatemanager.util.NetworkUtil
+import junit.framework.Assert.assertTrue
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertFalse
 import org.junit.Test
-import org.junit.Assert.*
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -56,12 +59,12 @@ class ExampleUnitTest {
     fun testGetTodayDate() {
         // keep date
         val today = LocalDate.now()
-
-        // Call function for test
         val result = getTodayDate()
-
-        // Vérifier que la date retournée par la fonction est bien la date du jour
         assertEquals(today, result)
+
+        val formattedDate = result.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+        val datePattern = Regex("""\d{2}-\d{2}-\d{4}""")
+        assertTrue(result.toString().matches(datePattern).toString(), true)
     }
 
     @Test
