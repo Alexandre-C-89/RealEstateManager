@@ -77,7 +77,7 @@ fun DetailsRoute(
 ) {
     val property by viewModel.getPropertyById(propertyId).collectAsState(initial = null)
     val locationState by viewModel.locationState.collectAsState(LocationState.Loading)
-
+    Log.d("DETAILSROUTE", "$property")
     var latitude: Double? = property?.latitude
     var longitude: Double? = property?.longitude
 
@@ -93,7 +93,10 @@ fun DetailsRoute(
 
     when (val state = locationState) {
         is LocationState.Loading -> {
-            CircularProgressIndicator()
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) { CircularProgressIndicator() }
         }
 
         is LocationState.Success -> {
@@ -122,7 +125,10 @@ fun DetailsRoute(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) { CircularProgressIndicator() }
             }
         }
 
@@ -144,7 +150,10 @@ fun DetailsRoute(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        CircularProgressIndicator()
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) { CircularProgressIndicator() }
     }
 
 }
@@ -291,18 +300,20 @@ fun DetailsScreen(
                     }
                     Spacer.Vertical.Default()
                     CardApp(
-                        text = "creation date : ${viewModel.formatCustomDate(propertyEntity.dateOfCreation)}" ?: "Date not specified",
+                        text = "creation date : ${viewModel.formatCustomDate(propertyEntity.dateOfCreation)}"
+                            ?: "Date not specified",
                         color = LightBlue
                     )
                     Spacer.Vertical.Small()
                     CardApp(
-                        text = "Date of sale : ${viewModel.formatCustomDate(propertyEntity.dateOfSold)}" ?: "Date not specified",
+                        text = "Date of sale : ${viewModel.formatCustomDate(propertyEntity.dateOfSold)}"
+                            ?: "Date not specified",
                         color = LightBlue
                     )
                     Spacer.Vertical.Small()
                     CardApp(
                         text = if (propertyEntity.sale == true) "Property sold !" else "Property for sale !",
-                        color = if (propertyEntity.sale == true ) Red else Green
+                        color = if (propertyEntity.sale == true) Red else Green
                     )
                 }
                 Spacer.Vertical.Large()

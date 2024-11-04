@@ -1,8 +1,6 @@
 package com.example.realestatemanager.feature.modify
 
 import android.annotation.SuppressLint
-import android.net.Uri
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -54,7 +52,7 @@ fun ModifyRoute(
     val context = LocalContext.current
     val data by viewModel.data.collectAsStateWithLifecycle()
 
-    var forSale by remember { mutableStateOf(data.sale ?: false) }
+    var isSale by remember { mutableStateOf(data.sale) }
 
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
@@ -94,9 +92,9 @@ fun ModifyRoute(
         onAddressChanged = { viewModel.onAddressChanged(it) },
         onSchoolChanged = { viewModel.onSchoolChanged(it) },
         onShopsChanged = { viewModel.onShopsChanged(it) },
-        forSale = forSale,
+        sale = isSale,
         onSaleChanged = { isChecked ->
-            forSale = isChecked
+            isSale = isChecked
             viewModel.onSaleChanged(isChecked)
         },
         onDateOfCreationChanged = { viewModel.onDateOfCreationChanged(it) },
@@ -123,7 +121,7 @@ fun ModifyScreen(
     onAddressChanged: (TextFieldValue) -> Unit,
     onSchoolChanged: (Boolean) -> Unit,
     onShopsChanged: (Boolean) -> Unit,
-    forSale: Boolean,
+    sale: Boolean,
     onSaleChanged: (Boolean) -> Unit,
     onDateOfCreationChanged: (TextFieldValue) -> Unit,
     onDateOfSoldChanged: (TextFieldValue) -> Unit,
@@ -262,9 +260,8 @@ fun ModifyScreen(
                     )
                     Text(text = "shops")
                     Spacer.Horizontal.Small()
-                    Log.d("MODIFYROUTE", "$forSale")
                     Checkbox(
-                        checked = forSale,
+                        checked = sale,
                         onCheckedChange = { isChecked ->
                             onSaleChanged(isChecked)
                         }
@@ -461,7 +458,7 @@ fun ModifyScreen(
                         )
                         Text(text = "shops")
                         Checkbox(
-                            checked = forSale,
+                            checked = sale,
                             onCheckedChange = { isChecked ->
                                 onSaleChanged(isChecked)
                             }
