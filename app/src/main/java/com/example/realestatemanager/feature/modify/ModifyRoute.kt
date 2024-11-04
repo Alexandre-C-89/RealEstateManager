@@ -52,8 +52,6 @@ fun ModifyRoute(
     val context = LocalContext.current
     val data by viewModel.data.collectAsStateWithLifecycle()
 
-    var isSale by remember { mutableStateOf(data.sale) }
-
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
     ) { success: Boolean ->
@@ -72,6 +70,8 @@ fun ModifyRoute(
     LaunchedEffect(propertyId) {
         viewModel.loadProperty(propertyId)
     }
+
+    var isSale by remember { mutableStateOf(data.sale) }
 
     ModifyScreen(
         isExpandedScreen = isExpandedScreen,
@@ -131,7 +131,7 @@ fun ModifyScreen(
     val focusManager = LocalFocusManager.current
     var searchByNearbySchools by remember { mutableStateOf(false) }
     var searchByNearbyBusinesses by remember { mutableStateOf(false) }
-    //var forSale by remember { mutableStateOf(propertyEntity.sale) }
+
     AppScaffold(
         topBar = {
             TopBar(
@@ -266,7 +266,7 @@ fun ModifyScreen(
                             onSaleChanged(isChecked)
                         }
                     )
-                    Text(text = "For Sale")
+                    Text(text = "Sale")
                 }
                 FormTextField(
                     modifier = Modifier.fillMaxWidth(),
