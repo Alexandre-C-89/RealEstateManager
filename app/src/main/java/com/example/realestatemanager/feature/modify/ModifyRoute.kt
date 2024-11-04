@@ -2,6 +2,7 @@ package com.example.realestatemanager.feature.modify
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -53,6 +54,8 @@ fun ModifyRoute(
     val context = LocalContext.current
     val data by viewModel.data.collectAsStateWithLifecycle()
 
+    var forSale by remember { mutableStateOf(data.sale ?: false) }
+
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
     ) { success: Boolean ->
@@ -91,7 +94,11 @@ fun ModifyRoute(
         onAddressChanged = { viewModel.onAddressChanged(it) },
         onSchoolChanged = { viewModel.onSchoolChanged(it) },
         onShopsChanged = { viewModel.onShopsChanged(it) },
-        onSaleChanged = { viewModel.onSaleChanged(it) },
+        forSale = forSale,
+        onSaleChanged = { isChecked ->
+            forSale = isChecked
+            viewModel.onSaleChanged(isChecked)
+        },
         onDateOfCreationChanged = { viewModel.onDateOfCreationChanged(it) },
         onDateOfSoldChanged = { viewModel.onDateOfSoldChanged(it) },
         onAgentChanged = { viewModel.onAgentChanged(it) }
@@ -116,6 +123,7 @@ fun ModifyScreen(
     onAddressChanged: (TextFieldValue) -> Unit,
     onSchoolChanged: (Boolean) -> Unit,
     onShopsChanged: (Boolean) -> Unit,
+    forSale: Boolean,
     onSaleChanged: (Boolean) -> Unit,
     onDateOfCreationChanged: (TextFieldValue) -> Unit,
     onDateOfSoldChanged: (TextFieldValue) -> Unit,
@@ -125,7 +133,7 @@ fun ModifyScreen(
     val focusManager = LocalFocusManager.current
     var searchByNearbySchools by remember { mutableStateOf(false) }
     var searchByNearbyBusinesses by remember { mutableStateOf(false) }
-    var forSale by remember { mutableStateOf(false) }
+    //var forSale by remember { mutableStateOf(propertyEntity.sale) }
     AppScaffold(
         topBar = {
             TopBar(
@@ -254,10 +262,10 @@ fun ModifyScreen(
                     )
                     Text(text = "shops")
                     Spacer.Horizontal.Small()
+                    Log.d("MODIFYROUTE", "$forSale")
                     Checkbox(
                         checked = forSale,
                         onCheckedChange = { isChecked ->
-                            forSale = isChecked
                             onSaleChanged(isChecked)
                         }
                     )
@@ -455,7 +463,6 @@ fun ModifyScreen(
                         Checkbox(
                             checked = forSale,
                             onCheckedChange = { isChecked ->
-                                forSale = isChecked
                                 onSaleChanged(isChecked)
                             }
                         )

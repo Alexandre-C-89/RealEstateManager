@@ -29,6 +29,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -43,8 +46,11 @@ import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.Blue
+import com.example.realestatemanager.designsystem.LightBlue
+import com.example.realestatemanager.designsystem.LightGrey
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.button.AppButton
+import com.example.realestatemanager.designsystem.card.CardApp
 import com.example.realestatemanager.designsystem.card.CardImage
 import com.example.realestatemanager.designsystem.card.CardWithIcon
 import com.example.realestatemanager.designsystem.card.CardWithIconExpandedScreen
@@ -284,53 +290,20 @@ fun DetailsScreen(
                         }
                     }
                     Spacer.Vertical.Default()
-                    Log.d("DETAILSSCREEN", "${propertyEntity.dateOfCreation} + ${propertyEntity.dateOfSold}")
-                    Text(
+                    CardApp(
                         text = "creation date : ${viewModel.formatCustomDate(propertyEntity.dateOfCreation)}" ?: "Date not specified",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Normal,
-                            fontFamily = fonts,
-                            textAlign = TextAlign.Start,
-                            color = Black
-                        )
+                        color = LightBlue
                     )
-                    Spacer.Vertical.Default()
-                    Text(
+                    Spacer.Vertical.Small()
+                    CardApp(
                         text = "Date of sale : ${viewModel.formatCustomDate(propertyEntity.dateOfSold)}" ?: "Date not specified",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Normal,
-                            fontFamily = fonts,
-                            textAlign = TextAlign.Start,
-                            color = Black
-                        )
+                        color = LightBlue
                     )
-                    if (propertyEntity.sale == true) {
-                        Spacer.Vertical.Default()
-                        Text(
-                            text = "Property sold !",
-                            style = TextStyle(
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.Normal,
-                                fontFamily = fonts,
-                                textAlign = TextAlign.Start,
-                                color = Black
-                            )
-                        )
-                    } else {
-                        Spacer.Vertical.Default()
-                        Text(
-                            text = "Property for sale !",
-                            style = TextStyle(
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.Normal,
-                                fontFamily = fonts,
-                                textAlign = TextAlign.Start,
-                                color = Black
-                            )
-                        )
-                    }
+                    Spacer.Vertical.Small()
+                    CardApp(
+                        text = if (propertyEntity.sale == true) "Property sold !" else "Property for sale !",
+                        color = if (propertyEntity.sale == true ) Red else Green
+                    )
                 }
                 Spacer.Vertical.Large()
                 GoogleMapItem(

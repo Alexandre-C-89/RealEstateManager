@@ -84,6 +84,7 @@ class ModifyViewModel @Inject constructor(
     }
 
     fun onSaleChanged(value: Boolean) {
+        Log.d("VIEWMODEL_CHANGE", "onSaleChanged called with value: $value")
         _data.value = data.value.copy(sale = value)
     }
 
