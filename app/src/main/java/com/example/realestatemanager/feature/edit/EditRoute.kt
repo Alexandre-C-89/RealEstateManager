@@ -294,7 +294,6 @@ fun EditScreen(
                         Text(text = "For sale")
                     }
                     OutlinedTextField(
-                        modifier = Modifier.fillMaxWidth(),
                         label = { Text("Date of creation") },
                         value = data.dateOfCreation,
                         onValueChange = { newValue -> onDateOfCreationChanged(newValue) },
