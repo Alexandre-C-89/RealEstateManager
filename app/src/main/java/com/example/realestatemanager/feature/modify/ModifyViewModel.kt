@@ -42,13 +42,20 @@ class ModifyViewModel @Inject constructor(
     private val _isDateValid = MutableStateFlow(true)
     val isDateValid: StateFlow<Boolean> = _isDateValid
 
+    private val _isSale = MutableStateFlow(data.value.sale)
+    val isSale: StateFlow<Boolean> get() = _isSale
+
     fun loadProperty(propertyId: Int) {
         viewModelScope.launch {
-            repository.getPropertyById(propertyId).collect { propertyEntity ->
-                _data.value = propertyMapper.toModifyUiData(propertyEntity)
+            repository.getPropertyById(propertyId).collect { property ->
+                val modifiedData = propertyMapper.toModifyUiData(property)
+                _data.value = propertyMapper.toModifyUiData(property)
+                _isSale.value = modifiedData.sale
             }
         }
     }
+
+
 
     fun onTypeChanged(value: TextFieldValue) {
         _data.value = data.value.copy(type = value)
@@ -88,9 +95,13 @@ class ModifyViewModel @Inject constructor(
         _data.value = data.value.copy(shops = value)
     }
 
-    fun onSaleChanged(value: Boolean) {
+    /*fun onSaleChanged(value: Boolean) {
         Log.d("VIEWMODEL_CHANGE", "onSaleChanged called with value: $value")
         _data.value = data.value.copy(sale = value)
+    }*/
+    fun onSaleChanged(isChecked: Boolean) {
+        _isSale.value = isChecked
+        _data.value = _data.value.copy(sale = isChecked)
     }
 
     fun onDateOfCreationChanged(value: TextFieldValue) {

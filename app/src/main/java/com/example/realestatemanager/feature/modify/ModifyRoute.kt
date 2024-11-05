@@ -1,6 +1,7 @@
 package com.example.realestatemanager.feature.modify
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -79,7 +80,9 @@ fun ModifyRoute(
         viewModel.loadProperty(propertyId)
     }
 
-    var isSale by remember { mutableStateOf(data.sale) }
+    //var isSale by remember { mutableStateOf(data.sale) }
+    val isSale by viewModel.isSale.collectAsState()
+    Log.d("MODIFYROUTEISSALE", "$isSale")
 
     ModifyScreen(
         isExpandedScreen = isExpandedScreen,
@@ -103,7 +106,7 @@ fun ModifyRoute(
         onShopsChanged = { viewModel.onShopsChanged(it) },
         sale = isSale,
         onSaleChanged = { isChecked ->
-            isSale = isChecked
+            //isSale = isChecked
             viewModel.onSaleChanged(isChecked)
         },
         onDateOfCreationChanged = { viewModel.onDateOfCreationChanged(it) },
