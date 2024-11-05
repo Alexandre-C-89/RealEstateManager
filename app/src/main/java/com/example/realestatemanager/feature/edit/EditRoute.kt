@@ -298,7 +298,7 @@ fun EditScreen(
                         label = { Text("Date of creation") },
                         value = data.dateOfCreation,
                         onValueChange = { newValue -> onDateOfCreationChanged(newValue) },
-                        isError = !viewModel.isDateValid,
+                        isError = !viewModel.isDateValid && data.dateOfCreation.text.isEmpty(),
                         supportingText = {
                             if (!viewModel.isDateValid) Text(viewModel.dateError, color = Color.Red)
                         },
@@ -352,7 +352,7 @@ fun EditScreen(
                     AppButton(
                         onClick = onSaveClick,
                         text = "Save",
-                        enabled = viewModel.isDateValid
+                        enabled = viewModel.isDateValid && data.dateOfCreation.text.isNotEmpty()
                     )
                 }
             }
