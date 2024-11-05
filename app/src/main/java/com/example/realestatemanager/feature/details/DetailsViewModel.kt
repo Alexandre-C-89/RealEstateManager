@@ -1,12 +1,15 @@
 package com.example.realestatemanager.feature.details
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.domain.repository.LocationRepository
 import com.example.realestatemanager.domain.repository.PropertyRepository
 import com.example.realestatemanager.feature.details.model.LocationState
+import com.example.realestatemanager.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,15 +54,9 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun formatCustomDate(dateLong: Long?): String {
-        if (dateLong == null) return "Date not specified"
-
-        val dateStr = dateLong.toString().padStart(8, '0') // Ensure it's 8 digits
-        val day = dateStr.substring(0, 2)
-        val month = dateStr.substring(2, 4)
-        val year = dateStr.substring(4, 8)
-
-        return "$day-$month-$year"
+        return Utils.formatCustomDate(dateLong)
     }
 
     fun deleteProperty(propertyId: Int, onSuccess:() -> Unit){

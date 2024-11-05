@@ -6,9 +6,13 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import kotlin.math.roundToInt
 
 object Utils {
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 
     /**
      * Converting price of property (Dollars to Euros)
@@ -29,13 +33,16 @@ object Utils {
     /**
      * Formatting a date stored in `Long` in the format "dd-MM-yyyy"
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     fun formatCustomDate(dateLong: Long?): String {
-        return dateLong?.toString()?.padStart(8, '0')?.let { dateStr ->
-            val day = dateStr.substring(0, 2)
-            val month = dateStr.substring(2, 4)
-            val year = dateStr.substring(4, 8)
-            "$day-$month-$year"
-        } ?: "Date not specified"
+        if (dateLong == null) return "Date not specified"
+        return try {
+            val dateStr = dateLong.toString().padStart(8, '0')
+            val parsedDate = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("ddMMyyyy"))
+            parsedDate.format(dateFormatter)
+        } catch (e: DateTimeParseException){
+            "Invalid date format"
+        }
     }
 
     /**
