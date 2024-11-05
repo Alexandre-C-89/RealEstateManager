@@ -80,9 +80,7 @@ fun ModifyRoute(
         viewModel.loadProperty(propertyId)
     }
 
-    //var isSale by remember { mutableStateOf(data.sale) }
     val isSale by viewModel.isSale.collectAsState()
-    Log.d("MODIFYROUTEISSALE", "$isSale")
 
     ModifyScreen(
         isExpandedScreen = isExpandedScreen,

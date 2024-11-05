@@ -42,6 +42,7 @@ import com.example.realestatemanager.data.local.property.PropertyEntity
 import com.example.realestatemanager.designsystem.AppScaffold
 import com.example.realestatemanager.designsystem.Black
 import com.example.realestatemanager.designsystem.Blue
+import com.example.realestatemanager.designsystem.DarkBlue
 import com.example.realestatemanager.designsystem.LightBlue
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.button.AppButton
@@ -298,13 +299,13 @@ fun DetailsScreen(
                     CardApp(
                         text = "creation date : ${viewModel.formatCustomDate(propertyEntity.dateOfCreation)}"
                             ?: "Date not specified",
-                        color = LightBlue
+                        color = DarkBlue
                     )
                     Spacer.Vertical.Small()
                     CardApp(
                         text = "Date of sale : ${viewModel.formatCustomDate(propertyEntity.dateOfSold)}"
                             ?: "Date not specified",
-                        color = LightBlue
+                        color = DarkBlue
                     )
                     Spacer.Vertical.Small()
                     CardApp(
@@ -425,13 +426,13 @@ fun DetailsScreen(
                 CardApp(
                     text = "creation date : ${viewModel.formatCustomDate(propertyEntity.dateOfCreation)}"
                         ?: "Date not specified",
-                    color = LightBlue
+                    color = DarkBlue
                 )
                 Spacer.Vertical.Small()
                 CardApp(
                     text = "Date of sale : ${viewModel.formatCustomDate(propertyEntity.dateOfSold)}"
                         ?: "Date not specified",
-                    color = LightBlue
+                    color = DarkBlue
                 )
                 Spacer.Vertical.Small()
                 CardApp(
