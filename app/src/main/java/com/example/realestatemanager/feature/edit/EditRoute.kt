@@ -10,11 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
@@ -33,10 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.realestatemanager.designsystem.AppScaffold
+import com.example.realestatemanager.designsystem.LightBlue
+import com.example.realestatemanager.designsystem.White
 import com.example.realestatemanager.designsystem.bar.TopBar
 import com.example.realestatemanager.designsystem.button.AppButton
 import com.example.realestatemanager.designsystem.textfield.FormTextField
 import com.example.realestatemanager.designsystem.ui.Spacer
+import com.example.realestatemanager.domain.repository.PropertyRepository
 
 @Composable
 fun EditRoute(
@@ -65,6 +72,7 @@ fun EditRoute(
         isExpandedScreen = isExpandedScreen,
         onBackClick = onBackClick,
         onSaveClick = { viewModel.saveProperty(onBackClick) },
+        viewModel = viewModel,
         data = uiData,
         onPickImageClick = { galleryLauncher.launch(arrayOf("image/*")) },
         onCameraClick = {
@@ -93,6 +101,7 @@ fun EditScreen(
     isExpandedScreen: Boolean,
     onBackClick: () -> Unit,
     onSaveClick: () -> Unit,
+    viewModel: EditViewModel,
     data: EditUiData,
     onPickImageClick: () -> Unit,
     onCameraClick: () -> Unit,
@@ -267,11 +276,15 @@ fun EditScreen(
                         )
                         Text(text = "For sale")
                     }
-                    FormTextField(
-                        modifier = Modifier,
+                    OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth(),
                         label = { Text("Date of creation") },
                         value = data.dateOfCreation,
-                        onValueChange = onDateOfCreationChanged,
+                        onValueChange = { newValue -> onDateOfCreationChanged(newValue) },
+                        isError = !viewModel.isDateValid,
+                        supportingText = {
+                            if (!viewModel.isDateValid) Text(viewModel.dateError, color = Color.Red)
+                        },
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Done
                         ),
@@ -279,6 +292,13 @@ fun EditScreen(
                             onDone = {
                                 focusManager.moveFocus(FocusDirection.Down)
                             }
+                        ),
+                        shape = RoundedCornerShape(6.dp),
+                        singleLine = true,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedContainerColor = LightBlue,
+                            focusedContainerColor = White,
+                            errorBorderColor = Color.Red
                         )
                     )
                     FormTextField(
@@ -314,7 +334,8 @@ fun EditScreen(
 
                     AppButton(
                         onClick = onSaveClick,
-                        text = "Save"
+                        text = "Save",
+                        enabled = viewModel.isDateValid
                     )
                 }
             }
@@ -522,29 +543,4 @@ fun EditScreen(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun EditScreenPreview() {
-    EditScreen(
-        data = EditUiData(),
-        isExpandedScreen = false,
-        onBackClick = {},
-        onSaveClick = {},
-        onAddressChanged = { TextFieldValue("") },
-        onPickImageClick = {},
-        onCameraClick = {},
-        onTypeChanged = { TextFieldValue("") },
-        onPriceChanged = { TextFieldValue("") },
-        onSurfaceChanged = { TextFieldValue("") },
-        onRoomChanged = { TextFieldValue("") },
-        onDescriptionChanged = { TextFieldValue("") },
-        onSchoolChanged = {},
-        onShopsChanged = {},
-        onSaleChanged = {},
-        onDateOfCreationChanged = { TextFieldValue("") },
-        onDateOfSoldChanged = { TextFieldValue("") },
-        onAgentChanged = { TextFieldValue("") },
-    )
 }

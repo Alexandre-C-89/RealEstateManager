@@ -16,12 +16,12 @@ import com.example.realestatemanager.designsystem.White
 @Composable
 fun AppButton(
     onClick: () -> Unit,
-    //enabled: Boolean,
+    enabled: Boolean = true,
     text: String
 ){
     Button(
         onClick = onClick,
-        //enabled = enabled,
+        enabled = enabled,
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
             contentColor = White,
@@ -47,7 +47,7 @@ fun AppButtonPreview(){
     RealEstateManagerTheme {
         AppButton(
             onClick = {},
-            //enabled = false,
+            enabled = false,
             text = "App Button"
         )
     }

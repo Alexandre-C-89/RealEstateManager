@@ -6,6 +6,9 @@ import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
@@ -25,13 +28,21 @@ import javax.inject.Inject
 class EditViewModel @Inject constructor(
     val repository: PropertyRepository,
     @ApplicationContext private val context: Context
-): ViewModel() {
+) : ViewModel() {
 
     var currentPhotoUri: List<Uri>? = null
         private set
 
     var currentTakePhotoUri: Uri? = null
         private set
+
+    var dateError by mutableStateOf("")
+        private set
+
+    var isDateValid by mutableStateOf(true)
+        private set
+
+    private val dateRegex = Regex("^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})$")
 
     private val _data = MutableStateFlow(EditUiData())
     val data: StateFlow<EditUiData> = _data
@@ -78,6 +89,7 @@ class EditViewModel @Inject constructor(
 
     fun onDateOfCreationChanged(value: TextFieldValue) {
         _data.value = data.value.copy(dateOfCreation = value)
+        validateDate(value.text)
     }
 
     fun onDateOfSoldChanged(value: TextFieldValue) {
@@ -88,7 +100,21 @@ class EditViewModel @Inject constructor(
         _data.value = data.value.copy(agent = value)
     }
 
-    fun saveProperty(onSuccess:() -> Unit = {}){
+    private fun validateDate(date: String) {
+        isDateValid = if (date.isBlank() || date.length < 8) {
+            dateError = "Please enter the date"
+            false
+        } else if (!date.matches(dateRegex)){
+            dateError = "Date format is wrong !"
+            false
+        } else {
+            dateError = ""
+            true
+        }
+    }
+
+    fun saveProperty(onSuccess: () -> Unit = {}) {
+        if (!isDateValid) return
         viewModelScope.launch {
             try {
                 val propertyEntity = PropertyEntity(
@@ -110,9 +136,9 @@ class EditViewModel @Inject constructor(
                     longitude = null
                 )
                 repository.insert(propertyEntity = propertyEntity)
-                Toast.makeText(context, "Property is saved !",Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Property is saved !", Toast.LENGTH_LONG).show()
                 onSuccess()
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 Log.e("EditViewModel", "Error saving property: ${e.message}")
             }
         }
@@ -160,7 +186,8 @@ class EditViewModel @Inject constructor(
 
     private fun takePersistableUriPermission(uri: Uri) {
         try {
-            val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            val takeFlags: Int =
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             context.contentResolver.takePersistableUriPermission(uri, takeFlags)
         } catch (e: SecurityException) {
             e.printStackTrace()

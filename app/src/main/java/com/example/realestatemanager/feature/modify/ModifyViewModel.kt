@@ -34,8 +34,13 @@ class ModifyViewModel @Inject constructor(
     var currentTakePhotoUri: Uri? = null
         private set
 
+    private val dateRegex = Regex("^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])(\\d{4})$")
+
     private val _data = MutableStateFlow(ModifyUiData())
     val data: StateFlow<ModifyUiData> = _data
+
+    private val _isDateValid = MutableStateFlow(true)
+    val isDateValid: StateFlow<Boolean> = _isDateValid
 
     fun loadProperty(propertyId: Int) {
         viewModelScope.launch {
@@ -89,7 +94,11 @@ class ModifyViewModel @Inject constructor(
     }
 
     fun onDateOfCreationChanged(value: TextFieldValue) {
-        _data.value = data.value.copy(dateOfCreation = value)
+        val isValid = value.text.matches(dateRegex)
+        _isDateValid.value = isValid
+        if (isValid) {
+            _data.value = data.value.copy(dateOfCreation = value)
+        }
     }
 
     fun onDateOfSoldChanged(value: TextFieldValue) {
