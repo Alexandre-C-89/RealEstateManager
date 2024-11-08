@@ -462,18 +462,28 @@ fun EditScreen(
                         )
                     )
                     Spacer.Horizontal.Small()
-                    FormTextField(
-                        modifier = Modifier.width(200.dp),
+                    OutlinedTextField(
                         label = { Text("Date of creation") },
                         value = data.dateOfCreation,
-                        onValueChange = onDateOfCreationChanged,
+                        onValueChange = { newValue -> onDateOfCreationChanged(newValue) },
+                        isError = !viewModel.isDateValid && data.dateOfCreation.text.isEmpty(),
+                        supportingText = {
+                            if (!viewModel.isDateValid) Text(viewModel.dateError, color = Color.Red)
+                        },
                         keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Next
+                            imeAction = ImeAction.Done
                         ),
                         keyboardActions = KeyboardActions(
-                            onNext = {
-                                focusManager.moveFocus(FocusDirection.Next)
+                            onDone = {
+                                focusManager.moveFocus(FocusDirection.Down)
                             }
+                        ),
+                        shape = RoundedCornerShape(6.dp),
+                        singleLine = true,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedContainerColor = LightBlue,
+                            focusedContainerColor = White,
+                            errorBorderColor = Color.Red
                         )
                     )
                     Spacer.Horizontal.Small()
