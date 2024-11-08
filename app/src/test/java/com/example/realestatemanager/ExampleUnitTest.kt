@@ -107,5 +107,4 @@ class ExampleUnitTest {
         val result = NetworkUtil.isNetworkAvailable(context)
         assertFalse(result)
     }
-
 }
