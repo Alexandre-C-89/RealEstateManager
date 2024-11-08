@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import com.example.realestatemanager.util.NetworkUtil
+import com.example.realestatemanager.util.Utils
 import junit.framework.Assert.assertTrue
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
@@ -13,6 +14,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -50,9 +52,9 @@ class ExampleUnitTest {
 
     @Test
     fun testConvertDollarToEuro() {
-        val dollars = 100.0
-        val expectedEuros = dollars * DOLLAR_TO_EURO_RATE
-        assertEquals(expectedEuros, convertDollarToEuro(dollars), 0.001)
+        val dollars = 100
+        val expectedEuros = (dollars * 0.812).roundToInt()
+        assertEquals(expectedEuros, Utils.convertDollarToEuro(dollars))
     }
 
     @Test
