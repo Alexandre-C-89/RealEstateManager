@@ -1,9 +1,9 @@
-#Real Estate Manager
+# Real Estate Manager
 
-##Description : 
+## Description : 
 "Real Estate Manager est une application Android permettant aux agents immobiliers de gérer des propriétés immobilières, incluant l'écran de détail d'un bien, l'ajout,la modification et la suppression de biens. Il sera notament possible si l'agent le souhaite de localiser les biens autour de ça position."
 
-#Fonctionnalités Principales
+# Fonctionnalités Principales
 
 - Gestion des propriétés (ajout, modification, suppression)
 - Conversion de devises (Dollar vers Euro)
@@ -11,7 +11,7 @@
 - Validation et formatage de la date
 - Stockage et récupération de données dans une base de données
 
-#Technologies Utilisées
+# Technologies Utilisées
 
 Langage : Kotlin 
 
@@ -25,7 +25,7 @@ Libraries :
 - Flow pour la gestion de données réactives
 - APIs : Google Maps ou l’API de localisation
 
-#Installation et Pré-requis
+# Installation et Pré-requis
 outils nécessaires pour exécuter le projet :
 
 Android Studio Arctic Fox ou version ultérieure
@@ -38,7 +38,7 @@ Cloner le projet :
 git clone https://github.com/Alexandre-C-89/RealEstateManager.git
 
 
-#Structure du Projet
+# Structure du Projet
 
 app/ : Code source de l’application
 
@@ -55,18 +55,26 @@ navigation/ : La navigation entre les différents écrans nécessaire pour l'uti
 util/ : Différentes fonctions utilisé dans l'application
 
 
-#Captures d'écrans
+# Captures d'écrans
 
-A venir
+Écran d'accueil (Home) :
 
+![home](https://github.com/user-attachments/assets/0533a984-97c7-4b76-8d90-fa12f10c28b7)
 
-Utilisation de l’Application
+Écran d'informations :
 
-Expliquer comment naviguer dans l’application (par exemple, cliquer sur un bien pour voir les détails, etc.).
+![details](https://github.com/user-attachments/assets/73b32b58-83ba-46be-9bef-def98f853ccb)
 
-Ajouter des précisions sur les validations des données, comme la validation du format de date.
+Écran de modification :
 
-Auteur
+![modify](https://github.com/user-attachments/assets/7be13de7-3bbf-4df4-bfd5-35215d18e5e6)
+
+Écran de création :
+
+![create](https://github.com/user-attachments/assets/1b57b5c0-b953-4eb2-a9f6-efa4de59983c)
+
+# Auteur :
 
 M. Clémençot Alexandre
 pseudo GitHub : Alexandre-C-89
+Linkedin : https://www.linkedin.com/in/alexandre-clemencot/
